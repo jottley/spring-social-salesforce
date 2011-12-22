@@ -1,0 +1,35 @@
+{
+    "debug":"SELECT LeadSource, COUNT(Name) FROM Lead GROUP BY LeadSource",
+    "totalSize":4,
+    "done":true,
+    "records":[
+        {
+            "attributes":{
+                "type":"AggregateResult"
+            },
+            "LeadSource":"Web",
+            "expr0":7
+        },
+        {
+            "attributes":{
+                "type":"AggregateResult"
+            },
+            "LeadSource":"Phone Inquiry",
+            "expr0":4
+        },
+        {
+            "attributes":{
+                "type":"AggregateResult"
+            },
+            "LeadSource":"Partner Referral",
+            "expr0":4
+        },
+        {
+            "attributes":{
+                "type":"AggregateResult"
+            },
+            "LeadSource":"Purchased List",
+            "expr0":7
+        }
+    ]
+}

@@ -1,0 +1,21 @@
+{
+    "debug":"SELECT Id FROM Contact WHERE Name LIKE 'U%' AND MailingCity = 'Istanbul'",
+    "totalSize":2,
+    "done":true,
+    "records":[
+        {
+            "attributes":{
+                "type":"Contact",
+                "url":"/services/data/v23.0/sobjects/Contact/003A000000vF6QSIA0"
+            },
+            "Id":"003A000000vF6QSIA0"
+        },
+        {
+            "attributes":{
+                "type":"Contact",
+                "url":"/services/data/v23.0/sobjects/Contact/003A000000vF6QXIA0"
+            },
+            "Id":"003A000000vF6QXIA0"
+        }
+    ]
+}

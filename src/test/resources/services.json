@@ -1,0 +1,8 @@
+{
+    "sobjects":"/services/data/v23.0/sobjects",
+    "identity":"https://login.salesforce.com/id/00DA0000000BjjPMAS/005A0000001cRuvIAE",
+    "search":"/services/data/v23.0/search",
+    "query":"/services/data/v23.0/query",
+    "chatter":"/services/data/v23.0/chatter",
+    "recent":"/services/data/v23.0/recent"
+}

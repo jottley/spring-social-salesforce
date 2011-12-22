@@ -1,0 +1,30 @@
+{
+    "objectDescribe":{
+        "name":"Account",
+        "label":"Account",
+        "updateable":true,
+        "keyPrefix":"001",
+        "custom":false,
+        "urls":{
+            "sobject":"/services/data/v23.0/sobjects/Account",
+            "describe":"/services/data/v23.0/sobjects/Account/describe",
+            "rowTemplate":"/services/data/v23.0/sobjects/Account/{ID}"
+        },
+        "searchable":true,
+        "labelPlural":"Accounts",
+        "layoutable":true,
+        "activateable":false,
+        "createable":true,
+        "deprecatedAndHidden":false,
+        "customSetting":false,
+        "deletable":true,
+        "feedEnabled":true,
+        "mergeable":true,
+        "queryable":true,
+        "replicateable":true,
+        "retrieveable":true,
+        "undeletable":true,
+        "triggerable":true
+    },
+    "recentItems":[]
+}

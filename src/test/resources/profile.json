@@ -1,0 +1,49 @@
+{
+    "address":{
+        "state":"Istanbul",
+        "country":"TR",
+        "street":null,
+        "city":null,
+        "zip":"34457"
+    },
+    "email":"umut.utkan@foo.com",
+    "currentStatus":{
+        "url":"/services/data/v23.0/chatter/users/005A0000001cRuvIAE/status",
+        "body":{
+            "text":"",
+            "messageSegments":[]
+        },
+        "parentId":"005A0000001cRuvIAE"
+    },
+    "managerId":null,
+    "followingCounts":{
+        "total":0,
+        "records":0,
+        "people":0
+    },
+    "isActive":true,
+    "phoneNumbers":[],
+    "groupCount":1,
+    "followersCount":0,
+    "managerName":null,
+    "aboutMe":null,
+    "chatterActivity":{
+        "commentCount":0,
+        "commentReceivedCount":0,
+        "likeReceivedCount":0,
+        "postCount":0
+    },"name":"Umut Utkan",
+    "title":null,
+    "firstName":"Umut",
+    "lastName":"Utkan",
+    "companyName":"Foo Org",
+    "mySubscription":null,
+    "photo":{
+        "smallPhotoUrl":"https://c.na7.content.force.com/profilephoto/005/T",
+        "largePhotoUrl":"https://c.na7.content.force.com/profilephoto/005/F"
+    },
+    "isChatterGuest":false,
+    "id":"005A0000001cRuvIAE",
+    "type":"User",
+    "url":"/services/data/v23.0/chatter/users/005A0000001cRuvIAE"
+}

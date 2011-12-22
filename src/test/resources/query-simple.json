@@ -1,0 +1,116 @@
+{
+    "debug":"SELECT Id, Name, BillingCity FROM Account",
+    "totalSize":12,
+    "done":true,
+    "nextRecordsUrl":"/services/data/v23.0/query/01gD0000002HU6KIAW-2000",
+    "records":[
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df63xIAA"
+            },
+            "Id":"001A000000df63xIAA",
+            "Name":"GenePoint",
+            "BillingCity":"Mountain View"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df63yIAA"
+            },
+            "Id":"001A000000df63yIAA",
+            "Name":"United Oil & Gas, UK",
+            "BillingCity":null
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df63zIAA"
+            },
+            "Id":"001A000000df63zIAA",
+            "Name":"United Oil & Gas, Singapore",
+            "BillingCity":"Singapore"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df640IAA"
+            },
+            "Id":"001A000000df640IAA",
+            "Name":"Edge Communications",
+            "BillingCity":"Austin"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df641IAA"
+            },
+            "Id":"001A000000df641IAA",
+            "Name":"Burlington Textiles Corp of America",
+            "BillingCity":"Burlington"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df642IAA"
+            },
+            "Id":"001A000000df642IAA",
+            "Name":"Pyramid Construction Inc.",
+            "BillingCity":"Paris"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df643IAA"
+            },
+            "Id":"001A000000df643IAA",
+            "Name":"Dickenson plc",
+            "BillingCity":"Lawrence"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df644IAA"
+            },
+            "Id":"001A000000df644IAA",
+            "Name":"Grand Hotels & Resorts Ltd",
+            "BillingCity":"Chicago"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df645IAA"
+            },
+            "Id":"001A000000df645IAA",
+            "Name":"Express Logistics and Transport",
+            "BillingCity":"Portland"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df646IAA"
+            },
+            "Id":"001A000000df646IAA",
+            "Name":"University of Arizona",
+            "BillingCity":"Tucson"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df647IAA"
+            },
+            "Id":"001A000000df647IAA",
+            "Name":"United Oil & Gas Corp.",
+            "BillingCity":"New York"
+        },
+        {
+            "attributes":{
+                "type":"Account",
+                "url":"/services/data/v23.0/sobjects/Account/001A000000df648IAA"
+            },
+            "Id":"001A000000df648IAA",
+            "Name":"sForce",
+            "BillingCity":"San Francisco"
+        }
+    ]
+}
