@@ -12,10 +12,15 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
 public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce> {
 
     public SalesforceServiceProvider(String clientId, String clientSecret) {
-        super(new SalesforceOAuth2Template(clientId, clientSecret,
-                "https://na7.salesforce.com/services/oauth2/authorize",
-                "https://na7.salesforce.com/services/oauth2/token"));
+        this(clientId, clientSecret,
+                "https://login.salesforce.com/services/oauth2/authorize",
+                "https://login.salesforce.com/services/oauth2/token");
     }
+
+    public SalesforceServiceProvider(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
+        super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl));
+    }
+
 
     public Salesforce getApi(String accessToken) {
         SalesforceTemplate template = new SalesforceTemplate(accessToken);
