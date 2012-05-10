@@ -9,12 +9,14 @@ import org.springframework.social.salesforce.api.SObjectSummary;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.GET;
+import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.social.test.client.RequestMatchers.method;
 import static org.springframework.social.test.client.RequestMatchers.requestTo;
 import static org.springframework.social.test.client.ResponseCreators.withResponse;
@@ -76,6 +78,20 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
                 .andRespond(withResponse(new ByteArrayResource("does-not-matter".getBytes("UTF-8")), responseHeaders));
         BufferedReader reader = new BufferedReader(new InputStreamReader(salesforce.sObjectsOperations().getBlob("Account", "xxx", "avatar")));
         assertEquals("does-not-matter", reader.readLine());
+    }
+
+    @Test
+    public void testCreate() throws IOException {
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Lead"))
+            .andExpect(method(POST))
+            .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
+        Map<String, String> fields = new HashMap<String, String>();
+        fields.put("LastName", "Doe");
+        fields.put("FirstName", "John");
+        fields.put("Company", "Acme, Inc.");
+        Map<?, ?> result = salesforce.sObjectsOperations().create("Lead", fields);
+        assertEquals(1, result.size());
+        assertEquals("1234", result.get("Id"));
     }
 
 }

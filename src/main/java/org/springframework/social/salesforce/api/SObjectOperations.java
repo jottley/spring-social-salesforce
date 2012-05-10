@@ -21,4 +21,6 @@ public interface SObjectOperations {
 
     public InputStream getBlob(String name, String id, String field);
 
+    Map<?, ?> create(String name, Map<String, String> fields);
+
 }

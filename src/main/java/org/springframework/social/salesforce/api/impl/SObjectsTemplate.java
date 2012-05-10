@@ -1,7 +1,10 @@
 package org.springframework.social.salesforce.api.impl;
 
 import org.codehaus.jackson.JsonNode;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.salesforce.api.SObjectDetail;
 import org.springframework.social.salesforce.api.SObjectOperations;
@@ -25,7 +28,6 @@ import java.util.Map;
 public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> implements SObjectOperations {
 
     private RestTemplate restTemplate;
-
 
     public SObjectsTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
@@ -73,6 +75,16 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
                 return response.getBody();
             }
         }, name, id, field);
+    }
+
+    @Override
+    @SuppressWarnings("rawtypes")
+    public Map<?, ?> create(String name, Map<String, String> fields) {
+        requireAuthorization();
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpEntity<Map> entity = new HttpEntity<Map>(fields, headers);
+        return restTemplate.postForObject(api.getBaseUrl() + "/v23.0/sobjects/{name}", entity, Map.class, name);
     }
 
 }
