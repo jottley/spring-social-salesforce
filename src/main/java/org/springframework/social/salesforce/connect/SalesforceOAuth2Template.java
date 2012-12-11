@@ -18,11 +18,12 @@ public class SalesforceOAuth2Template extends OAuth2Template {
 
 
     public SalesforceOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String accessTokenUrl) {
-        super(clientId, clientSecret, authorizeUrl, accessTokenUrl);
+        this(clientId, clientSecret, authorizeUrl, null, accessTokenUrl);
     }
 
     public SalesforceOAuth2Template(String clientId, String clientSecret, String authorizeUrl, String authenticateUrl, String accessTokenUrl) {
         super(clientId, clientSecret, authorizeUrl, authenticateUrl, accessTokenUrl);
+        setUseParametersForClientAuthentication(true);
     }
 
 

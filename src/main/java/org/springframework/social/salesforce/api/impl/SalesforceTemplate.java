@@ -49,7 +49,6 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public SalesforceTemplate(String accessToken) {
         super(accessToken);
         initialize();
-        System.out.println("ACCESS TOKEN: " + accessToken);
     }
 
 
