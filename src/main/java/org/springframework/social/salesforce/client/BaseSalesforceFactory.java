@@ -1,13 +1,13 @@
 package org.springframework.social.salesforce.client;
 
+import java.util.Map;
+
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.Map;
 
 /**
  * Default implementation of SalesforceFactory.
@@ -40,6 +40,10 @@ public class BaseSalesforceFactory implements SalesforceFactory {
 
     public void setAuthorizeUrl(String authorizeUrl) {
         this.authorizeUrl = authorizeUrl;
+    }
+    
+    public String getAuthorizeUrl() {
+      return (this.authorizeUrl == null) ? DEFAULT_AUTH_URL : this.authorizeUrl;
     }
 
     @Override

@@ -1,29 +1,28 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.junit.Ignore;
-import org.springframework.social.salesforce.api.ApiVersion;
-import org.springframework.social.salesforce.api.QueryResult;
-import org.springframework.social.salesforce.api.ResultItem;
-import org.springframework.social.salesforce.api.Salesforce;
-import org.springframework.social.salesforce.client.BaseSalesforceFactory;
-import org.springframework.social.salesforce.client.SalesforceFactory;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Map;
 
+import org.junit.Ignore;
+import org.springframework.social.salesforce.api.ApiVersion;
+import org.springframework.social.salesforce.api.QueryResult;
+import org.springframework.social.salesforce.api.ResultItem;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.client.BaseSalesforceFactory;
+
 /**
  * This is a test that fully test the API over a real account.
- *
+ * 
  * @author Umut Utkan
  */
 @Ignore
 public class ApiTest {
 
-    private static final String AUTH_URL = "https://na7.salesforce.com/services/oauth2/token";
-
+    public static final String PRODUCTION_SALESFORCE_URL = "https://login.salesforce.com/services/oauth2/token";
+    public static final String SANDBOX_SALESFORCE_URL = "https://test.salesforce.com/services/oauth2/token";
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = null;
@@ -33,27 +32,36 @@ public class ApiTest {
             br = new BufferedReader(new InputStreamReader(System.in));
         }
 
-        System.out.println("Enter your SF client id: ");
+        System.out.println("Enter your auth url (1 or 2)\n" +
+                "\t1: https://login.salesforce.com/services/oauth2/token \n" +
+                "\t2: https://test.salesforce.com/services/oauth2/token");
+        final String urlSelection = br.readLine();
+        String authURL = resolveAuthURL(urlSelection);
+        System.out.println("Entered: " + authURL);
+
+        System.out.println("\nEnter your SF client id: ");
         final String clientid = br.readLine();
         System.out.println("Entered: " + clientid);
 
-        System.out.println("Enter your SF client secret: ");
+        System.out.println("\nEnter your SF client secret: ");
         final String clientSecret = br.readLine();
         System.out.println("Entered: " + clientSecret);
 
-        System.out.println("Enter your SF username: ");
+        System.out.println("\nEnter your SF username: ");
         final String username = br.readLine();
         System.out.println("Entered: " + username);
 
-        System.out.println("Enter your SF password: ");
+        System.out.println("\nEnter your SF password: ");
         final String password = br.readLine();
         System.out.println("Entered: " + password);
 
-        System.out.println("Enter your secret token: ");
+        System.out.println("\nEnter your secret token: ");
         final String secretToken = br.readLine();
         System.out.println("Entered: " + secretToken);
 
-        SalesforceFactory factory = new BaseSalesforceFactory(clientid, clientSecret);
+        BaseSalesforceFactory factory = new BaseSalesforceFactory(clientid, clientSecret);
+        factory.setAuthorizeUrl(authURL);
+
         Salesforce template = factory.create(username, password, secretToken);
 
         testMetaApiOperations(template);
@@ -67,6 +75,13 @@ public class ApiTest {
         testSObjectsOperations(template);
     }
 
+    private static String resolveAuthURL(String numberSelection) {
+        if (Integer.valueOf(numberSelection) == 2) {
+            return SANDBOX_SALESFORCE_URL;
+        }
+        return PRODUCTION_SALESFORCE_URL;
+    }
+
     public static void testMetaApiOperations(Salesforce api) {
         System.out.println("Supported API Versions:");
 
@@ -74,10 +89,12 @@ public class ApiTest {
 
             System.out.println(apiVersion);
             System.out.println("Services supported by this version:");
-            System.out.println(api.apiOperations().getServices(apiVersion.getVersion()));
+            System.out.println(api.apiOperations().getServices(
+                    apiVersion.getVersion()));
         }
     }
 
+    @SuppressWarnings("rawtypes")
     public static void testSObjectsOperations(Salesforce api) {
         System.out.println("SObjects:");
 
