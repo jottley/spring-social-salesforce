@@ -4,6 +4,8 @@ import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
 import org.codehaus.jackson.map.type.TypeFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.MappingJacksonHttpMessageConverter;
 import org.springframework.social.UncategorizedApiException;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
@@ -16,12 +18,13 @@ import java.io.IOException;
 import java.util.List;
 
 /**
- * Default implementation of Salesforce. This is the main entry point
- * for all the operations that can be performed on Salesforce.
- *
+ * Default implementation of Salesforce. This is the main entry point for all
+ * the operations that can be performed on Salesforce.
+ * 
  * @author Umut Utkan
  */
 public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Salesforce {
+    private final Logger logger = LoggerFactory.getLogger(SalesforceTemplate.class);
 
     private static final String INSTANCE_URL = "https://na1.salesforce.com";
 
@@ -41,7 +44,6 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     private SObjectOperations sObjectsOperations;
 
-
     public SalesforceTemplate() {
         initialize();
     }
@@ -49,9 +51,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public SalesforceTemplate(String accessToken) {
         super(accessToken);
         initialize();
-        System.out.println("ACCESS TOKEN: " + accessToken);
+        logger.debug("ACCESS TOKEN: {}", accessToken);
     }
-
 
     @Override
     protected OAuth2Version getOAuth2Version() {

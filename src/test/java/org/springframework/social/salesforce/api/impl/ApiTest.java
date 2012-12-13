@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Ignore;
@@ -55,7 +56,7 @@ public class ApiTest {
         final String password = br.readLine();
         System.out.println("Entered: " + password);
 
-        System.out.println("\nEnter your secret token: ");
+        System.out.println("\nEnter your secret token (none if trusted host set up): ");
         final String secretToken = br.readLine();
         System.out.println("Entered: " + secretToken);
 
@@ -73,6 +74,10 @@ public class ApiTest {
         System.out.println("\n\n");
 
         testSObjectsOperations(template);
+
+        System.out.println("\n\n");
+
+        testLeadCreateUpdate(template);
     }
 
     private static String resolveAuthURL(String numberSelection) {
@@ -135,6 +140,28 @@ public class ApiTest {
 
         System.out.println("Updated current user's status, new status:");
         System.out.println(template.chatterOperations().updateStatus("Updated status via #spring-social-salesforce!"));
+    }
+
+    public static void testLeadCreateUpdate(Salesforce template) {
+        System.out.println("Object Creation (Lead):");
+
+        Map<String, Object> lead = new HashMap<String, Object>();
+        lead.put("Company", "Spring-social-salesforce test");
+        // lead.put("FirstName", "John");
+        lead.put("LastName", "Smith");
+        lead.put("Phone", "555-555-1212");
+
+        Map<String, ?> createdLead = template.sObjectsOperations().create("Lead", lead);
+        System.out.println("Created lead: " + createdLead);
+
+        String createdId = createdLead.get("id").toString();
+        Map<String, Object> updateValues = new HashMap<String, Object>();
+        updateValues.put("LastName", "Johnson");
+        updateValues.put("FirstName", null);
+        updateValues.put("Title", "Updatee");
+        Map<String, ?> updated = template.sObjectsOperations().update("Lead", createdId, updateValues);
+        System.out.println("Updated Lead: " + updated);
+
     }
 
 }

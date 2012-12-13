@@ -20,7 +20,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void simpleQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+Id%2C+Name%2C+BillingCity+FROM+Account"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+Id%2C+Name%2C+BillingCity+FROM+Account"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-simple.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT Id, Name, BillingCity FROM Account");
@@ -39,7 +39,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void whereQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+Id+FROM+Contact+WHERE+Name+LIKE+%27U%25%27+AND+MailingCity+%3D+%27Istanbul%27"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+Id+FROM+Contact+WHERE+Name+LIKE+%27U%25%27+AND+MailingCity+%3D+%27Istanbul%27"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-where.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT Id FROM Contact WHERE Name LIKE 'U%' AND MailingCity = 'Istanbul'");
@@ -55,7 +55,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void child2parentQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+Contact.FirstName%2C+Contact.Account.Name+FROM+Contact"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+Contact.FirstName%2C+Contact.Account.Name+FROM+Contact"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-child2parent.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT Contact.FirstName, Contact.Account.Name FROM Contact");
@@ -77,7 +77,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void countQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+COUNT%28%29+FROM+Contact"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+COUNT%28%29+FROM+Contact"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-count.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT COUNT() FROM Contact");
@@ -88,7 +88,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void groupByQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+LeadSource%2C+COUNT%28Name%29+FROM+Lead+GROUP+BY+LeadSource"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+LeadSource%2C+COUNT%28Name%29+FROM+Lead+GROUP+BY+LeadSource"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-groupby.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT LeadSource, COUNT(Name) FROM Lead GROUP BY LeadSource");
@@ -105,7 +105,7 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void parent2childQuery() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/query?q=SELECT+Name%2C+%28SELECT+LastName+FROM+Contacts%29+FROM+Account"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/query?q=SELECT+Name%2C+%28SELECT+LastName+FROM+Contacts%29+FROM+Account"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("query-parent2child.json"), responseHeaders));
         QueryResult result = salesforce.queryOperations().query("SELECT Name, (SELECT LastName FROM Contacts) FROM Account");
