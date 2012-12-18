@@ -3,6 +3,7 @@ package org.springframework.social.salesforce.api;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.ApiException;
 
 /**
@@ -30,9 +31,9 @@ public class SalesforceRequestException extends ApiException {
 
     @SuppressWarnings("unchecked")
     public SalesforceRequestException(Map<String, Object> errorDetails) {
-        super(errorDetails.get("message").toString());
+        super((String)errorDetails.get("message"));
 
-        this.code = errorDetails.get("errorCode").toString();
+        this.code = StringUtils.defaultString((String)errorDetails.get("errorCode"), "UNKNOWN");
         this.fields = (List<String>) errorDetails.get("fields");
     }
 
