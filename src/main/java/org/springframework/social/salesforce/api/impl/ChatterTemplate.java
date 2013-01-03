@@ -14,22 +14,22 @@ import java.util.Map;
 
 /**
  * Default implementation of ChatterOperations.
- *
+ * 
  * @author Umut Utkan
  */
 public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> implements ChatterOperations {
 
     private RestTemplate restTemplate;
 
-
     public ChatterTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
         this.restTemplate = restTemplate;
-        // adds interceptor to rest template for adding X-Chatter-Entity-Encoding=false header
-        // this header informs Salesforce not to encode special characters and to return as is.
+        // adds interceptor to rest template for adding
+        // X-Chatter-Entity-Encoding=false header
+        // this header informs Salesforce not to encode special characters and
+        // to return as is.
         this.restTemplate = addInterceptors(restTemplate);
     }
-
 
     @Override
     public SalesforceProfile getUserProfile() {
@@ -39,8 +39,7 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
     @Override
     public SalesforceProfile getUserProfile(String userId) {
         requireAuthorization();
-        return restTemplate.getForObject(api.getBaseUrl() + "/v23.0/chatter/users/{id}",
-                SalesforceProfile.class, userId);
+        return restTemplate.getForObject(api.getBaseUrl() + "/{version}/chatter/users/{id}", SalesforceProfile.class, "v23.0", userId);
     }
 
     @Override
@@ -52,8 +51,8 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
     public Status getStatus(String userId) {
         requireAuthorization();
 
-        JsonNode node = restTemplate.getForObject(api.getBaseUrl() + "/v23.0/chatter/users/{userId}/status",
-                JsonNode.class, userId);
+        JsonNode node = restTemplate.getForObject(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status",
+                JsonNode.class, "v23.0", userId);
         return api.readObject(node.get("body"), Status.class);
     }
 
@@ -67,8 +66,8 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
 
         MultiValueMap<String, String> post = new LinkedMultiValueMap<String, String>();
         post.add("text", message);
-        JsonNode node = restTemplate.postForObject(api.getBaseUrl() + "/v23.0/chatter/users/{userId}/status",
-                post, JsonNode.class, userId);
+        JsonNode node = restTemplate.postForObject(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status",
+                post, JsonNode.class, "v23.0", userId);
         return api.readObject(node.get("body"), Status.class);
     }
 

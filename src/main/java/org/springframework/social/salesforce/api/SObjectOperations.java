@@ -13,7 +13,7 @@ public interface SObjectOperations {
 
     public List<Map> getSObjects();
 
-    public SObjectSummary getSObject(String name);
+    public SObjectSummary getSObjectSummary(String name);
 
     public SObjectDetail describeSObject(String name);
 
@@ -21,6 +21,8 @@ public interface SObjectOperations {
 
     public InputStream getBlob(String name, String id, String field);
 
-    Map<?, ?> create(String name, Map<String, String> fields);
+    Map<String, ?> create(String name, Map<String, Object> fields);
+    
+    Map<String,?> update(String sObjectName, String sObjectId, Map<String, Object> fields);
 
 }

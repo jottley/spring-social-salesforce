@@ -17,9 +17,11 @@ To check out the project and build from source, do the following:
  - Retrieve full-metadata of an sObject
  - Retrieve a row from an sObject
  - Retrieve a blob from a row in an sObject
+ - Create a new sObject
+ - Update an existing sObject
  - Retrieve recent changes feed
- - Execute a SOSL search and retrieve the results
- - Run a SOQL query and retrieve the results
+ - Execute a SOSL search and retrieve the results (with paging or all)
+ - Run a SOQL query and retrieve the results (with paging or all)
  - Retrieve user profile
  - Retrieve user status
  - Update user status
