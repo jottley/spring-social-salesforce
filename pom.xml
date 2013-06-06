@@ -3,7 +3,7 @@
 
   <groupId>org.springframework.social</groupId>
   <artifactId>spring-social-salesforce</artifactId>
-  <version>1.2.0-SNAPSHOT</version>
+  <version>1.2.0-alfresco</version>
   <packaging>jar</packaging>
 
   <name>spring-social-salesforce</name>
@@ -56,6 +56,7 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>${logback.version}</version>
+      <scope>provided</scope>
     </dependency>
     <!-- Test Dependencies -->
     <dependency>
