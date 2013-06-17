@@ -2,9 +2,12 @@ package org.springframework.social.salesforce.api;
 
 import java.io.Serializable;
 
+import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
 /**
  * @author Umut Utkan
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfile implements Serializable {
 
     private String id;
@@ -18,12 +21,12 @@ public class SalesforceProfile implements Serializable {
     private Photo photo;
 
 
-    public SalesforceProfile(String id, String firstName, String lastName, String email) {
+    /*public SalesforceProfile(String id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
+    }*/
 
 
     public String getId() {

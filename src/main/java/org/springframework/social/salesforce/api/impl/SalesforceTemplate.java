@@ -56,7 +56,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     @Override
     protected OAuth2Version getOAuth2Version() {
-        return OAuth2Version.DRAFT_10;
+        return OAuth2Version.BEARER;
     }
 
     @Override
@@ -98,16 +98,18 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         sObjectsOperations = new SObjectsTemplate(this, getRestTemplate());
     }
 
-    @Override
+    //@Override
     protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
-        MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
+        //TODO Back rev'd
+        //MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
+        MappingJacksonHttpMessageConverter converter = new MappingJacksonHttpMessageConverter();
         objectMapper = new ObjectMapper();
         objectMapper.registerModule(new SalesforceModule());
         converter.setObjectMapper(objectMapper);
         return converter;
     }
 
-    @Override
+    //@Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
         restTemplate.setErrorHandler(new SalesforceErrorHandler());
     }
