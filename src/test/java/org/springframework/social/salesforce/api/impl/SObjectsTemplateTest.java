@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.*;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.social.test.client.RequestMatchers.method;
@@ -81,7 +82,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
     @Test
     public void testCreate() throws IOException {
         mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead"))
-                .andExpect(method(POST))
+                .andExpect(method(DELETE))
                 .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
         Map<String, Object> fields = new HashMap<String, Object>();
         fields.put("LastName", "Doe");
@@ -105,6 +106,18 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
         leadData.put("Company", "Acme, Inc.");
         Map<?, ?> result = salesforce.sObjectsOperations().update("Lead", "abc123", leadData);
         assertTrue(result.size() == 0);
+    }
+    
+    @Test
+    public void testDelete() throws IOException {
+        // salesforce returns an empty body with a success code if no failures.
+        // But, have to mock a json string to satisfy Mock Rest service.
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead/abc123"))
+                .andExpect(method(DELETE))
+                .andRespond(withResponse("{}", responseHeaders));
+        salesforce.sObjectsOperations().delete("Lead", "abc123");
+        //if it makes it here with no error then it is good.
+        assertTrue(true);
     }
 
 }
