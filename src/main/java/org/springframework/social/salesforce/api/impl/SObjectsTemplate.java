@@ -107,12 +107,5 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
     }
     
     
-    @Override
-    public void delete(String sObjectName, String sObjectId)
-    {
-        requireAuthorization();
-        restTemplate.delete(api.getBaseUrl() + "/{version}/sobjects/{sObjectName}/{sObjectId}", API_VERSION, sObjectName, sObjectId);
-    }
-    
 
 }

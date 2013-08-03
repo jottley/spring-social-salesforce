@@ -24,7 +24,5 @@ public interface SObjectOperations {
     Map<String, ?> create(String name, Map<String, Object> fields);
     
     Map<String,?> update(String sObjectName, String sObjectId, Map<String, Object> fields);
-    
-    public void delete(String sObjectName, String sObjectId);
 
 }
