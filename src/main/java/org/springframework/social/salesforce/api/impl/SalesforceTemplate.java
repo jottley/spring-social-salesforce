@@ -1,5 +1,8 @@
 package org.springframework.social.salesforce.api.impl;
 
+import java.io.IOException;
+import java.util.List;
+
 import org.codehaus.jackson.JsonNode;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.type.CollectionType;
@@ -10,12 +13,16 @@ import org.springframework.http.converter.json.MappingJacksonHttpMessageConverte
 import org.springframework.social.UncategorizedApiException;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
-import org.springframework.social.salesforce.api.*;
+import org.springframework.social.salesforce.api.ApiOperations;
+import org.springframework.social.salesforce.api.BulkApiOperations;
+import org.springframework.social.salesforce.api.ChatterOperations;
+import org.springframework.social.salesforce.api.QueryOperations;
+import org.springframework.social.salesforce.api.RecentOperations;
+import org.springframework.social.salesforce.api.SObjectOperations;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.SearchOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
-
-import java.io.IOException;
-import java.util.List;
 
 /**
  * Default implementation of Salesforce. This is the main entry point for all
@@ -29,10 +36,14 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     private static final String INSTANCE_URL = "https://na1.salesforce.com";
 
     private String instanceUrl;
-
+    
+    private String identityServiceUrl;
+    
     private ObjectMapper objectMapper;
 
     private ApiOperations apiOperations;
+    
+    private BulkApiOperations bulkApiOperations;
 
     private ChatterOperations chatterOperations;
 
@@ -45,15 +56,21 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     private SObjectOperations sObjectsOperations;
 
     public SalesforceTemplate() {
-        initialize();
+      initialize(null);
     }
-
+    
     public SalesforceTemplate(String accessToken) {
-        super(accessToken);
-        initialize();
-        logger.debug("ACCESS TOKEN: {}", accessToken);
+      this(accessToken, null);
     }
+    
+    public SalesforceTemplate(String accessToken, String idUrl) {
+      super(accessToken);
+      identityServiceUrl = idUrl;
+      initialize(accessToken);
+      logger.debug("ACCESS TOKEN: {}", accessToken);
 
+    }
+    
     @Override
     protected OAuth2Version getOAuth2Version() {
         return OAuth2Version.DRAFT_10;
@@ -62,6 +79,11 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     @Override
     public ApiOperations apiOperations() {
         return apiOperations;
+    }
+    
+    @Override
+    public BulkApiOperations bulkApiOperations() {
+        return bulkApiOperations;
     }
 
     @Override
@@ -89,15 +111,18 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return sObjectsOperations;
     }
 
-    private void initialize() {
+    private void initialize(String accessToken) {
         apiOperations = new ApiTemplate(this, getRestTemplate());
         chatterOperations = new ChatterTemplate(this, getRestTemplate());
         queryOperations = new QueryTemplate(this, getRestTemplate());
         recentOperations = new RecentTemplate(this, getRestTemplate());
         searchOperations = new SearchTemplate(this, getRestTemplate());
         sObjectsOperations = new SObjectsTemplate(this, getRestTemplate());
+        if (identityServiceUrl != null) {
+          bulkApiOperations = new BulkApiTemplate(this, getRestTemplate(), accessToken);
+        }
     }
-
+    
     @Override
     protected MappingJacksonHttpMessageConverter getJsonMessageConverter() {
         MappingJacksonHttpMessageConverter converter = super.getJsonMessageConverter();
@@ -111,7 +136,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     protected void configureRestTemplate(RestTemplate restTemplate) {
         restTemplate.setErrorHandler(new SalesforceErrorHandler());
     }
-
+    
     @Override
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type) {
         try {
@@ -143,6 +168,14 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
+    }
+    
+    public void setIdentityServiceUrl(String idUrl) {
+      this.identityServiceUrl = idUrl;
+    }
+    
+    public String getIdentityServiceUrl() {
+        return this.identityServiceUrl;
     }
 
 }

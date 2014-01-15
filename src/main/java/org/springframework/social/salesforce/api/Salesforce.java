@@ -13,6 +13,8 @@ import java.util.List;
 public interface Salesforce extends ApiBinding {
 
     public ApiOperations apiOperations();
+    
+    public BulkApiOperations bulkApiOperations();
 
     public ChatterOperations chatterOperations();
 
@@ -31,5 +33,7 @@ public interface Salesforce extends ApiBinding {
     public String getBaseUrl();
 
     public String getInstanceUrl();
+    
+    public String getIdentityServiceUrl();
 
 }

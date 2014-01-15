@@ -57,7 +57,7 @@ public class BaseSalesforceFactory implements SalesforceFactory {
         map.add("password", password + (securityToken == null ? "" : securityToken));
 
         Map<String, String> token = restTemplate.postForObject(this.authorizeUrl, map, Map.class);
-        SalesforceTemplate template = new SalesforceTemplate(token.get("access_token"));
+        SalesforceTemplate template = new SalesforceTemplate(token.get("access_token"), token.get("id"));
         String instanceUrl = token.get("instance_url");
         if (instanceUrl != null) {
             template.setInstanceUrl(instanceUrl);
