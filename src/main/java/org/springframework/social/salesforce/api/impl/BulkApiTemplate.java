@@ -77,7 +77,7 @@ public class BulkApiTemplate extends AbstractSalesForceOperations<Salesforce> im
     JobInfo jobInfo = new JobInfo();
     try {
       connection = getBulkConnection(bulkUrl);
-      jobInfo = createJob("Account", operation, connection);
+      jobInfo = createJob(sObjectType, operation, connection);
       List<BatchInfo> batchInfoList = createBatchesFromCSVFile(connection, jobInfo, csvFile);
       closeJob(connection, jobInfo.getId());
       awaitCompletion(connection, jobInfo, batchInfoList);
