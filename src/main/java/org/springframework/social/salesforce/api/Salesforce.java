@@ -1,9 +1,10 @@
 package org.springframework.social.salesforce.api;
 
-import org.codehaus.jackson.JsonNode;
+import java.util.List;
+
 import org.springframework.social.ApiBinding;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Specifies operations performed on Salesforce.

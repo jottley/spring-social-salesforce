@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * @author Umut Utkan
  */
+@SuppressWarnings("serial")
 public class ApiVersion implements Serializable {
 
     private String label;
