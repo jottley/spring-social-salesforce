@@ -5,10 +5,11 @@ import org.springframework.social.ApiException;
 /**
  * @author Umut Utkan
  */
+@SuppressWarnings("serial")
 public class InvalidIDException extends ApiException {
 
     public InvalidIDException(String message) {
-        super(message);
+        super("salesforce", message);
     }
 
 }

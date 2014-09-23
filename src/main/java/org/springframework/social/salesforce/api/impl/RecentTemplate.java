@@ -1,12 +1,13 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
+import java.util.List;
+
 import org.springframework.social.salesforce.api.RecentOperations;
 import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of RecentOperations.

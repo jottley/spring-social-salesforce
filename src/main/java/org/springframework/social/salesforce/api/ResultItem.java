@@ -7,6 +7,7 @@ import java.util.Map;
 /**
  * @author Umut Utkan
  */
+@SuppressWarnings("serial")
 public class ResultItem implements Serializable {
 
     private String type;

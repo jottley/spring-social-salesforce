@@ -22,7 +22,8 @@ import java.util.Map;
 @Ignore
 public class ApiTest {
 
-    private static final String AUTH_URL = "https://na7.salesforce.com/services/oauth2/token";
+    @SuppressWarnings("unused")
+	private static final String AUTH_URL = "https://na7.salesforce.com/services/oauth2/token";
 
 
     public static void main(String args[]) throws IOException {

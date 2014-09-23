@@ -5,6 +5,7 @@ import java.io.Serializable;
 /**
  * @author Umut Utkan
  */
+@SuppressWarnings("serial")
 public class SalesforceProfile implements Serializable {
 
     private String id;
