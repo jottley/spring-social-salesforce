@@ -13,9 +13,12 @@ import org.springframework.social.salesforce.api.SalesforceProfile;
  *
  * @author Umut Utkan
  */
-public class SalesforceAdapter implements ApiAdapter<Salesforce> {
+public class SalesforceAdapter implements ApiAdapter<Salesforce>
+{
 
-    public boolean test(Salesforce salesForce) {
+    @Override
+    public boolean test(Salesforce salesForce)
+    {
         try {
             salesForce.chatterOperations().getUserProfile();
             return true;
@@ -24,21 +27,31 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
         }
     }
 
-    public void setConnectionValues(Salesforce salesforce, ConnectionValues values) {
+    @Override
+    public void setConnectionValues(Salesforce salesforce,
+                                    ConnectionValues values)
+    {
         SalesforceProfile profile = salesforce.chatterOperations().getUserProfile();
         values.setProviderUserId(profile.getId());
         values.setDisplayName(profile.getFirstName() + " " + profile.getLastName());
     }
 
-    public UserProfile fetchUserProfile(Salesforce salesforce) {
+    @Override
+    public UserProfile fetchUserProfile(Salesforce salesforce)
+    {
         SalesforceProfile profile = salesforce.chatterOperations().getUserProfile();
-        return new UserProfileBuilder().setName(profile.getFirstName()).setFirstName(profile.getFirstName())
-                .setLastName(profile.getLastName()).setEmail(profile.getEmail())
-                .setUsername(profile.getEmail()).build();
+        return new UserProfileBuilder().setName(profile.getFirstName() + profile.getLastName())
+                                       .setFirstName(profile.getFirstName())
+                                       .setLastName(profile.getLastName())
+                                       .setEmail(profile.getEmail())
+                                       .setUsername(profile.getEmail())
+                                       .build();
     }
 
-
-    public void updateStatus(Salesforce salesforce, String message) {
+    @Override
+    public void updateStatus(Salesforce salesforce,
+                             String message)
+    {
         salesforce.chatterOperations().updateStatus(message);
     }
 }

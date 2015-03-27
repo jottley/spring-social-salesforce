@@ -1,36 +1,40 @@
 package org.springframework.social.salesforce.api;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 /**
  * @author Umut Utkan
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Photo {
+public class Photo
+{
 
     private String smallPhotoUrl;
 
     private String largePhotoUrl;
 
-
-    public Photo() {
+    public Photo()
+    {
 
     }
 
-
-    public String getSmallPhotoUrl() {
+    public String getSmallPhotoUrl()
+    {
         return smallPhotoUrl;
     }
 
-    public void setSmallPhotoUrl(String smallPhotoUrl) {
+    public void setSmallPhotoUrl(String smallPhotoUrl)
+    {
         this.smallPhotoUrl = smallPhotoUrl;
     }
 
-    public String getLargePhotoUrl() {
+    public String getLargePhotoUrl()
+    {
         return largePhotoUrl;
     }
 
-    public void setLargePhotoUrl(String largePhotoUrl) {
+    public void setLargePhotoUrl(String largePhotoUrl)
+    {
         this.largePhotoUrl = largePhotoUrl;
     }
 

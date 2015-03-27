@@ -6,18 +6,20 @@ import org.springframework.social.MissingAuthorizationException;
 /**
  * @author Umut Utkan
  */
-public class AbstractSalesForceOperations<T extends ApiBinding> {
+public class AbstractSalesForceOperations<T extends ApiBinding>
+{
 
     protected T api;
 
-
-    public AbstractSalesForceOperations(T api) {
+    public AbstractSalesForceOperations(T api)
+    {
         this.api = api;
     }
 
-    protected void requireAuthorization() {
+    protected void requireAuthorization()
+    {
         if (!api.isAuthorized()) {
-            throw new MissingAuthorizationException();
+            throw new MissingAuthorizationException("Salesforce");
         }
     }
 
