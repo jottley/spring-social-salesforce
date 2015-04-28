@@ -8,10 +8,13 @@ import java.util.Map;
  *
  * @author Umut Utkan
  */
-public interface ApiOperations {
+public interface ApiOperations
+{
 
     List<ApiVersion> getVersions();
 
     Map<String, String> getServices(String version);
+
+    SalesforceIdentity getIdentity();
 
 }

@@ -7,6 +7,7 @@ import java.util.Map;
 import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.ApiVersion;
 import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.SalesforceIdentity;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
@@ -43,6 +44,13 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
     {
         requireAuthorization();
         return restTemplate.getForObject(api.getBaseUrl() + "/v{version}", Map.class, version);
+    }
+
+    @Override
+    public SalesforceIdentity getIdentity()
+    {
+        requireAuthorization();
+        return restTemplate.getForObject(api.getIdentityUrl(), SalesforceIdentity.class);
     }
 
 }

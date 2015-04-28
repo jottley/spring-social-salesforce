@@ -10,6 +10,7 @@ import org.springframework.social.salesforce.api.Relationship;
 import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.social.salesforce.api.SObjectDetail;
 import org.springframework.social.salesforce.api.SObjectSummary;
+import org.springframework.social.salesforce.api.SalesforceIdentity;
 import org.springframework.social.salesforce.api.SalesforceProfile;
 import org.springframework.social.salesforce.api.Status;
 
@@ -46,6 +47,7 @@ public class SalesforceModule extends SimpleModule
         context.setMixInAnnotations(SObjectDetail.class, SObjectDetailMixin.class);
         context.setMixInAnnotations(QueryResult.class, QueryResultMixin.class);
         context.setMixInAnnotations(ResultItem.class, ResultItemMixin.class);
+        context.setMixInAnnotations(SalesforceIdentity.class, SalesforceIdentityMixin.class);
     }
 
 }

@@ -32,6 +32,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     private String instanceUrl;
 
+    private String identityUrl;
+
     private ObjectMapper objectMapper;
 
     private ApiOperations apiOperations;
@@ -164,9 +166,20 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return this.instanceUrl;
     }
 
+    @Override
+    public String getIdentityUrl()
+    {
+        return this.identityUrl;
+    }
+
     public void setInstanceUrl(String instanceUrl)
     {
         this.instanceUrl = instanceUrl;
+    }
+
+    public void setIdentityUrl(String identityUrl)
+    {
+        this.identityUrl = identityUrl;
     }
 
 }

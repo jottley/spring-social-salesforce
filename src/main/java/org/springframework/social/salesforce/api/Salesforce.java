@@ -36,4 +36,6 @@ public interface Salesforce extends ApiBinding
 
     public String getInstanceUrl();
 
+    public String getIdentityUrl();
+
 }

@@ -17,7 +17,7 @@ import org.springframework.web.client.RestTemplate;
 /**
  * Salesforce OAuth2Template implementation.
  * <p/>
- * The reason to extend is to extract non-standard instance_url from Salesforce's oauth token response.
+ * The reason to extend is to extract non-standard instance_url and id from Salesforce's oauth token response.
  *
  * @author Umut Utkan
  */
@@ -25,6 +25,7 @@ public class SalesforceOAuth2Template extends OAuth2Template
 {
 
     private String instanceUrl = null;
+    private String identityUrl = null;
 
     public SalesforceOAuth2Template(String clientId,
                                     String clientSecret,
@@ -52,6 +53,7 @@ public class SalesforceOAuth2Template extends OAuth2Template
                                             Map<String, Object> response)
     {
         this.instanceUrl = (String) response.get("instance_url");
+        this.identityUrl = (String) response.get("id");
 
         return super.createAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
     }
@@ -59,6 +61,11 @@ public class SalesforceOAuth2Template extends OAuth2Template
     public String getInstanceUrl()
     {
         return instanceUrl;
+    }
+
+    public String getIdentityUrl()
+    {
+        return identityUrl;
     }
 
     @Override

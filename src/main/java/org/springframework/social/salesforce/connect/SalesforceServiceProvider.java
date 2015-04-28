@@ -9,20 +9,29 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
  *
  * @author Umut Utkan
  */
-public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce> {
+public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce>
+{
 
-    public SalesforceServiceProvider(String clientId, String clientSecret) {
-        this(clientId, clientSecret,
-                "https://login.salesforce.com/services/oauth2/authorize",
-                "https://login.salesforce.com/services/oauth2/token");
+    public SalesforceServiceProvider(String clientId,
+                                     String clientSecret)
+    {
+        this(clientId,
+             clientSecret,
+             "https://login.salesforce.com/services/oauth2/authorize",
+             "https://login.salesforce.com/services/oauth2/token");
     }
 
-    public SalesforceServiceProvider(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
+    public SalesforceServiceProvider(String clientId,
+                                     String clientSecret,
+                                     String authorizeUrl,
+                                     String tokenUrl)
+    {
         super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl));
     }
 
-
-    public Salesforce getApi(String accessToken) {
+    @Override
+    public Salesforce getApi(String accessToken)
+    {
         SalesforceTemplate template = new SalesforceTemplate(accessToken);
 
         // gets the returned instance url and sets to Salesforce template as base url.
@@ -30,6 +39,9 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
         if (instanceUrl != null) {
             template.setInstanceUrl(instanceUrl);
         }
+
+        String identityUrl = ((SalesforceOAuth2Template) getOAuthOperations()).getIdentityUrl();
+        template.setIdentityUrl(identityUrl);
 
         return template;
     }

@@ -10,7 +10,6 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonDeserializer;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
@@ -29,12 +28,11 @@ public class ResultItemDeserializer extends JsonDeserializer<ResultItem>
         mapper.setConfig(ctxt.getConfig());
         jp.setCodec(mapper);
 
-        JsonNode jsonNode = jp.readValueAsTree();
         Map<String, Object> map = mapper.readValue(jp, Map.class);
         ResultItem item = new ResultItem((String) ((Map) map.get("attributes")).get("type"),
                                          (String) ((Map) map.get("attributes")).get("url"));
         map.remove("attributes");
-        //item.setAttributes(map);
+        item.setAttributes(map);
 
         for (Map.Entry<String, Object> entry : map.entrySet()) {
             if (entry.getValue() instanceof Map) {
