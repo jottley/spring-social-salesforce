@@ -6,7 +6,7 @@ import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
 import org.springframework.social.salesforce.api.Salesforce;
-import org.springframework.social.salesforce.api.SalesforceProfile;
+import org.springframework.social.salesforce.api.SalesforceIdentity;
 
 /**
  * Salesforce ApiAdapter implementation.
@@ -20,7 +20,7 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     public boolean test(Salesforce salesForce)
     {
         try {
-            salesForce.chatterOperations().getUserProfile();
+            salesForce.apiOperations().getIdentity();
             return true;
         } catch (ApiException e) {
             return false;
@@ -31,20 +31,20 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     public void setConnectionValues(Salesforce salesforce,
                                     ConnectionValues values)
     {
-        SalesforceProfile profile = salesforce.chatterOperations().getUserProfile();
-        values.setProviderUserId(profile.getId());
-        values.setDisplayName(profile.getFirstName() + " " + profile.getLastName());
+        SalesforceIdentity identity = salesforce.apiOperations().getIdentity();
+        values.setProviderUserId(identity.getUserId());
+        values.setDisplayName(identity.getFullName());
     }
 
     @Override
     public UserProfile fetchUserProfile(Salesforce salesforce)
     {
-        SalesforceProfile profile = salesforce.chatterOperations().getUserProfile();
-        return new UserProfileBuilder().setName(profile.getFirstName() + " " + profile.getLastName())
-                                       .setFirstName(profile.getFirstName())
-                                       .setLastName(profile.getLastName())
-                                       .setEmail(profile.getEmail())
-                                       .setUsername(profile.getEmail())
+        SalesforceIdentity identity = salesforce.apiOperations().getIdentity();
+        return new UserProfileBuilder().setName(identity.getFullName())
+                                       .setFirstName(identity.getFirstName())
+                                       .setLastName(identity.getLastName())
+                                       .setEmail(identity.getEmail())
+                                       .setUsername(identity.getUsername())
                                        .build();
     }
 

@@ -4,15 +4,41 @@ import java.io.Serializable;
 
 public class SalesforceIdentity implements Serializable
 {
-    private String organizationId;
-
     private String userId;
 
-    public SalesforceIdentity(String organizationId,
-                              String userId)
+    private String username;
+
+    private String organizationId;
+
+    private String email;
+
+    private String firstName;
+
+    private String lastName;
+
+    public SalesforceIdentity(String userId,
+                              String username,
+                              String organizationId,
+                              String email,
+                              String firstName,
+                              String lastName)
     {
-        this.organizationId = organizationId;
         this.userId = userId;
+        this.username = username;
+        this.organizationId = organizationId;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
+    public String getUserId()
+    {
+        return userId;
+    }
+
+    public String getUsername()
+    {
+        return username;
     }
 
     public String getOrganizationId()
@@ -20,8 +46,23 @@ public class SalesforceIdentity implements Serializable
         return organizationId;
     }
 
-    public String getUserId()
+    public String getEmail()
     {
-        return userId;
+        return email;
+    }
+
+    public String getFirstName()
+    {
+        return firstName;
+    }
+
+    public String getLastName()
+    {
+        return lastName;
+    }
+
+    public String getFullName()
+    {
+        return (firstName == null ? "" : firstName) + " " + (lastName == null ? "" : lastName);
     }
 }
