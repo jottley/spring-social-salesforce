@@ -8,8 +8,12 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class SalesforceIdentityMixin
 {
     @JsonCreator
-    public SalesforceIdentityMixin(@JsonProperty("organization_id") String organizationId,
-                                   @JsonProperty("user_id") String userId)
+    public SalesforceIdentityMixin(@JsonProperty("user_id") String userId,
+                                   @JsonProperty("username") String username,
+                                   @JsonProperty("organization_id") String organizationId,
+                                   @JsonProperty("email") String email,
+                                   @JsonProperty("first_name") String firstName,
+                                   @JsonProperty("last_name") String lastName)
     {
     }
 }
