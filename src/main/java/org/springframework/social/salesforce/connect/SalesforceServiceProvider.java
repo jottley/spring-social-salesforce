@@ -39,11 +39,6 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
         if (instanceUrl != null) {
             template.setInstanceUrl(instanceUrl);
         }
-
-        String identityUrl = ((SalesforceOAuth2Template) getOAuthOperations()).getIdentityUrl();
-        template.setIdentityUrl(identityUrl);
-
         return template;
     }
-
 }

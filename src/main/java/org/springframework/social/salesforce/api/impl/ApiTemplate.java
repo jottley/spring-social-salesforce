@@ -47,10 +47,10 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
     }
 
     @Override
-    public SalesforceIdentity getIdentity()
+    public SalesforceIdentity getIdentity(String identityUrl)
     {
         requireAuthorization();
-        return restTemplate.getForObject(api.getIdentityUrl(), SalesforceIdentity.class);
+        return restTemplate.getForObject(identityUrl, SalesforceIdentity.class);
     }
 
 }

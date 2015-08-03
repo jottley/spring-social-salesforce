@@ -15,6 +15,6 @@ public interface ApiOperations
 
     Map<String, String> getServices(String version);
 
-    SalesforceIdentity getIdentity();
+    SalesforceIdentity getIdentity(String identityUrl);
 
 }

@@ -11,6 +11,7 @@ import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
+import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.web.client.RestTemplate;
 
@@ -23,9 +24,7 @@ import org.springframework.web.client.RestTemplate;
  */
 public class SalesforceOAuth2Template extends OAuth2Template
 {
-
-    private String instanceUrl = null;
-    private String identityUrl = null;
+    private String instanceUrl;
 
     public SalesforceOAuth2Template(String clientId,
                                     String clientSecret,
@@ -53,19 +52,13 @@ public class SalesforceOAuth2Template extends OAuth2Template
                                             Map<String, Object> response)
     {
         this.instanceUrl = (String) response.get("instance_url");
-        this.identityUrl = (String) response.get("id");
 
-        return super.createAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
+        return new SalesforceAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
     }
 
     public String getInstanceUrl()
     {
         return instanceUrl;
-    }
-
-    public String getIdentityUrl()
-    {
-        return identityUrl;
     }
 
     @Override

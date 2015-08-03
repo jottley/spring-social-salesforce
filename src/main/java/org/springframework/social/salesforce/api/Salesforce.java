@@ -13,7 +13,6 @@ import com.fasterxml.jackson.databind.JsonNode;
  */
 public interface Salesforce extends ApiBinding
 {
-
     public ApiOperations apiOperations();
 
     public ChatterOperations chatterOperations();
@@ -35,7 +34,4 @@ public interface Salesforce extends ApiBinding
     public String getBaseUrl();
 
     public String getInstanceUrl();
-
-    public String getIdentityUrl();
-
 }

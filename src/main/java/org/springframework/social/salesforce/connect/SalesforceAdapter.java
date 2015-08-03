@@ -15,12 +15,18 @@ import org.springframework.social.salesforce.api.SalesforceIdentity;
  */
 public class SalesforceAdapter implements ApiAdapter<Salesforce>
 {
+    protected String identityUrl;
+
+    public SalesforceAdapter(String identityUrl)
+    {
+        this.identityUrl = identityUrl;
+    }
 
     @Override
     public boolean test(Salesforce salesForce)
     {
         try {
-            salesForce.apiOperations().getIdentity();
+            salesForce.apiOperations().getIdentity(identityUrl);
             return true;
         } catch (ApiException e) {
             return false;
@@ -31,7 +37,7 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     public void setConnectionValues(Salesforce salesforce,
                                     ConnectionValues values)
     {
-        SalesforceIdentity identity = salesforce.apiOperations().getIdentity();
+        SalesforceIdentity identity = salesforce.apiOperations().getIdentity(identityUrl);
         values.setProviderUserId(identity.getUserId());
         values.setDisplayName(identity.getFullName());
     }
@@ -39,7 +45,7 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     @Override
     public UserProfile fetchUserProfile(Salesforce salesforce)
     {
-        SalesforceIdentity identity = salesforce.apiOperations().getIdentity();
+        SalesforceIdentity identity = salesforce.apiOperations().getIdentity(identityUrl);
         return new UserProfileBuilder().setName(identity.getFullName())
                                        .setFirstName(identity.getFirstName())
                                        .setLastName(identity.getLastName())
