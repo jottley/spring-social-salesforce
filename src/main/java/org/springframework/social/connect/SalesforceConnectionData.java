@@ -29,6 +29,21 @@ public class SalesforceConnectionData extends ConnectionData
         this.identityUrl = identityUrl;
     }
 
+    public SalesforceConnectionData(ConnectionData connectionData,
+                                    String identityUrl)
+    {
+        super(connectionData.getProviderId(),
+              connectionData.getProviderUserId(),
+              connectionData.getDisplayName(),
+              connectionData.getProfileUrl(),
+              connectionData.getImageUrl(),
+              connectionData.getAccessToken(),
+              connectionData.getSecret(),
+              connectionData.getRefreshToken(),
+              connectionData.getExpireTime());
+        this.identityUrl = identityUrl;
+    }
+
     public String getIdentityUrl()
     {
         return identityUrl;
