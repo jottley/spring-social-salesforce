@@ -1,6 +1,6 @@
 package org.springframework.social.salesforce.api.impl.json;
 
-import org.codehaus.jackson.map.annotate.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 
 /**
  * {@see org.springframework.social.salesforce.api.ResultItem} Mixin for api v23.0.

@@ -3,7 +3,7 @@
 
   <groupId>org.springframework.social</groupId>
   <artifactId>spring-social-salesforce</artifactId>
-  <version>1.2.3</version>
+  <version>1.3.0-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>spring-social-salesforce</name>
@@ -15,8 +15,9 @@
 
     <slf4j.version>1.6.4</slf4j.version>
     <logback.version>0.9.29</logback.version>
-    <spring-social.version>1.0.2.RELEASE</spring-social.version>
-    <jackson.version>1.8.5</jackson.version>
+    <spring-social.version>1.1.2.RELEASE</spring-social.version>
+    <spring-social-test.version>1.0.3.RELEASE</spring-social-test.version>
+    <jackson.version>2.2.2</jackson.version>
     <junit.version>4.10</junit.version>
     <mockito.version>1.9.0</mockito.version>
     <commons-lang3.version>3.1</commons-lang3.version>
@@ -26,17 +27,22 @@
     <dependency>
       <groupId>org.springframework.social</groupId>
       <artifactId>spring-social-core</artifactId>
-      <version>${spring-social.version}</version>
+      <version>${spring-social.version}</version> 
     </dependency>
     <dependency>
       <groupId>org.springframework.social</groupId>
       <artifactId>spring-social-test</artifactId>
-      <version>${spring-social.version}</version>
+      <version>${spring-social-test.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.codehaus.jackson</groupId>
-      <artifactId>jackson-mapper-asl</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-core</artifactId>
+      <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
       <version>${jackson.version}</version>
     </dependency>
     <dependency>
@@ -50,7 +56,11 @@
 	  <version>29.0.0</version>
 	</dependency>
             
-    
+  <dependency>
+    <groupId>org.jooq</groupId>
+     <artifactId>joor</artifactId>
+     <version>0.9.4</version>
+   </dependency> 
     
     <!-- Logging Dependencies -->
     <dependency>

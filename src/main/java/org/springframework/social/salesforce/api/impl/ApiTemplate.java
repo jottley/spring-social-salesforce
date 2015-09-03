@@ -1,15 +1,16 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.ApiVersion;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of ApiOperations.

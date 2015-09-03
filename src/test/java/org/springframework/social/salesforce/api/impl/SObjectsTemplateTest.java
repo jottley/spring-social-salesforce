@@ -46,7 +46,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
         assertNotNull(account);
         assertEquals("Account", account.getName());
         assertEquals("Account", account.getLabel());
-        assertEquals(true, account.isUndeletable());
+        assertEquals(true, account.isDeletable());
         assertEquals("001", account.getKeyPrefix());
         assertEquals(false, account.isCustom());
         assertEquals("/services/data/v23.0/sobjects/Account/{ID}", account.getUrls().get("rowTemplate"));

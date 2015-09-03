@@ -1,9 +1,18 @@
 package org.springframework.social.salesforce.connect;
 
+import java.io.IOException;
+import java.util.Collections;
+
+import org.springframework.http.HttpInputMessage;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.FormHttpMessageConverter;
+import org.springframework.http.converter.HttpMessageConverter;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
-
-import java.util.Map;
+import org.springframework.social.support.ClientHttpRequestFactorySelector;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * Salesforce OAuth2Template implementation.
@@ -25,16 +34,40 @@ public class SalesforceOAuth2Template extends OAuth2Template {
         super(clientId, clientSecret, authorizeUrl, authenticateUrl, accessTokenUrl);
     }
 
-
-    @Override
-    protected AccessGrant createAccessGrant(String accessToken, String scope, String refreshToken, Integer expiresIn, Map<String, Object> response) {
-        this.instanceUrl = (String) response.get("instance_url");
-
-        return super.createAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
-    }
-
     public String getInstanceUrl() {
         return instanceUrl;
     }
 
+    @Override
+    protected RestTemplate createRestTemplate() {
+      final RestTemplate restTemplate = new RestTemplate(ClientHttpRequestFactorySelector.getRequestFactory());
+
+      // salesforce doesn't set content-type; fix it
+      final FormHttpMessageConverter messageConverter = new FormHttpMessageConverter() {
+        @Override
+        public boolean canRead(final Class<?> clazz, final MediaType mediaType) {
+          return true;
+        }
+
+        @Override
+        public MultiValueMap<String, String> read(final Class<? extends MultiValueMap<String, ?>> clazz,
+            final HttpInputMessage inputMessage) throws IOException, HttpMessageNotReadableException {
+          if (inputMessage.getHeaders().getContentType() == null) {
+            inputMessage.getHeaders().setContentType(MediaType.TEXT_PLAIN);
+          }
+          return super.read(clazz, inputMessage);
+        }
+      };
+      restTemplate.setMessageConverters(Collections.<HttpMessageConverter<?>>singletonList(messageConverter));
+      return restTemplate;
+    }
+
+    // resteasy gives me MultiValueMap from salesforce instead of Map; fix it:
+    @Override
+    @SuppressWarnings("unchecked")
+    protected AccessGrant postForAccessGrant(final String accessTokenUrl, final MultiValueMap<String, String> parameters) {
+      final MultiValueMap<String, String> result = getRestTemplate().postForObject(accessTokenUrl, parameters, MultiValueMap.class);
+      instanceUrl = result.getFirst("instance_url");
+      return createAccessGrant(result.getFirst("access_token"), result.getFirst("scope"), result.getFirst("refresh_token"), null, null);
+    }
 }

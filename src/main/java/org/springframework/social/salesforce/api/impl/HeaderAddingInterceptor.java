@@ -1,12 +1,12 @@
 package org.springframework.social.salesforce.api.impl;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-
-import java.io.IOException;
-import java.util.Map;
 
 /**
  * Interceptor for adding headers
