@@ -3,14 +3,14 @@
 
   <groupId>org.springframework.social</groupId>
   <artifactId>spring-social-salesforce</artifactId>
-  <version>1.3.0-SNAPSHOT</version>
+  <version>1.3.0</version>
   <packaging>jar</packaging>
 
   <name>spring-social-salesforce</name>
   <url>https://github.com/umut/spring-social-salesforce</url>
 
   <properties>
-    <jdk.version>1.6</jdk.version>
+    <jdk.version>1.7</jdk.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
     <slf4j.version>1.6.4</slf4j.version>
