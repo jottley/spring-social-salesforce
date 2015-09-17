@@ -82,7 +82,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
     @Test
     public void testCreate() throws IOException {
         mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead"))
-                .andExpect(method(DELETE))
+                .andExpect(method(POST))
                 .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
         Map<String, Object> fields = new HashMap<String, Object>();
         fields.put("LastName", "Doe");
