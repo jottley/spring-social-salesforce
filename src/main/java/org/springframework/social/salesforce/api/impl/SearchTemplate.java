@@ -1,6 +1,6 @@
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SearchOperations;

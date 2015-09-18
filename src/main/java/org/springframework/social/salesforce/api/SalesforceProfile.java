@@ -1,8 +1,9 @@
 package org.springframework.social.salesforce.api;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import java.io.Serializable;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
 
 /**
  * @author Umut Utkan

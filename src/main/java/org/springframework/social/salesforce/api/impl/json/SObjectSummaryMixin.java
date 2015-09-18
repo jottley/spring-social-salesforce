@@ -1,7 +1,8 @@
 package org.springframework.social.salesforce.api.impl.json;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Map;
 
@@ -70,7 +71,7 @@ public class SObjectSummaryMixin {
     @JsonProperty("retriveable")
     boolean retrieveable;
 
-    @JsonProperty("endeletable")
+    @JsonProperty("undeletable")
     boolean undeletable;
 
     @JsonProperty("triggerable")
