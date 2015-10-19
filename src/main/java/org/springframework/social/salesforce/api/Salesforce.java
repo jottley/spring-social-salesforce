@@ -15,6 +15,8 @@ public interface Salesforce extends ApiBinding {
   
     public static final String PROVIDER_ID="salesforce";
 
+    public ApexRestOperations apexRestOperations();
+    
     public ApiOperations apiOperations();
     
     public BulkApiOperations bulkApiOperations();
@@ -23,7 +25,7 @@ public interface Salesforce extends ApiBinding {
 
     public QueryOperations queryOperations();
 
-    public RecentOperations recentOperations();
+    public RecentOperations recentOperations();    
 
     public SearchOperations searchOperations();
 

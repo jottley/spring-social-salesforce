@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
+import org.springframework.social.salesforce.api.ApexRestOperations;
 import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.BulkApiOperations;
 import org.springframework.social.salesforce.api.ChatterOperations;
@@ -42,6 +43,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
   private String identityServiceUrl;
 
   private ObjectMapper objectMapper;
+  
+  private ApexRestOperations apexRestOperations;
 
   private ApiOperations apiOperations;
 
@@ -79,6 +82,11 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
   }
 
   @Override
+  public ApexRestOperations apexRestOperations() {    
+    return apexRestOperations;
+  }
+
+  @Override
   public ApiOperations apiOperations() {
     return apiOperations;
   }
@@ -112,8 +120,9 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
   public SObjectOperations sObjectsOperations() {
     return sObjectsOperations;
   }
-
+  
   private void initialize(String accessToken) {
+    apexRestOperations = new ApexRestTemplate(this, getRestTemplate());
     apiOperations = new ApiTemplate(this, getRestTemplate());
     chatterOperations = new ChatterTemplate(this, getRestTemplate());
     queryOperations = new QueryTemplate(this, getRestTemplate());
