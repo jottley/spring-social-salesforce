@@ -29,6 +29,7 @@ import java.util.List;
  * the operations that can be performed on Salesforce.
  * 
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Salesforce
 {
@@ -82,8 +83,25 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
 
     @Override
+    public ApiOperations apiOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
+
+        return apiOperations;
+    }
+
+
+    @Override
     public ChatterOperations chatterOperations()
     {
+        return chatterOperations;
+    }
+
+
+    @Override
+    public ChatterOperations chatterOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
         return chatterOperations;
     }
 
@@ -96,8 +114,24 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
 
     @Override
+    public QueryOperations queryOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
+        return queryOperations;
+    }
+
+
+    @Override
     public RecentOperations recentOperations()
     {
+        return recentOperations;
+    }
+
+
+    @Override
+    public RecentOperations recentOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
         return recentOperations;
     }
 
@@ -110,8 +144,25 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
 
     @Override
+    public SearchOperations searchOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
+
+        return searchOperations;
+    }
+
+
+    @Override
     public SObjectOperations sObjectsOperations()
     {
+        return sObjectsOperations;
+    }
+
+
+    @Override
+    public SObjectOperations sObjectsOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
         return sObjectsOperations;
     }
 
@@ -172,6 +223,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return this.instanceUrl;
     }
 
+    @Override
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
     }
