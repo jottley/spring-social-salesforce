@@ -13,6 +13,7 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
+import org.springframework.social.support.LoggingErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
 /**
@@ -71,6 +72,7 @@ public class SalesforceOAuth2Template extends OAuth2Template
         converters.add(new MappingJackson2HttpMessageConverter());
         converters.add(new ResourceHttpMessageConverter());
         restTemplate.setMessageConverters(converters);
+        restTemplate.setErrorHandler(new LoggingErrorHandler());
         return restTemplate;
     }
 }
