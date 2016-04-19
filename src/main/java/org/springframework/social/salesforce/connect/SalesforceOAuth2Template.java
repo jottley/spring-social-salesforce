@@ -12,7 +12,6 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
-import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.social.support.LoggingErrorHandler;
 import org.springframework.web.client.RestTemplate;
 
@@ -26,23 +25,27 @@ import org.springframework.web.client.RestTemplate;
 public class SalesforceOAuth2Template extends OAuth2Template
 {
     private String instanceUrl;
+    private ClientHttpRequestFactory clientHttpRequestFactory;
 
     public SalesforceOAuth2Template(String clientId,
                                     String clientSecret,
                                     String authorizeUrl,
-                                    String accessTokenUrl)
+                                    String accessTokenUrl,
+                                    ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        this(clientId, clientSecret, authorizeUrl, null, accessTokenUrl);
+        this(clientId, clientSecret, authorizeUrl, null, accessTokenUrl, clientHttpRequestFactory);
     }
 
     public SalesforceOAuth2Template(String clientId,
                                     String clientSecret,
                                     String authorizeUrl,
                                     String authenticateUrl,
-                                    String accessTokenUrl)
+                                    String accessTokenUrl,
+                                    ClientHttpRequestFactory clientHttpRequestFactory)
     {
         super(clientId, clientSecret, authorizeUrl, authenticateUrl, accessTokenUrl);
         setUseParametersForClientAuthentication(true);
+        this.clientHttpRequestFactory = clientHttpRequestFactory;
     }
 
     @Override
@@ -65,8 +68,7 @@ public class SalesforceOAuth2Template extends OAuth2Template
     @Override
     protected RestTemplate createRestTemplate()
     {
-        ClientHttpRequestFactory requestFactory = ClientHttpRequestFactorySelector.getRequestFactory();
-        RestTemplate restTemplate = new RestTemplate(requestFactory);
+        RestTemplate restTemplate = new RestTemplate(clientHttpRequestFactory);
         List<HttpMessageConverter<?>> converters = new ArrayList<HttpMessageConverter<?>>(2);
         converters.add(new FormHttpMessageConverter());
         converters.add(new MappingJackson2HttpMessageConverter());

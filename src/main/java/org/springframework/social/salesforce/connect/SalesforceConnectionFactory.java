@@ -1,5 +1,6 @@
 package org.springframework.social.salesforce.connect;
 
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
 import org.springframework.social.connect.SalesforceConnectionData;
@@ -17,19 +18,25 @@ public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesfo
 {
 
     public SalesforceConnectionFactory(String clientId,
-                                       String clientSecret)
+                                       String clientSecret,
+                                       ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret), new SalesforceAdapter(null));
+        super("salesforce",
+              new SalesforceServiceProvider(clientId, clientSecret, clientHttpRequestFactory),
+              new SalesforceAdapter(null));
     }
 
     public SalesforceConnectionFactory(String clientId,
                                        String clientSecret,
                                        String authorizeUrl,
-                                       String tokenUrl)
+                                       String tokenUrl,
+                                       ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super("salesforce",
-              new SalesforceServiceProvider(clientId, clientSecret, authorizeUrl, tokenUrl),
-              new SalesforceAdapter(null));
+        super("salesforce", new SalesforceServiceProvider(clientId,
+                                                          clientSecret,
+                                                          authorizeUrl,
+                                                          tokenUrl,
+                                                          clientHttpRequestFactory), new SalesforceAdapter(null));
     }
 
     @Override

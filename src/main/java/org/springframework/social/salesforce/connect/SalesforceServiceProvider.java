@@ -1,5 +1,6 @@
 package org.springframework.social.salesforce.connect;
 
+import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
@@ -13,20 +14,23 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
 {
 
     public SalesforceServiceProvider(String clientId,
-                                     String clientSecret)
+                                     String clientSecret,
+                                     ClientHttpRequestFactory clientHttpRequestFactory)
     {
         this(clientId,
              clientSecret,
              "https://login.salesforce.com/services/oauth2/authorize",
-             "https://login.salesforce.com/services/oauth2/token");
+             "https://login.salesforce.com/services/oauth2/token",
+             clientHttpRequestFactory);
     }
 
     public SalesforceServiceProvider(String clientId,
                                      String clientSecret,
                                      String authorizeUrl,
-                                     String tokenUrl)
+                                     String tokenUrl,
+                                     ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl));
+        super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl, clientHttpRequestFactory));
     }
 
     @Override
