@@ -18,6 +18,8 @@ import org.springframework.social.salesforce.api.RecentOperations;
 import org.springframework.social.salesforce.api.SObjectOperations;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SearchOperations;
+import org.springframework.social.salesforce.api.SalesforceUserDetails;
+import org.springframework.social.salesforce.api.UserOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,6 +54,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     private SearchOperations searchOperations;
 
     private SObjectOperations sObjectsOperations;
+
+    private UserOperations userOperations;
 
 
     public SalesforceTemplate()
@@ -166,6 +170,12 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return sObjectsOperations;
     }
 
+    @Override
+    public UserOperations userOperations() 
+    {
+        return userOperations;
+    }
+
 
     private void initialize()
     {
@@ -175,6 +185,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         recentOperations = new RecentTemplate(this, getRestTemplate());
         searchOperations = new SearchTemplate(this, getRestTemplate());
         sObjectsOperations = new SObjectsTemplate(this, getRestTemplate());
+        userOperations = new UserOperationsTemplate(this, getRestTemplate());
     }
 
 

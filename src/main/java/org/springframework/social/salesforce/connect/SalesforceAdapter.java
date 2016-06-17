@@ -7,6 +7,7 @@ import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SalesforceProfile;
+import org.springframework.social.salesforce.api.SalesforceUserDetails;
 import org.springframework.util.StringUtils;
 
 
@@ -47,18 +48,9 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
     }
 
     public void setConnectionValues(Salesforce salesforce, ConnectionValues values) {
-        SalesforceProfile profile;
-
-        if (StringUtils.isEmpty(instanceUrl))
-        {
-            profile = salesforce.chatterOperations().getUserProfile();
-        }
-        else
-        {
-            profile = salesforce.chatterOperations(instanceUrl).getUserProfile();
-        }
-        values.setProviderUserId(profile.getId());
-        values.setDisplayName(profile.getFirstName() + " " + profile.getLastName());
+        SalesforceUserDetails userDetails = salesforce.userOperations().getSalesforceUserDetails();
+        values.setProviderUserId(userDetails.getId());
+        values.setDisplayName(userDetails.getName());
     }
 
     public UserProfile fetchUserProfile(Salesforce salesforce) {

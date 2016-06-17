@@ -15,6 +15,7 @@ import org.springframework.social.salesforce.api.SObjectDetail;
 import org.springframework.social.salesforce.api.SObjectSummary;
 import org.springframework.social.salesforce.api.SalesforceProfile;
 import org.springframework.social.salesforce.api.Status;
+import org.springframework.social.salesforce.api.SalesforceUserDetails;
 
 
 /**
@@ -35,6 +36,7 @@ public class SalesforceModule extends SimpleModule
 
         context.setMixInAnnotations(ApiVersion.class, ApiVersionMixin.class);
         context.setMixInAnnotations(SalesforceProfile.class, SalesforceProfileMixin.class);
+        context.setMixInAnnotations(SalesforceUserDetails.class, SalesforceUserDetailsMixin.class);
         context.setMixInAnnotations(Photo.class, PhotoMixin.class);
         context.setMixInAnnotations(Status.class, StatusMixin.class);
         context.setMixInAnnotations(SObjectSummary.class, SObjectSummaryMixin.class);
