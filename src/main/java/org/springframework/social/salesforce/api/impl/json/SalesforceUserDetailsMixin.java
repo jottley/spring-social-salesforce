@@ -13,9 +13,12 @@ public class SalesforceUserDetailsMixin {
     @JsonCreator
     SalesforceUserDetailsMixin(
             @JsonProperty("user_id") String id,
+            @JsonProperty("given_name") String firstName,
+            @JsonProperty("family_name") String lastName,
+            @JsonProperty("email") String email,
+            @JsonProperty("name") String name,            
             @JsonProperty("organization_id") String organizationId,
             @JsonProperty("nickname") String nickname,
-            @JsonProperty("name") String name,
             @JsonProperty("preferred_username") String preferredUsername) {
     }
 }
