@@ -7,7 +7,9 @@ import org.springframework.social.salesforce.api.SalesforceUserDetails;
 import org.springframework.social.salesforce.api.UserOperations;
 import org.springframework.web.client.RestTemplate;
 
-
+/**
+ * Default implementation of UserOperations.
+ */
 public class UserOperationsTemplate extends AbstractSalesForceOperations<Salesforce> implements UserOperations {
     private static final String USER_INFO_ENDPOINT = "https://login.salesforce.com/services/oauth2/userinfo";
 

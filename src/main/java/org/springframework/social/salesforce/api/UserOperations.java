@@ -6,6 +6,10 @@ import org.springframework.social.salesforce.api.SalesforceUserDetails;
  */
 public interface UserOperations {
 
+    /**
+     * Retrieves the details for the current logged in user.
+     * @return user details 
+     */
     SalesforceUserDetails getSalesforceUserDetails(); 
 
 }
