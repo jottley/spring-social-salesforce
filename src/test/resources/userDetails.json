@@ -1,0 +1,42 @@
+{  
+   "sub":"http://login.salesforce.com/id/6789/12345",
+   "user_id":"12345",
+   "organization_id":"6789",
+   "preferred_username":"johnny",
+   "nickname":"johnny_doe",
+   "name":"John Doe",
+   "email":"john@doe.com",
+   "email_verified":true,
+   "given_name":"John",
+   "family_name":"Doe",
+   "zoneinfo":"America/Los_Angeles",
+   "photos":{  
+      "picture":"https://c.na7.content.force.com/profilephoto/005/F",
+      "thumbnail":"https://c.na7.content.force.com/profilephoto/005/T"
+   },
+   "profile":"https://yourInstance.salesforce.com/005x000...",
+   "picture":"https://yourInstance.salesforce.com/profilephoto/005/F",
+   "address":{  
+      "country":"us"
+   },
+   "urls":{  
+      "enterprise":"https://yourInstance.salesforce.com/services/Soap/c/{version}/00Dx00...",
+      "partner":"https://yourInstance.salesforce.com/services/Soap/u/{version}/00Dx00...",
+      "rest":"https://yourInstance.salesforce.com/services/data/v{version}/",
+      "sobjects":"https://yourInstance.salesforce.com/services/data/v{version}/sobjects/",
+      "search":"https://yourInstance.salesforce.com/services/data/v{version}/search/",
+      "query":"https://yourInstance.salesforce.com/services/data/v{version}/query/",
+      "recent":"https://yourInstance.salesforce.com/services/data/v{version}/recent/",
+      "profile":"https://yourInstance.salesforce.com/005x000...",
+      "feeds":"https://yourInstance.salesforce.com/services/data/v{version}/chatter/feeds",
+      "groups":"https://yourInstance.salesforce.com/services/data/v{version}/chatter/groups",
+      "users":"https://yourInstance.salesforce.com/services/data/v{version}/chatter/users",
+      "feed_items":"https://yourInstance.salesforce.com/services/data/v{version}/chatter/feed-items"
+   },
+   "active":true,
+   "user_type":"STANDARD",
+   "language":"en_US",
+   "locale":"en_US",
+   "utcOffset":-28800000,
+   "updated_at":"2013-12-02T18:46:42.000+0000"
+}
