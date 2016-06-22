@@ -4,7 +4,7 @@
 
     <groupId>org.springframework.social</groupId>
     <artifactId>spring-social-salesforce</artifactId>
-    <version>1.2.0-alfresco5</version>
+    <version>1.2.0.6-alfresco-patched</version>
     <packaging>jar</packaging>
 
     <name>spring-social-salesforce</name>
