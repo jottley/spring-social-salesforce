@@ -46,7 +46,10 @@ public class SalesforceOAuth2Connection extends OAuth2Connection<Salesforce>
                                                 getKey().getProviderUserId(),
                                                 getDisplayName(),
                                                 getProfileUrl(),
-                                                getImageUrl(),
+                                                getApi().chatterOperations()
+                                                        .getUserProfile()
+                                                        .getPhoto()
+                                                        .getLargePhotoUrl(),
                                                 connectionData.getAccessToken(),
                                                 null,
                                                 connectionData.getRefreshToken(),

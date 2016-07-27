@@ -16,7 +16,6 @@ import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGran
  */
 public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesforce>
 {
-
     public SalesforceConnectionFactory(String clientId,
                                        String clientSecret,
                                        ClientHttpRequestFactory clientHttpRequestFactory)
