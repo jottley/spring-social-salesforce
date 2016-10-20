@@ -1,4 +1,4 @@
-# Spring Social Salesforce
+# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce)
 
 Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for Salesforce
 REST API.
