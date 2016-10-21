@@ -22,6 +22,8 @@ import org.springframework.social.MissingAuthorizationException;
  * @author Umut Utkan
  */
 public class AbstractSalesForceOperations<T extends ApiBinding> {
+    
+    public static final String API_VERSION = "v26.0";
 
     protected T api;
 

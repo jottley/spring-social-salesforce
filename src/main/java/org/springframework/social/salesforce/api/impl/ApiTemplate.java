@@ -15,7 +15,7 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.ApiVersion;
 import org.springframework.social.salesforce.api.Salesforce;

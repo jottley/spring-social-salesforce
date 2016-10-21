@@ -15,7 +15,6 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-
 import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.social.salesforce.api.SObjectDetail;
@@ -28,8 +27,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
+import static org.springframework.http.HttpMethod.DELETE;
 import static org.springframework.http.HttpMethod.GET;
 import static org.springframework.http.HttpMethod.POST;
 import static org.springframework.social.test.client.RequestMatchers.method;
@@ -43,7 +42,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void getSObjects() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("sobjects.json"), responseHeaders));
         List<Map> sobjects = salesforce.sObjectsOperations().getSObjects();
@@ -56,10 +55,10 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void getSObject() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Account"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Account"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("account.json"), responseHeaders));
-        SObjectSummary account = salesforce.sObjectsOperations().getSObject("Account");
+        SObjectSummary account = salesforce.sObjectsOperations().getSObjectSummary("Account");
         assertNotNull(account);
         assertEquals("Account", account.getName());
         assertEquals("Account", account.getLabel());
@@ -71,7 +70,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void describeSObject() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Account/describe"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Account/describe"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("account_desc.json"), responseHeaders));
         SObjectDetail account = salesforce.sObjectsOperations().describeSObject("Account");
@@ -88,7 +87,7 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void getBlob() throws IOException {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Account/xxx/avatar"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Account/xxx/avatar"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(new ByteArrayResource("does-not-matter".getBytes("UTF-8")), responseHeaders));
         BufferedReader reader = new BufferedReader(new InputStreamReader(salesforce.sObjectsOperations().getBlob("Account", "xxx", "avatar")));
@@ -97,16 +96,43 @@ public class SObjectsTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void testCreate() throws IOException {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/sobjects/Lead"))
-            .andExpect(method(POST))
-            .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
-        Map<String, String> fields = new HashMap<String, String>();
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead"))
+                .andExpect(method(POST))
+                .andRespond(withResponse(new ByteArrayResource("{\"Id\" : \"1234\"}".getBytes("UTF-8")), responseHeaders));
+        Map<String, Object> fields = new HashMap<String, Object>();
         fields.put("LastName", "Doe");
         fields.put("FirstName", "John");
         fields.put("Company", "Acme, Inc.");
         Map<?, ?> result = salesforce.sObjectsOperations().create("Lead", fields);
         assertEquals(1, result.size());
         assertEquals("1234", result.get("Id"));
+    }
+
+    @Test
+    public void testUpdate() throws IOException {
+        // salesforce returns an empty body with a success code if no failures.
+        // But, have to mock a json string to satisfy Mock Rest service.
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead/abc123?_HttpMethod=PATCH"))
+                .andExpect(method(POST))
+                .andRespond(withResponse("{}", responseHeaders));
+        Map<String, Object> leadData = new HashMap<String, Object>();
+        leadData.put("LastName", "Doe");
+        leadData.put("FirstName", "John");
+        leadData.put("Company", "Acme, Inc.");
+        Map<?, ?> result = salesforce.sObjectsOperations().update("Lead", "abc123", leadData);
+        assertTrue(result.size() == 0);
+    }
+    
+    @Test
+    public void testDelete() throws IOException {
+        // salesforce returns an empty body with a success code if no failures.
+        // But, have to mock a json string to satisfy Mock Rest service.
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/sobjects/Lead/abc123"))
+                .andExpect(method(DELETE))
+                .andRespond(withResponse("{}", responseHeaders));
+        salesforce.sObjectsOperations().delete("Lead", "abc123");
+        //if it makes it here with no error then it is good.
+        assertTrue(true);
     }
 
 }

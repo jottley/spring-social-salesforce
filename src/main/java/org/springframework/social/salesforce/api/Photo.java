@@ -15,7 +15,9 @@
  */
 package org.springframework.social.salesforce.api;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 
 /**
  * @author Umut Utkan

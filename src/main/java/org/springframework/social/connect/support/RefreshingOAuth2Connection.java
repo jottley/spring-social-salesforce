@@ -24,9 +24,6 @@ import org.springframework.social.oauth2.OAuth2ServiceProvider;
  */
 public class RefreshingOAuth2Connection<A> extends OAuth2Connection<A> {
 
-    private String instanceUrl;
-
-
     public RefreshingOAuth2Connection(String providerId, String providerUserId, String accessToken, String refreshToken, Long expireTime, OAuth2ServiceProvider<A> aoAuth2ServiceProvider, ApiAdapter<A> aApiAdapter) {
         super(providerId, providerUserId, accessToken, refreshToken, expireTime, aoAuth2ServiceProvider, aApiAdapter);
     }

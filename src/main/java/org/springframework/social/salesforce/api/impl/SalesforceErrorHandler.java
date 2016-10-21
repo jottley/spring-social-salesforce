@@ -15,15 +15,17 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import org.codehaus.jackson.JsonFactory;
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.type.CollectionType;
-import org.codehaus.jackson.map.type.TypeFactory;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.*;
-import org.springframework.social.salesforce.api.InvalidIDException;
+import org.springframework.social.salesforce.api.SalesforceRequestException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
@@ -34,6 +36,7 @@ import java.util.Map;
  * @author Umut Utkan
  */
 public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
+    Logger logger = LoggerFactory.getLogger(SalesforceErrorHandler.class);
 
     @Override
     public void handleError(ClientHttpResponse response) throws IOException {
@@ -44,23 +47,24 @@ public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
 
         handleSalesforceError(response.getStatusCode(), errorDetails);
 
-        // if not otherwise handled, do default handling and wrap with UncategorizedApiException
+        // if not otherwise handled, do default handling and wrap with
+        // UncategorizedApiException
         handleUncategorizedError(response, errorDetails);
     }
 
     private void handleSalesforceError(HttpStatus statusCode, Map<String, Object> errorDetails) {
         if (statusCode.equals(HttpStatus.NOT_FOUND)) {
-            throw new ResourceNotFoundException(generateMessage(errorDetails));
+            throw new ResourceNotFoundException(extractErrorMessage(errorDetails));
         } else if (statusCode.equals(HttpStatus.SERVICE_UNAVAILABLE)) {
             throw new RateLimitExceededException();
         } else if (statusCode.equals(HttpStatus.INTERNAL_SERVER_ERROR)) {
-            throw new InternalServerErrorException(errorDetails == null ? "Contact Salesforce administrator." : generateMessage(errorDetails));
-        } else if (statusCode.equals(HttpStatus.BAD_REQUEST)) {
-            throw new InvalidIDException(generateMessage(errorDetails));
+            throw new InternalServerErrorException(errorDetails == null ? "Contact Salesforce administrator." : extractErrorMessage(errorDetails));
+        } else if (statusCode.equals(HttpStatus.BAD_REQUEST) || statusCode.equals(HttpStatus.MULTIPLE_CHOICES)) {
+            throw new SalesforceRequestException(errorDetails);
         } else if (statusCode.equals(HttpStatus.UNAUTHORIZED)) {
-            throw new InvalidAuthorizationException(generateMessage(errorDetails));
+            throw new InvalidAuthorizationException(extractErrorMessage(errorDetails));
         } else if (statusCode.equals(HttpStatus.FORBIDDEN)) {
-            throw new InsufficientPermissionException(generateMessage(errorDetails));
+            throw new InsufficientPermissionException(extractErrorMessage(errorDetails));
         }
     }
 
@@ -68,10 +72,10 @@ public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
         try {
             super.handleError(response);
         } catch (Exception e) {
-            if (errorDetails != null) {
-                throw new UncategorizedApiException(generateMessage(errorDetails), e);
-            } else {
+            if (errorDetails == null) {
                 throw new UncategorizedApiException("No error details from Salesforce.", e);
+            } else {
+                throw new UncategorizedApiException(extractErrorMessage(errorDetails), e);
             }
         }
     }
@@ -86,13 +90,14 @@ public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
                 return errorList.get(0);
             }
         } catch (JsonParseException e) {
-
+            logger.error("Unable to parse salesforce response: {} ", response);
+            throw new UncategorizedApiException("Unable to read salesforce response.", e);
         }
 
         return null;
     }
 
-    private String generateMessage(Map<String, Object> errorDetails) {
+    private String extractErrorMessage(Map<String, Object> errorDetails) {
         return (String) errorDetails.get("message");
     }
 

@@ -24,6 +24,10 @@ import java.util.List;
  */
 public interface SearchOperations {
 
+    /**
+     * Execute SOSL Query and retrieve results
+     */
     List<ResultItem> search(String soslQuery);
+    
 
 }
