@@ -17,28 +17,34 @@ package org.springframework.social.salesforce.api;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonAnySetter;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 /**
  * @author Umut Utkan
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfile implements Serializable {
+    protected String id;
 
-    private String id;
+    protected String email;
 
-    private String email;
+    protected String firstName;
 
-    private String firstName;
+    protected String lastName;
 
-    private String lastName;
+    protected Photo photo;
+    
+    protected String name;
 
-    private Photo photo;
 
-
-    public SalesforceProfile(String id, String firstName, String lastName, String email) {
+    /*public SalesforceProfile(String id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
+    }*/
 
 
     public String getId() {
@@ -61,12 +67,11 @@ public class SalesforceProfile implements Serializable {
         return this.photo;
     }
 
-    public String getFullName() {
-        return this.firstName + " " + this.lastName;
+    public String getName() {
+        return this.name;
     }
 
     public String getUsername() {
         return this.id;
     }
-
 }

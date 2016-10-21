@@ -37,11 +37,11 @@ public class ChatterTemplateTest extends AbstractSalesforceTest {
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("profile.json"), responseHeaders));
         SalesforceProfile profile = salesforce.chatterOperations().getUserProfile();
-        assertEquals("Umut Utkan", profile.getFullName());
+        assertEquals("Umut Utkan", profile.getName());
         assertEquals("umut.utkan@foo.com", profile.getEmail());
         assertEquals("005A0000001cRuvIAE", profile.getId());
         assertEquals("005A0000001cRuvIAE", profile.getUsername());
-        assertEquals("Umut Utkan", profile.getFullName());
+        assertEquals("Umut Utkan", profile.getName());
         assertEquals("https://c.na7.content.force.com/profilephoto/005/F", profile.getPhoto().getLargePhotoUrl());
         assertEquals("https://c.na7.content.force.com/profilephoto/005/T", profile.getPhoto().getSmallPhotoUrl());
     }

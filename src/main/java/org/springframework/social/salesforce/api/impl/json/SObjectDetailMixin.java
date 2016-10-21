@@ -15,8 +15,8 @@
  */
 package org.springframework.social.salesforce.api.impl.json;
 
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.salesforce.api.Field;
 import org.springframework.social.salesforce.api.RecordTypeInfo;
 import org.springframework.social.salesforce.api.Relationship;

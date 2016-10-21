@@ -33,7 +33,7 @@ public class SearchTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void search() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v23.0/search?q=FIND+%7Bxxx*%7D+IN+ALL+FIELDS+RETURNING+Contact%2C+Account"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/search?q=FIND+%7Bxxx*%7D+IN+ALL+FIELDS+RETURNING+Contact%2C+Account"))
                 .andExpect(method(GET))
                 .andRespond(withResponse(loadResource("search.json"), responseHeaders));
         List<ResultItem> results = salesforce.searchOperations().search("FIND {xxx*} IN ALL FIELDS RETURNING Contact, Account");
