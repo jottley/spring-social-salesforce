@@ -37,6 +37,7 @@ import java.util.List;
  * for all the operations that can be performed on Salesforce.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Salesforce {
 
