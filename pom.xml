@@ -283,6 +283,7 @@
                     <excludes>
                         <exclude>README.md</exclude>
                         <exclude>src/test/resources/</exclude>
+                        <exclude>.travis.yml</exclude>
                     </excludes>
                 </configuration>
             </plugin>
