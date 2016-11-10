@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.converter.FormHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
@@ -15,6 +17,8 @@ import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
 import org.springframework.social.support.LoggingErrorHandler;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * Salesforce OAuth2Template implementation.
@@ -82,7 +86,11 @@ public class SalesforceOAuth2Template extends OAuth2Template
     @Override
     public String buildAuthenticateUrl(OAuth2Parameters parameters)
     {
-        parameters.add("prompt", "login consent");
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = servletRequestAttributes.getRequest();
+        if (request != null && request.getParameter("forceLoginPrompt") != null) {
+            parameters.add("prompt", "login consent");
+        }
         return super.buildAuthenticateUrl(parameters);
     }
 }
