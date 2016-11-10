@@ -30,8 +30,7 @@ public class SalesforceOAuth2Connection extends OAuth2Connection<Salesforce>
         this.identityUrl = identityUrl;
     }
 
-    public SalesforceOAuth2Connection(SalesforceConnectionData data,
-                                      OAuth2ServiceProvider<Salesforce> serviceProvider)
+    public SalesforceOAuth2Connection(SalesforceConnectionData data, OAuth2ServiceProvider<Salesforce> serviceProvider)
     {
         super(data, serviceProvider, new SalesforceAdapter(data.getIdentityUrl()));
         this.identityUrl = data.getIdentityUrl();
@@ -46,10 +45,7 @@ public class SalesforceOAuth2Connection extends OAuth2Connection<Salesforce>
                                                 getKey().getProviderUserId(),
                                                 getDisplayName(),
                                                 getProfileUrl(),
-                                                getApi().chatterOperations()
-                                                        .getUserProfile()
-                                                        .getPhoto()
-                                                        .getLargePhotoUrl(),
+                                                getImageUrl(),
                                                 connectionData.getAccessToken(),
                                                 null,
                                                 connectionData.getRefreshToken(),

@@ -10,6 +10,7 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.ResourceHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AccessGrant;
+import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
 import org.springframework.social.support.LoggingErrorHandler;
@@ -76,5 +77,12 @@ public class SalesforceOAuth2Template extends OAuth2Template
         restTemplate.setMessageConverters(converters);
         restTemplate.setErrorHandler(new LoggingErrorHandler());
         return restTemplate;
+    }
+
+    @Override
+    public String buildAuthenticateUrl(OAuth2Parameters parameters)
+    {
+        parameters.add("prompt", "login consent");
+        return super.buildAuthenticateUrl(parameters);
     }
 }
