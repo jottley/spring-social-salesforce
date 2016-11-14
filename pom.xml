@@ -4,7 +4,7 @@
 
     <groupId>org.springframework.social</groupId>
     <artifactId>spring-social-salesforce</artifactId>
-    <version>1.1.7.1.RELEASE</version>
+    <version>1.1.7.2.RELEASE</version>
     <packaging>jar</packaging>
 
     <name>spring-social-salesforce</name>
@@ -52,6 +52,19 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <distributionManagement>
+        <repository>
+            <id>Coveo</id>
+            <name>Coveo Release Repository</name>
+            <url>https://maven.corp.coveo.com/artifactory/ext-release-local</url>
+        </repository>
+        <snapshotRepository>
+            <id>Coveo</id>
+            <name>Coveo Snapshot Repository</name>
+            <url>https://maven.corp.coveo.com/artifactory/ext-snapshot-local</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <build>
         <plugins>

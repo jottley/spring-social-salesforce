@@ -89,7 +89,7 @@ public class SalesforceOAuth2Template extends OAuth2Template
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         if (request != null && request.getParameter("forceLoginPrompt") != null) {
-            parameters.add("prompt", "login consent");
+            parameters.add("prompt", "login");
         }
         return super.buildAuthenticateUrl(parameters);
     }
