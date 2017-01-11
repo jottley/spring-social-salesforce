@@ -3,7 +3,8 @@ package org.springframework.social.salesforce.api;
 /**
  * @author Umut Utkan
  */
-public class RecordTypeInfo {
+public class RecordTypeInfo
+{
 
     private String name;
 
@@ -13,28 +14,31 @@ public class RecordTypeInfo {
 
     private boolean defaultRecordTypeMapping;
 
-
-    public RecordTypeInfo(String name, boolean available, String recordTypeId, boolean defaultRecordTypeMapping) {
+    public RecordTypeInfo(String name, boolean available, String recordTypeId, boolean defaultRecordTypeMapping)
+    {
         this.name = name;
         this.available = available;
         this.recordTypeId = recordTypeId;
         this.defaultRecordTypeMapping = defaultRecordTypeMapping;
     }
 
-
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public boolean isAvailable() {
+    public boolean isAvailable()
+    {
         return available;
     }
 
-    public String getRecordTypeId() {
+    public String getRecordTypeId()
+    {
         return recordTypeId;
     }
 
-    public boolean isDefaultRecordTypeMapping() {
+    public boolean isDefaultRecordTypeMapping()
+    {
         return defaultRecordTypeMapping;
     }
 

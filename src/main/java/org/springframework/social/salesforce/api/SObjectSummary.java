@@ -5,7 +5,8 @@ import java.util.Map;
 /**
  * @author Umut Utkan
  */
-public class SObjectSummary {
+public class SObjectSummary
+{
 
     private String name;
 
@@ -49,177 +50,218 @@ public class SObjectSummary {
 
     private boolean triggerable;
 
-
-    public SObjectSummary() {
+    public SObjectSummary()
+    {
 
     }
 
-
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(String name)
+    {
         this.name = name;
     }
 
-    public String getLabel() {
+    public String getLabel()
+    {
         return label;
     }
 
-    public void setLabel(String label) {
+    public void setLabel(String label)
+    {
         this.label = label;
     }
 
-    public boolean isUpdateable() {
+    public boolean isUpdateable()
+    {
         return updateable;
     }
 
-    public void setUpdateable(boolean updateable) {
+    public void setUpdateable(boolean updateable)
+    {
         this.updateable = updateable;
     }
 
-    public String getKeyPrefix() {
+    public String getKeyPrefix()
+    {
         return keyPrefix;
     }
 
-    public void setKeyPrefix(String keyPrefix) {
+    public void setKeyPrefix(String keyPrefix)
+    {
         this.keyPrefix = keyPrefix;
     }
 
-    public boolean isCustom() {
+    public boolean isCustom()
+    {
         return custom;
     }
 
-    public void setCustom(boolean custom) {
+    public void setCustom(boolean custom)
+    {
         this.custom = custom;
     }
 
-    public Map<String, String> getUrls() {
+    public Map<String, String> getUrls()
+    {
         return urls;
     }
 
-    public void setUrls(Map<String, String> urls) {
+    public void setUrls(Map<String, String> urls)
+    {
         this.urls = urls;
     }
 
-    public boolean isSearchable() {
+    public boolean isSearchable()
+    {
         return searchable;
     }
 
-    public void setSearchable(boolean searchable) {
+    public void setSearchable(boolean searchable)
+    {
         this.searchable = searchable;
     }
 
-    public String getLabelPlural() {
+    public String getLabelPlural()
+    {
         return labelPlural;
     }
 
-    public void setLabelPlural(String labelPlural) {
+    public void setLabelPlural(String labelPlural)
+    {
         this.labelPlural = labelPlural;
     }
 
-    public boolean isLayoutable() {
+    public boolean isLayoutable()
+    {
         return layoutable;
     }
 
-    public void setLayoutable(boolean layoutable) {
+    public void setLayoutable(boolean layoutable)
+    {
         this.layoutable = layoutable;
     }
 
-    public boolean isActivateable() {
+    public boolean isActivateable()
+    {
         return activateable;
     }
 
-    public void setActivateable(boolean activateable) {
+    public void setActivateable(boolean activateable)
+    {
         this.activateable = activateable;
     }
 
-    public boolean isCreateable() {
+    public boolean isCreateable()
+    {
         return createable;
     }
 
-    public void setCreateable(boolean createable) {
+    public void setCreateable(boolean createable)
+    {
         this.createable = createable;
     }
 
-    public boolean isDeprecatedAndHidden() {
+    public boolean isDeprecatedAndHidden()
+    {
         return deprecatedAndHidden;
     }
 
-    public void setDeprecatedAndHidden(boolean deprecatedAndHidden) {
+    public void setDeprecatedAndHidden(boolean deprecatedAndHidden)
+    {
         this.deprecatedAndHidden = deprecatedAndHidden;
     }
 
-    public boolean isCustomSetting() {
+    public boolean isCustomSetting()
+    {
         return customSetting;
     }
 
-    public void setCustomSetting(boolean customSetting) {
+    public void setCustomSetting(boolean customSetting)
+    {
         this.customSetting = customSetting;
     }
 
-    public boolean isDeletable() {
+    public boolean isDeletable()
+    {
         return deletable;
     }
 
-    public void setDeletable(boolean deletable) {
+    public void setDeletable(boolean deletable)
+    {
         this.deletable = deletable;
     }
 
-    public boolean isFeedEnabled() {
+    public boolean isFeedEnabled()
+    {
         return feedEnabled;
     }
 
-    public void setFeedEnabled(boolean feedEnabled) {
+    public void setFeedEnabled(boolean feedEnabled)
+    {
         this.feedEnabled = feedEnabled;
     }
 
-    public boolean isMergeable() {
+    public boolean isMergeable()
+    {
         return mergeable;
     }
 
-    public void setMergeable(boolean mergeable) {
+    public void setMergeable(boolean mergeable)
+    {
         this.mergeable = mergeable;
     }
 
-    public boolean isQueryable() {
+    public boolean isQueryable()
+    {
         return queryable;
     }
 
-    public void setQueryable(boolean queryable) {
+    public void setQueryable(boolean queryable)
+    {
         this.queryable = queryable;
     }
 
-    public boolean isReplicateable() {
+    public boolean isReplicateable()
+    {
         return replicateable;
     }
 
-    public void setReplicateable(boolean replicateable) {
+    public void setReplicateable(boolean replicateable)
+    {
         this.replicateable = replicateable;
     }
 
-    public boolean isRetrieveable() {
+    public boolean isRetrieveable()
+    {
         return retrieveable;
     }
 
-    public void setRetrieveable(boolean retrieveable) {
+    public void setRetrieveable(boolean retrieveable)
+    {
         this.retrieveable = retrieveable;
     }
 
-    public boolean isUndeletable() {
+    public boolean isUndeletable()
+    {
         return undeletable;
     }
 
-    public void setUndeletable(boolean undeletable) {
+    public void setUndeletable(boolean undeletable)
+    {
         this.undeletable = undeletable;
     }
 
-    public boolean isTriggerable() {
+    public boolean isTriggerable()
+    {
         return triggerable;
     }
 
-    public void setTriggerable(boolean triggerable) {
+    public void setTriggerable(boolean triggerable)
+    {
         this.triggerable = triggerable;
     }
 

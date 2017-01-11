@@ -5,7 +5,8 @@ package org.springframework.social.salesforce.api;
  *
  * @author Umut Utkan
  */
-public interface QueryOperations {
+public interface QueryOperations
+{
 
     QueryResult query(String query);
 

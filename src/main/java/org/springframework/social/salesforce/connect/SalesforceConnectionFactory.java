@@ -1,5 +1,7 @@
 package org.springframework.social.salesforce.connect;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.social.connect.Connection;
 import org.springframework.social.connect.ConnectionData;
@@ -10,38 +12,31 @@ import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2ServiceProvider;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * @author Umut Utkan
  */
 public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesforce>
 {
-    public SalesforceConnectionFactory(String clientId,
-                                       String clientSecret,
-                                       ClientHttpRequestFactory clientHttpRequestFactory)
-    {
-        super("salesforce",
-              new SalesforceServiceProvider(clientId, clientSecret, clientHttpRequestFactory),
-              new SalesforceAdapter(null));
-    }
+    public static final String SALESFORCE_PROVIDER_ID = "salesforce";
+    public static final String SALESFORCE_SANDBOX_PROVIDER_ID = "salesforce_sandbox";
 
     public SalesforceConnectionFactory(String clientId,
                                        String clientSecret,
-                                       String authorizeUrl,
-                                       String tokenUrl,
                                        ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super("salesforce", new SalesforceServiceProvider(clientId,
-                                                          clientSecret,
-                                                          authorizeUrl,
-                                                          tokenUrl,
-                                                          clientHttpRequestFactory), new SalesforceAdapter(null));
+        super(SALESFORCE_PROVIDER_ID,
+              new SalesforceServiceProvider(clientId, clientSecret, clientHttpRequestFactory),
+              new SalesforceAdapter(null));
     }
 
     @Override
     public Connection<Salesforce> createConnection(AccessGrant accessGrant)
     {
-        return new SalesforceOAuth2Connection(getProviderId(),
+        return new SalesforceOAuth2Connection(getProviderIdForConnection(),
                                               extractProviderUserId(accessGrant),
                                               accessGrant.getAccessToken(),
                                               accessGrant.getRefreshToken(),
@@ -49,6 +44,18 @@ public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesfo
                                               (String) ((SalesforceAccessGrant) accessGrant).getAdditionalInformation()
                                                                                             .get("id"),
                                               getOAuth2ServiceProvider());
+    }
+
+    public String getProviderIdForConnection()
+    {
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+        HttpServletRequest request = servletRequestAttributes.getRequest();
+        if (request.getParameter("code") != null
+                && servletRequestAttributes.getAttribute(SalesforceOAuth2TemplateComposite.SALESFORCE_SANDBOX_SESSION_PARAMETER,
+                                                         RequestAttributes.SCOPE_SESSION) != null) {
+            return SALESFORCE_SANDBOX_PROVIDER_ID;
+        }
+        return super.getProviderId();
     }
 
     @Override

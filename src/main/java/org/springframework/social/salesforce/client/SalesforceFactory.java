@@ -7,8 +7,7 @@ import org.springframework.social.salesforce.api.Salesforce;
  *
  * @author Umut Utkan
  */
-public interface SalesforceFactory {
-
+public interface SalesforceFactory
+{
     Salesforce create(String username, String password, String securityToken);
-
 }

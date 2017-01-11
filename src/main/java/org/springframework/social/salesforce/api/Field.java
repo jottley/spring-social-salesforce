@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * @author Umut Utkan
  */
-public class Field {
+public class Field
+{
 
     private int length;
 
@@ -89,327 +90,405 @@ public class Field {
 
     private boolean groupable;
 
-
-    public Field(String name, String type, String label) {
+    public Field(String name, String type, String label)
+    {
         this.name = name;
         this.type = type;
         this.label = label;
     }
 
-
-    public String getName() {
+    public String getName()
+    {
         return name;
     }
 
-    public String getType() {
+    public String getType()
+    {
         return type;
     }
 
-    public String getLabel() {
+    public String getLabel()
+    {
         return label;
     }
 
-    public int getLength() {
+    public int getLength()
+    {
         return length;
     }
 
-    public void setLength(int length) {
+    public void setLength(int length)
+    {
         this.length = length;
     }
 
-    public String getDefaultValue() {
+    public String getDefaultValue()
+    {
         return defaultValue;
     }
 
-    public void setDefaultValue(String defaultValue) {
+    public void setDefaultValue(String defaultValue)
+    {
         this.defaultValue = defaultValue;
     }
 
-    public boolean isUpdateable() {
+    public boolean isUpdateable()
+    {
         return updateable;
     }
 
-    public void setUpdateable(boolean updateable) {
+    public void setUpdateable(boolean updateable)
+    {
         this.updateable = updateable;
     }
 
-    public boolean isCalculated() {
+    public boolean isCalculated()
+    {
         return calculated;
     }
 
-    public void setCalculated(boolean calculated) {
+    public void setCalculated(boolean calculated)
+    {
         this.calculated = calculated;
     }
 
-    public boolean isFilterable() {
+    public boolean isFilterable()
+    {
         return filterable;
     }
 
-    public void setFilterable(boolean filterable) {
+    public void setFilterable(boolean filterable)
+    {
         this.filterable = filterable;
     }
 
-    public boolean isSortable() {
+    public boolean isSortable()
+    {
         return sortable;
     }
 
-    public void setSortable(boolean sortable) {
+    public void setSortable(boolean sortable)
+    {
         this.sortable = sortable;
     }
 
-    public String getControllerName() {
+    public String getControllerName()
+    {
         return controllerName;
     }
 
-    public void setControllerName(String controllerName) {
+    public void setControllerName(String controllerName)
+    {
         this.controllerName = controllerName;
     }
 
-    public boolean isUnique() {
+    public boolean isUnique()
+    {
         return unique;
     }
 
-    public void setUnique(boolean unique) {
+    public void setUnique(boolean unique)
+    {
         this.unique = unique;
     }
 
-    public boolean isNillable() {
+    public boolean isNillable()
+    {
         return nillable;
     }
 
-    public void setNillable(boolean nillable) {
+    public void setNillable(boolean nillable)
+    {
         this.nillable = nillable;
     }
 
-    public int getPrecision() {
+    public int getPrecision()
+    {
         return precision;
     }
 
-    public void setPrecision(int precision) {
+    public void setPrecision(int precision)
+    {
         this.precision = precision;
     }
 
-    public int getScale() {
+    public int getScale()
+    {
         return scale;
     }
 
-    public void setScale(int scale) {
+    public void setScale(int scale)
+    {
         this.scale = scale;
     }
 
-    public boolean isCaseSensitive() {
+    public boolean isCaseSensitive()
+    {
         return caseSensitive;
     }
 
-    public void setCaseSensitive(boolean caseSensitive) {
+    public void setCaseSensitive(boolean caseSensitive)
+    {
         this.caseSensitive = caseSensitive;
     }
 
-    public int getByteLength() {
+    public int getByteLength()
+    {
         return byteLength;
     }
 
-    public void setByteLength(int byteLength) {
+    public void setByteLength(int byteLength)
+    {
         this.byteLength = byteLength;
     }
 
-    public boolean isNameField() {
+    public boolean isNameField()
+    {
         return nameField;
     }
 
-    public void setNameField(boolean nameField) {
+    public void setNameField(boolean nameField)
+    {
         this.nameField = nameField;
     }
 
-    public boolean isExternalId() {
+    public boolean isExternalId()
+    {
         return externalId;
     }
 
-    public void setExternalId(boolean externalId) {
+    public void setExternalId(boolean externalId)
+    {
         this.externalId = externalId;
     }
 
-    public boolean isIdLookup() {
+    public boolean isIdLookup()
+    {
         return idLookup;
     }
 
-    public void setIdLookup(boolean idLookup) {
+    public void setIdLookup(boolean idLookup)
+    {
         this.idLookup = idLookup;
     }
 
-    public String getInlineHelpText() {
+    public String getInlineHelpText()
+    {
         return inlineHelpText;
     }
 
-    public void setInlineHelpText(String inlineHelpText) {
+    public void setInlineHelpText(String inlineHelpText)
+    {
         this.inlineHelpText = inlineHelpText;
     }
 
-    public boolean isCreateable() {
+    public boolean isCreateable()
+    {
         return createable;
     }
 
-    public void setCreateable(boolean createable) {
+    public void setCreateable(boolean createable)
+    {
         this.createable = createable;
     }
 
-    public String getSoapType() {
+    public String getSoapType()
+    {
         return soapType;
     }
 
-    public void setSoapType(String soapType) {
+    public void setSoapType(String soapType)
+    {
         this.soapType = soapType;
     }
 
-    public boolean isAutoNumber() {
+    public boolean isAutoNumber()
+    {
         return autoNumber;
     }
 
-    public void setAutoNumber(boolean autoNumber) {
+    public void setAutoNumber(boolean autoNumber)
+    {
         this.autoNumber = autoNumber;
     }
 
-    public boolean isNamePointing() {
+    public boolean isNamePointing()
+    {
         return namePointing;
     }
 
-    public void setNamePointing(boolean namePointing) {
+    public void setNamePointing(boolean namePointing)
+    {
         this.namePointing = namePointing;
     }
 
-    public boolean isCustom() {
+    public boolean isCustom()
+    {
         return custom;
     }
 
-    public void setCustom(boolean custom) {
+    public void setCustom(boolean custom)
+    {
         this.custom = custom;
     }
 
-    public boolean isDefaultedOnCreate() {
+    public boolean isDefaultedOnCreate()
+    {
         return defaultedOnCreate;
     }
 
-    public void setDefaultedOnCreate(boolean defaultedOnCreate) {
+    public void setDefaultedOnCreate(boolean defaultedOnCreate)
+    {
         this.defaultedOnCreate = defaultedOnCreate;
     }
 
-    public boolean isDeprecatedAndHidden() {
+    public boolean isDeprecatedAndHidden()
+    {
         return deprecatedAndHidden;
     }
 
-    public void setDeprecatedAndHidden(boolean deprecatedAndHidden) {
+    public void setDeprecatedAndHidden(boolean deprecatedAndHidden)
+    {
         this.deprecatedAndHidden = deprecatedAndHidden;
     }
 
-    public boolean isHtmlFormatted() {
+    public boolean isHtmlFormatted()
+    {
         return htmlFormatted;
     }
 
-    public void setHtmlFormatted(boolean htmlFormatted) {
+    public void setHtmlFormatted(boolean htmlFormatted)
+    {
         this.htmlFormatted = htmlFormatted;
     }
 
-    public String getDefaultValueFormula() {
+    public String getDefaultValueFormula()
+    {
         return defaultValueFormula;
     }
 
-    public void setDefaultValueFormula(String defaultValueFormula) {
+    public void setDefaultValueFormula(String defaultValueFormula)
+    {
         this.defaultValueFormula = defaultValueFormula;
     }
 
-    public String getCalculatedFormula() {
+    public String getCalculatedFormula()
+    {
         return calculatedFormula;
     }
 
-    public void setCalculatedFormula(String calculatedFormula) {
+    public void setCalculatedFormula(String calculatedFormula)
+    {
         this.calculatedFormula = calculatedFormula;
     }
 
-    public boolean isRestrictedPicklist() {
+    public boolean isRestrictedPicklist()
+    {
         return restrictedPicklist;
     }
 
-    public void setRestrictedPicklist(boolean restrictedPicklist) {
+    public void setRestrictedPicklist(boolean restrictedPicklist)
+    {
         this.restrictedPicklist = restrictedPicklist;
     }
 
-    public List<PickListEntry> getPicklistValues() {
+    public List<PickListEntry> getPicklistValues()
+    {
         return picklistValues;
     }
 
-    public void setPicklistValues(List<PickListEntry> picklistValues) {
+    public void setPicklistValues(List<PickListEntry> picklistValues)
+    {
         this.picklistValues = picklistValues;
     }
 
-    public boolean isDependentPicklist() {
+    public boolean isDependentPicklist()
+    {
         return dependentPicklist;
     }
 
-    public void setDependentPicklist(boolean dependentPicklist) {
+    public void setDependentPicklist(boolean dependentPicklist)
+    {
         this.dependentPicklist = dependentPicklist;
     }
 
-    public String[] getReferenceTo() {
+    public String[] getReferenceTo()
+    {
         return referenceTo;
     }
 
-    public void setReferenceTo(String[] referenceTo) {
+    public void setReferenceTo(String[] referenceTo)
+    {
         this.referenceTo = referenceTo;
     }
 
-    public String getRelationshipName() {
+    public String getRelationshipName()
+    {
         return relationshipName;
     }
 
-    public void setRelationshipName(String relationshipName) {
+    public void setRelationshipName(String relationshipName)
+    {
         this.relationshipName = relationshipName;
     }
 
-    public int getRelationshipOrder() {
+    public int getRelationshipOrder()
+    {
         return relationshipOrder;
     }
 
-    public void setRelationshipOrder(int relationshipOrder) {
+    public void setRelationshipOrder(int relationshipOrder)
+    {
         this.relationshipOrder = relationshipOrder;
     }
 
-    public boolean isWriteRequiresMasterRead() {
+    public boolean isWriteRequiresMasterRead()
+    {
         return writeRequiresMasterRead;
     }
 
-    public void setWriteRequiresMasterRead(boolean writeRequiresMasterRead) {
+    public void setWriteRequiresMasterRead(boolean writeRequiresMasterRead)
+    {
         this.writeRequiresMasterRead = writeRequiresMasterRead;
     }
 
-    public boolean isCascadeDelete() {
+    public boolean isCascadeDelete()
+    {
         return cascadeDelete;
     }
 
-    public void setCascadeDelete(boolean cascadeDelete) {
+    public void setCascadeDelete(boolean cascadeDelete)
+    {
         this.cascadeDelete = cascadeDelete;
     }
 
-    public boolean isRestrictedDelete() {
+    public boolean isRestrictedDelete()
+    {
         return restrictedDelete;
     }
 
-    public void setRestrictedDelete(boolean restrictedDelete) {
+    public void setRestrictedDelete(boolean restrictedDelete)
+    {
         this.restrictedDelete = restrictedDelete;
     }
 
-    public int getDigits() {
+    public int getDigits()
+    {
         return digits;
     }
 
-    public void setDigits(int digits) {
+    public void setDigits(int digits)
+    {
         this.digits = digits;
     }
 
-    public boolean isGroupable() {
+    public boolean isGroupable()
+    {
         return groupable;
     }
 
-    public void setGroupable(boolean groupable) {
+    public void setGroupable(boolean groupable)
+    {
         this.groupable = groupable;
     }
 }

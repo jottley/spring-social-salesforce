@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * @author Umut Utkan
  */
-public class SObjectDetail extends SObjectSummary {
+public class SObjectDetail extends SObjectSummary
+{
 
     private List<Field> fields;
 
@@ -19,57 +20,68 @@ public class SObjectDetail extends SObjectSummary {
 
     private boolean searchLayoutable;
 
-
-    public SObjectDetail() {
+    public SObjectDetail()
+    {
 
     }
 
-
-    public List<Field> getFields() {
+    public List<Field> getFields()
+    {
         return fields;
     }
 
-    public void setFields(List<Field> fields) {
+    public void setFields(List<Field> fields)
+    {
         this.fields = fields;
     }
 
-    public List<Relationship> getChildRelationships() {
+    public List<Relationship> getChildRelationships()
+    {
         return childRelationships;
     }
 
-    public void setChildRelationships(List<Relationship> childRelationships) {
+    public void setChildRelationships(List<Relationship> childRelationships)
+    {
         this.childRelationships = childRelationships;
     }
 
-    public boolean isListviewable() {
+    public boolean isListviewable()
+    {
         return listviewable;
     }
 
-    public void setListviewable(boolean listviewable) {
+    public void setListviewable(boolean listviewable)
+    {
         this.listviewable = listviewable;
     }
 
-    public boolean isLookupLayoutable() {
+    public boolean isLookupLayoutable()
+    {
         return lookupLayoutable;
     }
 
-    public void setLookupLayoutable(boolean lookupLayoutable) {
+    public void setLookupLayoutable(boolean lookupLayoutable)
+    {
         this.lookupLayoutable = lookupLayoutable;
     }
 
-    public List<RecordTypeInfo> getRecordTypeInfos() {
+    public List<RecordTypeInfo> getRecordTypeInfos()
+    {
         return recordTypeInfos;
     }
 
-    public void setRecordTypeInfos(List<RecordTypeInfo> recordTypeInfos) {
+    public void setRecordTypeInfos(List<RecordTypeInfo> recordTypeInfos)
+    {
         this.recordTypeInfos = recordTypeInfos;
     }
 
-    public boolean isSearchLayoutable() {
+    public boolean isSearchLayoutable()
+    {
         return searchLayoutable;
     }
 
-    public void setSearchLayoutable(boolean searchLayoutable) {
+    public void setSearchLayoutable(boolean searchLayoutable)
+    {
         this.searchLayoutable = searchLayoutable;
     }
 
