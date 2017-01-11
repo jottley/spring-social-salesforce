@@ -12,7 +12,6 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
  */
 public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce>
 {
-
     public SalesforceServiceProvider(String clientId,
                                      String clientSecret,
                                      ClientHttpRequestFactory clientHttpRequestFactory)
@@ -21,6 +20,8 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
              clientSecret,
              "https://login.salesforce.com/services/oauth2/authorize",
              "https://login.salesforce.com/services/oauth2/token",
+             "https://test.salesforce.com/services/oauth2/authorize",
+             "https://test.salesforce.com/services/oauth2/token",
              clientHttpRequestFactory);
     }
 
@@ -28,9 +29,17 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
                                      String clientSecret,
                                      String authorizeUrl,
                                      String tokenUrl,
+                                     String sandboxAuthorizeUrl,
+                                     String sandboxTokenUrl,
                                      ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super(new SalesforceOAuth2Template(clientId, clientSecret, authorizeUrl, tokenUrl, clientHttpRequestFactory));
+        super(new SandboxAwareSalesforceOAuth2TemplateFactory(clientId,
+                                                              clientSecret,
+                                                              authorizeUrl,
+                                                              tokenUrl,
+                                                              sandboxAuthorizeUrl,
+                                                              sandboxTokenUrl,
+                                                              clientHttpRequestFactory));
     }
 
     @Override
@@ -39,7 +48,8 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
         SalesforceTemplate template = new SalesforceTemplate(accessToken);
 
         // gets the returned instance url and sets to Salesforce template as base url.
-        String instanceUrl = ((SalesforceOAuth2Template) getOAuthOperations()).getInstanceUrl();
+        String instanceUrl = ((SandboxAwareSalesforceOAuth2TemplateFactory) getOAuthOperations()).getSalesforceOAuth2TemplateFromContext()
+                                                                                                 .getInstanceUrl();
         if (instanceUrl != null) {
             template.setInstanceUrl(instanceUrl);
         }

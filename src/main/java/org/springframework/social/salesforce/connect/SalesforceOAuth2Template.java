@@ -29,7 +29,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  */
 public class SalesforceOAuth2Template extends OAuth2Template
 {
-    private String instanceUrl;
+    private ThreadLocal<String> instanceUrl = new ThreadLocal<String>();
     private ClientHttpRequestFactory clientHttpRequestFactory;
 
     public SalesforceOAuth2Template(String clientId,
@@ -60,14 +60,14 @@ public class SalesforceOAuth2Template extends OAuth2Template
                                             Long expiresIn,
                                             Map<String, Object> response)
     {
-        this.instanceUrl = (String) response.get("instance_url");
+        this.instanceUrl.set((String) response.get("instance_url"));
 
         return new SalesforceAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
     }
 
     public String getInstanceUrl()
     {
-        return instanceUrl;
+        return instanceUrl.get();
     }
 
     @Override
