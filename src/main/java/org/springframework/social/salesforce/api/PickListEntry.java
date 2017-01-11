@@ -3,7 +3,8 @@ package org.springframework.social.salesforce.api;
 /**
  * @author Umut Utkan
  */
-public class PickListEntry {
+public class PickListEntry
+{
 
     private String value;
 
@@ -16,28 +17,31 @@ public class PickListEntry {
     //TODO: find how to deserialize.
     //private String validFor;
 
-
-    public PickListEntry(String value, String label, boolean active, boolean defaultValue) {
+    public PickListEntry(String value, String label, boolean active, boolean defaultValue)
+    {
         this.value = value;
         this.active = active;
         this.label = label;
         this.defaultValue = defaultValue;
     }
 
-
-    public String getValue() {
+    public String getValue()
+    {
         return value;
     }
 
-    public boolean isActive() {
+    public boolean isActive()
+    {
         return active;
     }
 
-    public String getLabel() {
+    public String getLabel()
+    {
         return label;
     }
 
-    public boolean isDefaultValue() {
+    public boolean isDefaultValue()
+    {
         return defaultValue;
     }
 

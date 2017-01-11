@@ -3,7 +3,8 @@ package org.springframework.social.salesforce.api;
 /**
  * @author Umut Utkan
  */
-public class Relationship {
+public class Relationship
+{
 
     private String field;
 
@@ -17,47 +18,55 @@ public class Relationship {
 
     private String childSObject;
 
-
-    public Relationship(String field, String relationshipName, String childObject) {
+    public Relationship(String field, String relationshipName, String childObject)
+    {
         this.field = field;
         this.relationshipName = relationshipName;
         this.childSObject = childObject;
     }
 
-
-    public String getField() {
+    public String getField()
+    {
         return field;
     }
 
-    public String getRelationshipName() {
+    public String getRelationshipName()
+    {
         return relationshipName;
     }
 
-    public String getChildSObject() {
+    public String getChildSObject()
+    {
         return childSObject;
     }
 
-    public boolean isDeprecatedAndHidden() {
+    public boolean isDeprecatedAndHidden()
+    {
         return deprecatedAndHidden;
     }
 
-    public void setDeprecatedAndHidden(boolean deprecatedAndHidden) {
+    public void setDeprecatedAndHidden(boolean deprecatedAndHidden)
+    {
         this.deprecatedAndHidden = deprecatedAndHidden;
     }
 
-    public boolean isCascadeDelete() {
+    public boolean isCascadeDelete()
+    {
         return cascadeDelete;
     }
 
-    public void setCascadeDelete(boolean cascadeDelete) {
+    public void setCascadeDelete(boolean cascadeDelete)
+    {
         this.cascadeDelete = cascadeDelete;
     }
 
-    public boolean isRestrictedDelete() {
+    public boolean isRestrictedDelete()
+    {
         return restrictedDelete;
     }
 
-    public void setRestrictedDelete(boolean restrictedDelete) {
+    public void setRestrictedDelete(boolean restrictedDelete)
+    {
         this.restrictedDelete = restrictedDelete;
     }
 

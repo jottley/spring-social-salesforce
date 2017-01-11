@@ -7,7 +7,8 @@ import java.util.List;
  *
  * @author Umut Utkan
  */
-public interface SearchOperations {
+public interface SearchOperations
+{
 
     List<ResultItem> search(String soslQuery);
 

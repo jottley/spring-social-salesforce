@@ -8,6 +8,8 @@ import java.io.Serializable;
 public class SalesforceProfile implements Serializable
 {
 
+    private static final long serialVersionUID = 1L;
+
     private String id;
 
     private String email;
@@ -18,10 +20,7 @@ public class SalesforceProfile implements Serializable
 
     private Photo photo;
 
-    public SalesforceProfile(String id,
-                             String firstName,
-                             String lastName,
-                             String email)
+    public SalesforceProfile(String id, String firstName, String lastName, String email)
     {
         this.id = id;
         this.firstName = firstName;

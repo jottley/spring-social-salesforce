@@ -9,7 +9,8 @@ import java.util.Map;
  *
  * @author Umut Utkan
  */
-public interface SObjectOperations {
+public interface SObjectOperations
+{
 
     public List<Map> getSObjects();
 

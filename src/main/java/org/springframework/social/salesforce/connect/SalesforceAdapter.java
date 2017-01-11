@@ -34,8 +34,7 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     }
 
     @Override
-    public void setConnectionValues(Salesforce salesforce,
-                                    ConnectionValues values)
+    public void setConnectionValues(Salesforce salesforce, ConnectionValues values)
     {
         SalesforceIdentity identity = salesforce.apiOperations().getIdentity(identityUrl);
         values.setProviderUserId(identity.getUserId());
@@ -55,8 +54,7 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce>
     }
 
     @Override
-    public void updateStatus(Salesforce salesforce,
-                             String message)
+    public void updateStatus(Salesforce salesforce, String message)
     {
         salesforce.chatterOperations().updateStatus(message);
     }

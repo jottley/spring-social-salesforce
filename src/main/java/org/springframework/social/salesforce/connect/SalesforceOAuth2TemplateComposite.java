@@ -12,7 +12,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-public class SandboxAwareSalesforceOAuth2TemplateFactory implements OAuth2Operations
+public class SalesforceOAuth2TemplateComposite implements OAuth2Operations
 {
     public static final String SALESFORCE_SANDBOX_SESSION_PARAMETER = "sandboxSession";
     private static final String SALESFORCE_SANDBOX_PARAMETER = "sandbox";
@@ -20,13 +20,13 @@ public class SandboxAwareSalesforceOAuth2TemplateFactory implements OAuth2Operat
     private SalesforceOAuth2Template productionSalesforceOAuth2Template;
     private SalesforceOAuth2Template sandboxSalesforceOAuth2Template;
 
-    public SandboxAwareSalesforceOAuth2TemplateFactory(String clientId,
-                                                       String clientSecret,
-                                                       String authorizeUrl,
-                                                       String tokenUrl,
-                                                       String sandboxAuthorizeUrl,
-                                                       String sandboxTokenUrl,
-                                                       ClientHttpRequestFactory clientHttpRequestFactory)
+    public SalesforceOAuth2TemplateComposite(String clientId,
+                                             String clientSecret,
+                                             String authorizeUrl,
+                                             String tokenUrl,
+                                             String sandboxAuthorizeUrl,
+                                             String sandboxTokenUrl,
+                                             ClientHttpRequestFactory clientHttpRequestFactory)
     {
         this.productionSalesforceOAuth2Template = new SalesforceOAuth2Template(clientId,
                                                                                clientSecret,

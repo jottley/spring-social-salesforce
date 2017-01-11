@@ -7,7 +7,8 @@ import java.util.List;
  *
  * @author Umut Utkan
  */
-public interface RecentOperations {
+public interface RecentOperations
+{
 
     List<ResultItem> recent();
 

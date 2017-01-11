@@ -33,13 +33,13 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
                                      String sandboxTokenUrl,
                                      ClientHttpRequestFactory clientHttpRequestFactory)
     {
-        super(new SandboxAwareSalesforceOAuth2TemplateFactory(clientId,
-                                                              clientSecret,
-                                                              authorizeUrl,
-                                                              tokenUrl,
-                                                              sandboxAuthorizeUrl,
-                                                              sandboxTokenUrl,
-                                                              clientHttpRequestFactory));
+        super(new SalesforceOAuth2TemplateComposite(clientId,
+                                                    clientSecret,
+                                                    authorizeUrl,
+                                                    tokenUrl,
+                                                    sandboxAuthorizeUrl,
+                                                    sandboxTokenUrl,
+                                                    clientHttpRequestFactory));
     }
 
     @Override
@@ -48,8 +48,8 @@ public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Sal
         SalesforceTemplate template = new SalesforceTemplate(accessToken);
 
         // gets the returned instance url and sets to Salesforce template as base url.
-        String instanceUrl = ((SandboxAwareSalesforceOAuth2TemplateFactory) getOAuthOperations()).getSalesforceOAuth2TemplateFromContext()
-                                                                                                 .getInstanceUrl();
+        String instanceUrl = ((SalesforceOAuth2TemplateComposite) getOAuthOperations()).getSalesforceOAuth2TemplateFromContext()
+                                                                                       .getInstanceUrl();
         if (instanceUrl != null) {
             template.setInstanceUrl(instanceUrl);
         }

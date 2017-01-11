@@ -51,7 +51,7 @@ public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesfo
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
         if (request.getParameter("code") != null
-                && servletRequestAttributes.getAttribute(SandboxAwareSalesforceOAuth2TemplateFactory.SALESFORCE_SANDBOX_SESSION_PARAMETER,
+                && servletRequestAttributes.getAttribute(SalesforceOAuth2TemplateComposite.SALESFORCE_SANDBOX_SESSION_PARAMETER,
                                                          RequestAttributes.SCOPE_SESSION) != null) {
             return SALESFORCE_SANDBOX_PROVIDER_ID;
         }

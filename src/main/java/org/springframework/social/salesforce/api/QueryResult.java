@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * @author Umut Utkan
  */
-public class QueryResult {
+public class QueryResult
+{
 
     private int totalSize;
 
@@ -15,40 +16,47 @@ public class QueryResult {
 
     private List<ResultItem> records;
 
-
-    public QueryResult(int totalSize, boolean done) {
+    public QueryResult(int totalSize, boolean done)
+    {
         this.totalSize = totalSize;
         this.done = done;
     }
 
-
-    public int getTotalSize() {
+    public int getTotalSize()
+    {
         return totalSize;
     }
 
-    public boolean isDone() {
+    public boolean isDone()
+    {
         return done;
     }
 
-    public List<ResultItem> getRecords() {
+    public List<ResultItem> getRecords()
+    {
         return records;
     }
 
-    public void setRecords(List<ResultItem> records) {
+    public void setRecords(List<ResultItem> records)
+    {
         this.records = records;
     }
 
-    public String getNextRecordsUrl() {
+    public String getNextRecordsUrl()
+    {
         return nextRecordsUrl;
     }
 
-    public void setNextRecordsUrl(String nextRecordsUrl) {
+    public void setNextRecordsUrl(String nextRecordsUrl)
+    {
         this.nextRecordsUrl = nextRecordsUrl;
     }
 
-    public String getNextRecordsToken() {
+    public String getNextRecordsToken()
+    {
         if (this.nextRecordsUrl != null) {
-            return this.nextRecordsUrl.substring(this.nextRecordsUrl.lastIndexOf('/') + 1, this.nextRecordsUrl.length());
+            return this.nextRecordsUrl.substring(this.nextRecordsUrl.lastIndexOf('/') + 1,
+                                                 this.nextRecordsUrl.length());
         }
         return null;
     }

@@ -5,7 +5,8 @@ package org.springframework.social.salesforce.api;
  *
  * @author Umut Utkan
  */
-public interface ChatterOperations {
+public interface ChatterOperations
+{
 
     /**
      * Retrieves current users's profile
