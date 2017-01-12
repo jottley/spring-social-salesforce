@@ -119,18 +119,19 @@ public class SalesforceOAuth2TemplateComposite implements OAuth2Operations
 
         if (request.getParameter(SALESFORCE_SANDBOX_PARAMETER) != null) {
             servletRequestAttributes.setAttribute(SALESFORCE_SANDBOX_SESSION_PARAMETER,
-                                                  new Object(),
-                                                  RequestAttributes.SCOPE_SESSION);
+                                                  true,
+                                                  RequestAttributes.SCOPE_GLOBAL_SESSION);
             return sandboxSalesforceOAuth2Template;
         }
 
         if (request.getParameter("code") != null
                 && servletRequestAttributes.getAttribute(SALESFORCE_SANDBOX_SESSION_PARAMETER,
-                                                         RequestAttributes.SCOPE_SESSION) != null) {
+                                                         RequestAttributes.SCOPE_GLOBAL_SESSION) != null) {
             return sandboxSalesforceOAuth2Template;
         }
 
-        servletRequestAttributes.removeAttribute(SALESFORCE_SANDBOX_SESSION_PARAMETER, RequestAttributes.SCOPE_SESSION);
+        servletRequestAttributes.removeAttribute(SALESFORCE_SANDBOX_SESSION_PARAMETER,
+                                                 RequestAttributes.SCOPE_GLOBAL_SESSION);
         return productionSalesforceOAuth2Template;
     }
 }
