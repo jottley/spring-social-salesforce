@@ -55,14 +55,14 @@
 
     <distributionManagement>
         <repository>
-            <id>Coveo</id>
+            <id>CoveoCloud</id>
             <name>Coveo Release Repository</name>
-            <url>https://maven.corp.coveo.com/artifactory/ext-release-local</url>
+            <url>https://maven.cloud.coveo.com/artifactory/ext-release-local</url>
         </repository>
         <snapshotRepository>
-            <id>Coveo</id>
+            <id>CoveoCloud</id>
             <name>Coveo Snapshot Repository</name>
-            <url>https://maven.corp.coveo.com/artifactory/ext-snapshot-local</url>
+            <url>https://maven.cloud.coveo.com/artifactory/ext-snapshot-local</url>
         </snapshotRepository>
     </distributionManagement>
 
