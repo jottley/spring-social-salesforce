@@ -16,6 +16,7 @@ import org.springframework.social.oauth2.OAuth2Parameters;
 import org.springframework.social.oauth2.OAuth2Template;
 import org.springframework.social.salesforce.connect.oauth2.SalesforceAccessGrant;
 import org.springframework.social.support.LoggingErrorHandler;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -88,8 +89,15 @@ public class SalesforceOAuth2Template extends OAuth2Template
     {
         ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
         HttpServletRequest request = servletRequestAttributes.getRequest();
-        if (request != null && request.getParameter("forceLoginPrompt") != null) {
-            parameters.add("prompt", "login");
+        if (request != null) {
+            String loginSaleforce = request.getParameter("loginToUse");
+            parameters.add("prompt", "select_account");
+            if (request.getParameter("forceLoginPrompt") != null) {
+                parameters.add("prompt", "login");
+            }
+            if (!StringUtils.isEmpty(loginSaleforce)) {
+                parameters.add("login_hint", loginSaleforce);
+            }
         }
         return super.buildAuthenticateUrl(parameters);
     }
