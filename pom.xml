@@ -25,6 +25,7 @@
 		<junit.version>4.12</junit.version>
 		<mockito.version>2.11.0</mockito.version>
 		<commons-lang3.version>3.1</commons-lang3.version>
+		<rat.version>0.12</rat.version>
 	</properties>
 
 	<dependencies>
@@ -289,16 +290,19 @@
 			<plugin>
 				<groupId>org.apache.rat</groupId>
 				<artifactId>apache-rat-plugin</artifactId>
-				<version>0.11</version>
+				<version>${rat.version}</version>
 				<executions>
 					<execution>
-						<phase>verify</phase>
+						<phase>package</phase>
 						<goals>
 							<goal>check</goal>
 						</goals>
 					</execution>
 				</executions>
 				<configuration>
+					<includes>
+						<include>**/*.java</include>
+					</includes>
 					<excludes>
 						<exclude>README.md</exclude>
 						<exclude>src/test/resources/</exclude>
