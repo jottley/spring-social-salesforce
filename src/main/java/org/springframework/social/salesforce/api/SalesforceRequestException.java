@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.ApiException;
+import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 
 /**
  * Encapsulates the error response sent by salesforce.
@@ -30,6 +31,7 @@ import org.springframework.social.ApiException;
  *      Salesforce API Core Datatypes</a>
  * 
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SalesforceRequestException extends ApiException {
 
@@ -39,14 +41,28 @@ public class SalesforceRequestException extends ApiException {
     private final String code;
 
     public SalesforceRequestException(String message) {
-        super(message);
+        super(SalesforceServiceProvider.ID, message);
+        this.code = null;
+        this.fields = null;
+    }
+    
+    public SalesforceRequestException(String providerId, String message) {
+        super(providerId, message);
         this.code = null;
         this.fields = null;
     }
 
     @SuppressWarnings("unchecked")
     public SalesforceRequestException(Map<String, Object> errorDetails) {
-        super((String)errorDetails.get("message"));
+        super(SalesforceServiceProvider.ID, (String)errorDetails.get("message"));
+
+        this.code = StringUtils.defaultString((String)errorDetails.get("errorCode"), "UNKNOWN");
+        this.fields = (List<String>) errorDetails.get("fields");
+    }
+    
+    @SuppressWarnings("unchecked")
+    public SalesforceRequestException(String providerId, Map<String, Object> errorDetails) {
+        super(providerId, (String)errorDetails.get("message"));
 
         this.code = StringUtils.defaultString((String)errorDetails.get("errorCode"), "UNKNOWN");
         this.fields = (List<String>) errorDetails.get("fields");

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,8 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
  * @author Umut Utkan
  */
 public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce> {
+    
+    public final static String ID = "salesforce";
 
     public SalesforceServiceProvider(String clientId, String clientSecret) {
         this(clientId, clientSecret,

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,10 +20,12 @@ import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
-import org.springframework.social.test.client.MockRestServiceServer;
+import org.springframework.test.web.client.MockRestServiceServer;
+
 
 /**
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 abstract public class AbstractSalesforceTest {
 
@@ -31,7 +33,7 @@ abstract public class AbstractSalesforceTest {
 
     protected SalesforceTemplate unauthorizedSalesforce;
 
-    protected MockRestServiceServer mockServer;
+    protected org.springframework.test.web.client.MockRestServiceServer mockServer;
 
     protected HttpHeaders responseHeaders;
 

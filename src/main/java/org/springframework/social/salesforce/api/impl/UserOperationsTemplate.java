@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,9 +24,11 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Default implementation of UserOperations.
+ * 
+ * @author Alexandra Leahu
+ * @author Jared Ottley
  */
 public class UserOperationsTemplate extends AbstractSalesForceOperations<Salesforce> implements UserOperations {
-    private static final String USER_INFO_ENDPOINT = "https://login.salesforce.com/services/oauth2/userinfo";
 
     private RestTemplate restTemplate;
 
@@ -38,7 +40,7 @@ public class UserOperationsTemplate extends AbstractSalesForceOperations<Salesfo
     @Override
     public SalesforceUserDetails getSalesforceUserDetails() {
         requireAuthorization();
-        return restTemplate.exchange(USER_INFO_ENDPOINT, HttpMethod.GET, new HttpEntity<String>(""), SalesforceUserDetails.class, "v23.0").getBody();
+        return restTemplate.exchange(api.getUserInfoUrl(), HttpMethod.GET, new HttpEntity<>(""), SalesforceUserDetails.class, getVersion()).getBody();
     }
 
 }

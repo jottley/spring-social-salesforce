@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -31,10 +31,12 @@ import org.springframework.util.StringUtils;
  *
  * @author Umut Utkan
  * @author Jared Ottley
+ * @author Alexandra Leahu
  */
 public class SalesforceAdapter implements ApiAdapter<Salesforce> {
 
     private String instanceUrl = null;
+    private String gatewayUrl  = null;
 
     public SalesforceAdapter()
     {
@@ -45,9 +47,17 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
     {
         this.instanceUrl = instanceUrl;
     }
+    
+    public SalesforceAdapter(String instanceUrl, String gatewayUrl)
+    {
+        this.instanceUrl = instanceUrl;
+        this.gatewayUrl = gatewayUrl;
+    }
 
-    public boolean test(Salesforce salesForce) {
-        try {
+    public boolean test(Salesforce salesForce)
+    {
+        try
+        {
             if (StringUtils.isEmpty(instanceUrl))
             {
                 salesForce.chatterOperations().getUserProfile();
@@ -57,13 +67,23 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
                 salesForce.chatterOperations(instanceUrl).getUserProfile();
             }
             return true;
-        } catch (ApiException e) {
+        } 
+        catch (ApiException e)
+        {
             return false;
         }
     }
 
     public void setConnectionValues(Salesforce salesforce, ConnectionValues values) {
-        SalesforceUserDetails userDetails = salesforce.userOperations().getSalesforceUserDetails();
+        SalesforceUserDetails userDetails;
+        if (StringUtils.isEmpty(gatewayUrl))
+        {
+            userDetails = salesforce.userOperations().getSalesforceUserDetails();
+        }
+        else
+        {
+            userDetails = salesforce.userOperations(gatewayUrl).getSalesforceUserDetails();
+        }
         values.setProviderUserId(userDetails.getId());
         values.setDisplayName(userDetails.getName());
     }

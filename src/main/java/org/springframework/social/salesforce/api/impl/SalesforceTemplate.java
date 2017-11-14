@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
+
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
@@ -30,6 +33,7 @@ import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -42,8 +46,10 @@ import java.util.List;
 public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Salesforce {
 
     private static final String INSTANCE_URL = "https://na1.salesforce.com";
+    private static final String GATEWAY_URL  = "https://login.salesforce.com";
 
     private String instanceUrl;
+    private String gatewayUrl;
 
     private ObjectMapper objectMapper;
 
@@ -179,6 +185,14 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     {
         return userOperations;
     }
+    
+    
+    @Override
+    public UserOperations userOperations(String gatewayUrl)
+    {
+        this.gatewayUrl = gatewayUrl;
+        return userOperations;
+    }
 
 
     private void initialize()
@@ -200,7 +214,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         messageConverters.add(new StringHttpMessageConverter());
         messageConverters.add(getFormMessageConverter());
         messageConverters.add(this.getJsonMessageConverter2());
-        messageConverters.add(getByteArrayMessageConverter());
+        messageConverters.add(this.getByteArrayMessageConverter());
         return messageConverters;
     }
 
@@ -213,12 +227,21 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         converter.setObjectMapper(objectMapper);
         return converter;
     }
+    
+    @Override
+    protected ByteArrayHttpMessageConverter getByteArrayMessageConverter()
+    {
+        ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
+        converter.setSupportedMediaTypes(Arrays.asList(MediaType.ALL));
+        return converter;
+    }
 
     @Override
     protected void configureRestTemplate(RestTemplate restTemplate) {
         restTemplate.setErrorHandler(new SalesforceErrorHandler());
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type) {
         CollectionType listType = TypeFactory.defaultInstance().constructCollectionType(List.class, type);
@@ -242,6 +265,24 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
+    }
+    
+    
+    @Override
+    public String getUserInfoUrl() {
+        return (this.gatewayUrl == null ? GATEWAY_URL : this.gatewayUrl) + "/services/oauth2/userinfo";
+    }
+    
+    
+    @Override
+    public String getAuthGatewayUrl() {
+        return this.gatewayUrl;
+    }
+    
+    
+    @Override
+    public void setAuthGatewayBaseUrl(String gatewayUrl) {
+        this.gatewayUrl = gatewayUrl;
     }
 
 }

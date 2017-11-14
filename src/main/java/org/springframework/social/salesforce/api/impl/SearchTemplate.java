@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -29,6 +29,7 @@ import java.util.List;
  * Default implementation of SearchOperations.
  * 
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SearchTemplate extends AbstractSalesForceOperations<Salesforce> implements SearchOperations {
 
@@ -45,7 +46,7 @@ public class SearchTemplate extends AbstractSalesForceOperations<Salesforce> imp
     @Override
     public List<ResultItem> search(String soslQuery) {
         requireAuthorization();
-        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + API_VERSION + "/search").queryParam("q", soslQuery).build();
+        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + "/search").queryParam("q", soslQuery).build();
         JsonNode arr = restTemplate.getForObject(uri, JsonNode.class);
         return api.readList(arr, ResultItem.class);
     }

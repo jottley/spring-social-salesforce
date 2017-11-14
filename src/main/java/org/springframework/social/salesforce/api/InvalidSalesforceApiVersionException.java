@@ -14,19 +14,22 @@
  * limitations under the License.
  */
 package org.springframework.social.salesforce.api;
-import org.springframework.social.salesforce.api.SalesforceUserDetails;
 
 /**
- * Defines operations for retrieving user related info.
  * 
- * @author Alexandra Leahu
+ * @author Jared Ottley
+ *
  */
-public interface UserOperations {
-
-    /**
-     * Retrieves the details for the current logged in user.
-     * @return user details 
-     */
-    SalesforceUserDetails getSalesforceUserDetails(); 
-
+public class InvalidSalesforceApiVersionException 
+        extends Throwable
+{
+    public InvalidSalesforceApiVersionException()
+    {
+        //NOOP
+    }
+    
+    public InvalidSalesforceApiVersionException(String version)
+    {
+        super(version + " is not a valid Salesforce Api version.");
+    }
 }

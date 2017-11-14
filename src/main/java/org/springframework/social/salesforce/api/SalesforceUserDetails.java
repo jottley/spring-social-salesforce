@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,11 @@ package org.springframework.social.salesforce.api;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+/**
+ * 
+ * @author Alexandra Leahu
+ *
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceUserDetails extends SalesforceProfile {
     private String organizationId;

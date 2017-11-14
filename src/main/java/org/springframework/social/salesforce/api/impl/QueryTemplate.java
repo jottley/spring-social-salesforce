@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import org.springframework.web.client.RestTemplate;
  * Default implementation of QueryOperations.
  * 
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> implements QueryOperations {
 
@@ -41,7 +42,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
     @Override
     public QueryResult query(String query) {
         requireAuthorization();
-        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + API_VERSION + "/query").queryParam("q", query).build();
+        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + "/query").queryParam("q", query).build();
         return restTemplate.getForObject(uri, QueryResult.class);
     }
 
@@ -51,7 +52,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
         if (pathOrToken.contains("/")) {
             return restTemplate.getForObject(api.getBaseUrl() + pathOrToken, QueryResult.class);
         } else {
-            return restTemplate.getForObject(api.getBaseUrl() + "/" + API_VERSION + "/query/{token}", QueryResult.class, pathOrToken);
+            return restTemplate.getForObject(api.getBaseUrl() + "/" + getVersion() + "/query/{token}", QueryResult.class, pathOrToken);
         }
     }
 

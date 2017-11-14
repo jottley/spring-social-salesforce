@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,23 +25,28 @@ import org.springframework.social.salesforce.api.Salesforce;
 public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesforce> {
 
     public SalesforceConnectionFactory(String clientId, String clientSecret) {
-        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret),
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret),
                 new SalesforceAdapter());
     }
 
     public SalesforceConnectionFactory(String clientId, String clientSecret, String instanceUrl) {
-        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret),
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret),
               new SalesforceAdapter(instanceUrl));
     }
 
     public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
-        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret,
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret,
                 authorizeUrl, tokenUrl), new SalesforceAdapter());
     }
 
     public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl, String instanceUrl) {
-        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret,
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret,
                                                           authorizeUrl, tokenUrl), new SalesforceAdapter(instanceUrl));
+    }
+    
+    public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl, String instanceUrl, String gatewayUrl) {
+        super("salesforce", new SalesforceServiceProvider(clientId, clientSecret,
+                                                          authorizeUrl, tokenUrl), new SalesforceAdapter(instanceUrl, gatewayUrl));
     }
 
 }

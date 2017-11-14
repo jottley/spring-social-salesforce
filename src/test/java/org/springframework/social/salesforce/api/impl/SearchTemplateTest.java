@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,26 +16,29 @@
 package org.springframework.social.salesforce.api.impl;
 
 import org.junit.Test;
+import org.springframework.http.HttpStatus;
 import org.springframework.social.salesforce.api.ResultItem;
 
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.springframework.http.HttpMethod.GET;
-import static org.springframework.social.test.client.RequestMatchers.method;
-import static org.springframework.social.test.client.RequestMatchers.requestTo;
-import static org.springframework.social.test.client.ResponseCreators.withResponse;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
+
 
 /**
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SearchTemplateTest extends AbstractSalesforceTest {
 
     @Test
     public void search() {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + AbstractSalesForceOperations.API_VERSION + "/search?q=FIND+%7Bxxx*%7D+IN+ALL+FIELDS+RETURNING+Contact%2C+Account"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + salesforce.apiOperations().getVersion() + "/search?q=FIND+%7Bxxx*%7D+IN+ALL+FIELDS+RETURNING+Contact%2C+Account"))
                 .andExpect(method(GET))
-                .andRespond(withResponse(loadResource("search.json"), responseHeaders));
+                .andRespond(withStatus(HttpStatus.OK).body(loadResource("search.json")).headers(responseHeaders));
         List<ResultItem> results = salesforce.searchOperations().search("FIND {xxx*} IN ALL FIELDS RETURNING Contact, Account");
         assertEquals(4, results.size());
         assertEquals("Contact", results.get(0).getType());

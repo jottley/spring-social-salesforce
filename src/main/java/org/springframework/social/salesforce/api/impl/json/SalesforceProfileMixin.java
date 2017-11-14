@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,7 @@ import org.springframework.social.salesforce.api.Photo;
  * {@see org.springframework.social.salesforce.api.SalesforceProfile} Mixin for api v23.0.
  *
  * @author Umut Utkan
+ * @author Alexandra Leahu
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfileMixin {

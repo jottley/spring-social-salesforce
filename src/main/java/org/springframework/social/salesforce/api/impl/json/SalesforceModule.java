@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,6 @@
  */
 package org.springframework.social.salesforce.api.impl.json;
 
-import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import org.springframework.social.salesforce.api.ApiVersion;
@@ -37,12 +36,14 @@ import org.springframework.social.salesforce.api.SalesforceUserDetails;
  * Jackson module for api version v23.0.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
+ * @author Alexandra Leahu
  */
 public class SalesforceModule extends SimpleModule
 {
 
     public SalesforceModule() {
-        super("SalesforceModule", new Version(23, 0, 0, null));
+        super("SalesforceModule");
     }
 
     @Override

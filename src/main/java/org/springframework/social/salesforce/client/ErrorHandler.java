@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.social.InvalidAuthorizationException;
 import org.springframework.social.OperationNotPermittedException;
 import org.springframework.social.RateLimitExceededException;
+import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import java.io.IOException;
@@ -32,6 +33,7 @@ import java.util.Map;
  * Custom error handler for handling Salesforce API specific error responses.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class ErrorHandler extends DefaultResponseErrorHandler {
 
@@ -40,28 +42,28 @@ public class ErrorHandler extends DefaultResponseErrorHandler {
         if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
             Map<String, String> error = extractErrorDetailsFromResponse(response);
             if ("unsupported_response_type".equals(error.get("error"))) {
-                throw new OperationNotPermittedException(error.get("error_description"));
+                throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("invalid_client_id".equals(error.get("error"))) {
-                throw new InvalidAuthorizationException(error.get("error_description"));
+                throw new InvalidAuthorizationException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("invalid_request".equals(error.get("error"))) {
-                throw new OperationNotPermittedException(error.get("error_description"));
+                throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("invalid_client_credentials".equals(error.get("error"))) {
-                throw new InvalidAuthorizationException(error.get("error_description"));
+                throw new InvalidAuthorizationException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("invalid_grant".equals(error.get("error"))) {
                 if ("invalid user credentials".equals(error.get("error_description"))) {
-                    throw new InvalidAuthorizationException(error.get("error_description"));
+                    throw new InvalidAuthorizationException(SalesforceServiceProvider.ID, error.get("error_description"));
                 } else if ("IP restricted or invalid login hours".equals(error.get("error_description"))) {
-                    throw new OperationNotPermittedException(error.get("error_description"));
+                    throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
                 }
-                throw new InvalidAuthorizationException(error.get("error_description"));
+                throw new InvalidAuthorizationException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("inactive_user".equals(error.get("error"))) {
-                throw new OperationNotPermittedException(error.get("error_description"));
+                throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("inactive_org".equals(error.get("error"))) {
-                throw new OperationNotPermittedException(error.get("error_description"));
+                throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
             } else if ("rate_limit_exceeded".equals(error.get("error"))) {
-                throw new RateLimitExceededException();
+                throw new RateLimitExceededException(SalesforceServiceProvider.ID);
             } else if ("invalid_scope".equals(error.get("error"))) {
-                throw new InvalidAuthorizationException(error.get("error_description"));
+                throw new InvalidAuthorizationException(SalesforceServiceProvider.ID, error.get("error_description"));
             }
         }
 

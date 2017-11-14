@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,6 +32,7 @@ import org.springframework.web.client.RestTemplate;
  * Default implementation of ChatterOperations.
  * 
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> implements ChatterOperations {
 
@@ -58,7 +59,7 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
     public SalesforceProfile getUserProfile(String userId) {
         requireAuthorization();
         
-        return restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{id}", HttpMethod.GET, new HttpEntity<String>("",getChatterHeader()), SalesforceProfile.class, "v23.0", userId).getBody();
+        return restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{id}", HttpMethod.GET, new HttpEntity<String>("",getChatterHeader()), SalesforceProfile.class, getVersion(), userId).getBody();
         
         //TODO back rev'd 
         //return restTemplate.getForObject(api.getBaseUrl() + "/{version}/chatter/users/{id}", SalesforceProfile.class, "v23.0", userId);
@@ -73,7 +74,7 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
     public Status getStatus(String userId) {
         requireAuthorization();
 
-        JsonNode node = restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status", HttpMethod.GET, new HttpEntity<String>("", getChatterHeader()), JsonNode.class, "v23.0", userId).getBody();
+        JsonNode node = restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status", HttpMethod.GET, new HttpEntity<String>("", getChatterHeader()), JsonNode.class, getVersion(), userId).getBody();
         //TODO back rev'd
         //JsonNode node = restTemplate.getForObject(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status",
         //        JsonNode.class, "v23.0", userId);
@@ -91,7 +92,7 @@ public class ChatterTemplate extends AbstractSalesForceOperations<Salesforce> im
         MultiValueMap<String, String> post = new LinkedMultiValueMap<String, String>();
         post.add("text", message);
         
-        JsonNode node = restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status", HttpMethod.POST, new HttpEntity<MultiValueMap<String, String>>(post, getChatterHeader()), JsonNode.class, "v23.0", userId).getBody();
+        JsonNode node = restTemplate.exchange(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status", HttpMethod.POST, new HttpEntity<MultiValueMap<String, String>>(post, getChatterHeader()), JsonNode.class, getVersion(), userId).getBody();
         
         //TODO back rev'd
         //JsonNode node = restTemplate.postForObject(api.getBaseUrl() + "/{version}/chatter/users/{userId}/status",

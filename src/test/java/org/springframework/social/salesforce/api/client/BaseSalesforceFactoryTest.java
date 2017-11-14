@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,20 +17,25 @@ package org.springframework.social.salesforce.api.client;
 
 import org.junit.Test;
 import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.client.BaseSalesforceFactory;
-import org.springframework.social.test.client.MockRestServiceServer;
+import org.springframework.test.web.client.MockRestServiceServer;
 import org.springframework.web.client.RestTemplate;
 
 import static org.junit.Assert.assertNotNull;
 import static org.springframework.http.HttpMethod.POST;
-import static org.springframework.social.test.client.RequestMatchers.*;
-import static org.springframework.social.test.client.ResponseCreators.withResponse;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.content;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
+import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
 
 /**
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class BaseSalesforceFactoryTest {
 
@@ -43,12 +48,16 @@ public class BaseSalesforceFactoryTest {
 
         mockServer.expect(requestTo("https://login.salesforce.com/services/oauth2/token"))
                 .andExpect(method(POST))
-                .andExpect(body("grant_type=password&client_id=client-id&client_secret=client-secret&username=my-username&password=my-passwordsecurity-token"))
-                .andRespond(withResponse(new ClassPathResource("/client-token.json", getClass()), responseHeaders));
+                .andExpect(content().string("grant_type=password&client_id=client-id&client_secret=client-secret&username=my-username&password=my-passwordsecurity-token"))
+                .andRespond(withStatus(HttpStatus.OK).body(loadResource("client-token.json")).headers(responseHeaders));
 
         Salesforce template = new BaseSalesforceFactory("client-id", "client-secret", restTemplate)
                 .create("my-username", "my-password", "security-token");
         assertNotNull(template);
+    }
+    
+    protected Resource loadResource(String name) {
+        return new ClassPathResource("/" + name, getClass());
     }
 
 }
