@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,15 +15,16 @@
  */
 package org.springframework.social.salesforce.api.impl.json;
 
-import org.codehaus.jackson.annotate.JsonCreator;
-import org.codehaus.jackson.annotate.JsonIgnoreProperties;
-import org.codehaus.jackson.annotate.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.salesforce.api.Photo;
 
 /**
  * {@see org.springframework.social.salesforce.api.SalesforceProfile} Mixin for api v23.0.
  *
  * @author Umut Utkan
+ * @author Alexandra Leahu
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfileMixin {
@@ -33,7 +34,8 @@ public class SalesforceProfileMixin {
             @JsonProperty("id") String id,
             @JsonProperty("firstName") String firstName,
             @JsonProperty("lastName") String lastName,
-            @JsonProperty("email") String email) {
+            @JsonProperty("email") String email,
+            @JsonProperty("name") String name) {
     }
 
     @JsonProperty("photo")

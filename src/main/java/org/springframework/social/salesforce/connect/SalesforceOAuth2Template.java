@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,6 +17,10 @@ package org.springframework.social.salesforce.connect;
 
 import org.springframework.social.oauth2.AccessGrant;
 import org.springframework.social.oauth2.OAuth2Template;
+import org.springframework.util.MultiValueMap;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.util.Map;
 
@@ -26,6 +30,7 @@ import java.util.Map;
  * The reason to extend is to extract non-standard instance_url from Salesforce's oauth token response.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SalesforceOAuth2Template extends OAuth2Template {
 
@@ -43,7 +48,7 @@ public class SalesforceOAuth2Template extends OAuth2Template {
 
 
     @Override
-    protected AccessGrant createAccessGrant(String accessToken, String scope, String refreshToken, Integer expiresIn, Map<String, Object> response) {
+    protected AccessGrant createAccessGrant(String accessToken, String scope, String refreshToken, Long expiresIn, Map<String, Object> response) {
         this.instanceUrl = (String) response.get("instance_url");
 
         return super.createAccessGrant(accessToken, scope, refreshToken, expiresIn, response);
@@ -51,6 +56,34 @@ public class SalesforceOAuth2Template extends OAuth2Template {
 
     public String getInstanceUrl() {
         return instanceUrl;
+    }
+    
+    
+    /**
+     * The default method from OAuth2Template is unable to handle the repsonse from Salesforce for an AccessGrant.  The Response is returned with a 
+     * content type of application/octet-stream. Spring-social-core's OAuth2Template does not have a HttpMessageConverter registered that is able to
+     * covert the response to a map even though it is Json but with a non-Json content type.
+     */
+    @Override
+    protected AccessGrant postForAccessGrant(String accessTokenUrl, MultiValueMap<String, String> parameters) {
+        JsonNode response = getRestTemplate().postForObject(accessTokenUrl, parameters, JsonNode.class);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        @SuppressWarnings("unchecked")
+        Map<String, Object> result = mapper.convertValue(response, Map.class);
+        
+        return this.createAccessGrant((String) result.get("access_token"), (String) result.get("scope"), (String) result.get("refresh_token"), getIntegerValue(result, "expires_in"), result);
+    }
+    
+    
+    // Retrieves object from map into an Integer, regardless of the object's actual type. Allows for flexibility in object type (eg, "3600" vs 3600).
+    // Private Method from OAuth2Template
+    private Long getIntegerValue(Map<String, Object> map, String key) {
+        try {
+            return Long.valueOf(String.valueOf(map.get(key))); // normalize to String before creating integer value;            
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,11 +22,20 @@ import java.util.Map;
  * Defines operations for getting info on the API.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public interface ApiOperations {
 
+    static final String DEFAULT_API_VERSION = "v37.0";
+    
     List<ApiVersion> getVersions();
 
     Map<String, String> getServices(String version);
-
+    
+    Map<String, String> getServices();
+    
+    void setVersion(String version)
+            throws InvalidSalesforceApiVersionException;
+    
+    String getVersion();
 }

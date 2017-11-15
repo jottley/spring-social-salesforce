@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,9 +17,12 @@ package org.springframework.social.salesforce.api.impl;
 
 import org.springframework.social.ApiBinding;
 import org.springframework.social.MissingAuthorizationException;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 
 /**
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class AbstractSalesForceOperations<T extends ApiBinding> {
 
@@ -32,10 +35,16 @@ public class AbstractSalesForceOperations<T extends ApiBinding> {
 
     protected void requireAuthorization() {
         if (!api.isAuthorized()) {
-            throw new MissingAuthorizationException();
+            throw new MissingAuthorizationException(SalesforceServiceProvider.ID);
         }
     }
 
     protected static String BASE_URL = "https://na7.salesforce.com/services/data";
+    
+    
+    public String getVersion()
+    {
+        return ((Salesforce)api).apiOperations().getVersion();
+    }
 
 }

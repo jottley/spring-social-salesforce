@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,28 +17,34 @@ package org.springframework.social.salesforce.api;
 
 import java.io.Serializable;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 /**
  * @author Umut Utkan
+ * @author Alexandra Leahu
+ * @author Jared ottley
  */
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfile implements Serializable {
+    protected String id;
 
-    private String id;
+    protected String email;
 
-    private String email;
+    protected String firstName;
 
-    private String firstName;
+    protected String lastName;
 
-    private String lastName;
+    protected Photo photo;
+    
+    protected String name;
 
-    private Photo photo;
 
-
-    public SalesforceProfile(String id, String firstName, String lastName, String email) {
+    /*public SalesforceProfile(String id, String firstName, String lastName, String email) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
-    }
+    }*/
 
 
     public String getId() {
@@ -61,12 +67,11 @@ public class SalesforceProfile implements Serializable {
         return this.photo;
     }
 
-    public String getFullName() {
-        return this.firstName + " " + this.lastName;
+    public String getName() {
+        return this.name;
     }
 
     public String getUsername() {
         return this.id;
     }
-
 }

@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,27 +15,44 @@
  */
 package org.springframework.social.salesforce.api.impl.json;
 
-import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.module.SimpleModule;
-import org.springframework.social.salesforce.api.*;
+import com.fasterxml.jackson.databind.Module;
+import com.fasterxml.jackson.databind.module.SimpleModule;
+import org.springframework.social.salesforce.api.ApiVersion;
+import org.springframework.social.salesforce.api.Field;
+import org.springframework.social.salesforce.api.Photo;
+import org.springframework.social.salesforce.api.PickListEntry;
+import org.springframework.social.salesforce.api.QueryResult;
+import org.springframework.social.salesforce.api.RecordTypeInfo;
+import org.springframework.social.salesforce.api.Relationship;
+import org.springframework.social.salesforce.api.ResultItem;
+import org.springframework.social.salesforce.api.SObjectDetail;
+import org.springframework.social.salesforce.api.SObjectSummary;
+import org.springframework.social.salesforce.api.SalesforceProfile;
+import org.springframework.social.salesforce.api.Status;
+import org.springframework.social.salesforce.api.SalesforceUserDetails;
+
 
 /**
  * Jackson module for api version v23.0.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
+ * @author Alexandra Leahu
  */
-public class SalesforceModule extends SimpleModule {
+public class SalesforceModule extends SimpleModule
+{
 
     public SalesforceModule() {
-        super("SalesforceModule", new Version(23, 0, 0, null));
+        super("SalesforceModule");
     }
 
     @Override
-    public void setupModule(SetupContext context) {
+    public void setupModule(Module.SetupContext context) {
         super.setupModule(context);
 
         context.setMixInAnnotations(ApiVersion.class, ApiVersionMixin.class);
         context.setMixInAnnotations(SalesforceProfile.class, SalesforceProfileMixin.class);
+        context.setMixInAnnotations(SalesforceUserDetails.class, SalesforceUserDetailsMixin.class);
         context.setMixInAnnotations(Photo.class, PhotoMixin.class);
         context.setMixInAnnotations(Status.class, StatusMixin.class);
         context.setMixInAnnotations(SObjectSummary.class, SObjectSummaryMixin.class);

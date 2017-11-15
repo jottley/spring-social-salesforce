@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +15,7 @@
  */
 package org.springframework.social.salesforce.api;
 
-import org.codehaus.jackson.JsonNode;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.social.ApiBinding;
 
 import java.util.List;
@@ -24,20 +24,37 @@ import java.util.List;
  * Specifies operations performed on Salesforce.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public interface Salesforce extends ApiBinding {
 
     public ApiOperations apiOperations();
 
+    public ApiOperations apiOperations(String instanceUrl);
+
     public ChatterOperations chatterOperations();
+
+    public ChatterOperations chatterOperations(String instanceUrl);
 
     public QueryOperations queryOperations();
 
+    public QueryOperations queryOperations(String instanceUrl);
+
     public RecentOperations recentOperations();
+
+    public RecentOperations recentOperations(String instanceUrl);
 
     public SearchOperations searchOperations();
 
+    public SearchOperations searchOperations(String instanceUrl);
+
     public SObjectOperations sObjectsOperations();
+
+    public SObjectOperations sObjectsOperations(String instanceUrl);
+
+    public UserOperations userOperations();
+    
+    public UserOperations userOperations(String gatewayUrl);
 
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type);
 
@@ -46,5 +63,13 @@ public interface Salesforce extends ApiBinding {
     public String getBaseUrl();
 
     public String getInstanceUrl();
+
+    public void setInstanceUrl(String instanceUrl);
+    
+    public String getUserInfoUrl();
+    
+    public String getAuthGatewayUrl();
+    
+    public void setAuthGatewayBaseUrl(String gatewayUrl);
 
 }
