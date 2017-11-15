@@ -5,7 +5,7 @@ REST API.
 
 To check out the project and build from source, do the following:
 
-    git clone git://github.com/umut/spring-social-salesforce.git
+    git clone git://github.com/jottley/spring-social-salesforce.git
     cd spring-social-salesforce
     mvn clean install
 
