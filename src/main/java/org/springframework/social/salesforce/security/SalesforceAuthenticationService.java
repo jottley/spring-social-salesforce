@@ -30,4 +30,9 @@ public class SalesforceAuthenticationService extends OAuth2AuthenticationService
     {
         super(new SalesforceConnectionFactory(consumerKey, consumerSecret));
     }
+    
+    public SalesforceAuthenticationService(String consumerKey, String consumerSecret, boolean sandbox)
+    {
+        super(new SalesforceConnectionFactory(consumerKey, consumerSecret, sandbox));
+    }
 }

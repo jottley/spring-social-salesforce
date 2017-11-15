@@ -28,22 +28,35 @@ public class SalesforceConnectionFactory extends OAuth2ConnectionFactory<Salesfo
         super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret),
                 new SalesforceAdapter());
     }
+    
+    public SalesforceConnectionFactory(String clientId, String clientSecret, boolean sandbox) {
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret, sandbox),
+                sandbox ? new SalesforceAdapter(sandbox) : new SalesforceAdapter());
+    }
 
     public SalesforceConnectionFactory(String clientId, String clientSecret, String instanceUrl) {
         super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret),
               new SalesforceAdapter(instanceUrl));
     }
+    
+    public SalesforceConnectionFactory(String clientId, String clientSecret, String instanceUrl, boolean sandbox) {
+        super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret, sandbox),
+              sandbox ? new SalesforceAdapter(instanceUrl, sandbox) : new SalesforceAdapter(instanceUrl));
+    }
 
+    @Deprecated
     public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {
         super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret,
                 authorizeUrl, tokenUrl), new SalesforceAdapter());
     }
 
+    @Deprecated
     public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl, String instanceUrl) {
         super(SalesforceServiceProvider.ID, new SalesforceServiceProvider(clientId, clientSecret,
                                                           authorizeUrl, tokenUrl), new SalesforceAdapter(instanceUrl));
     }
     
+    @Deprecated
     public SalesforceConnectionFactory(String clientId, String clientSecret, String authorizeUrl, String tokenUrl, String instanceUrl, String gatewayUrl) {
         super("salesforce", new SalesforceServiceProvider(clientId, clientSecret,
                                                           authorizeUrl, tokenUrl), new SalesforceAdapter(instanceUrl, gatewayUrl));

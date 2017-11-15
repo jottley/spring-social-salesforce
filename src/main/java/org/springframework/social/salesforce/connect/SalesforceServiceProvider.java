@@ -23,15 +23,28 @@ import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
  * Salesforce ServiceProvider implementation.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class SalesforceServiceProvider extends AbstractOAuth2ServiceProvider<Salesforce> {
     
+    //Provider ID
     public final static String ID = "salesforce";
+    
+    public final static String PRODUCTION_GATEWAY_URL = "https://login.salesforce.com";
+    public final static String SANDBOX_GATEWAY_URL    = "https://test.salesforce.com";
+    
+    public final static String TOKEN_PATH      = "/services/oauth2/token";
+    public final static String AUTHORIZE_PATH  = "/services/oauth2/authorize";
 
     public SalesforceServiceProvider(String clientId, String clientSecret) {
         this(clientId, clientSecret,
-                "https://login.salesforce.com/services/oauth2/authorize",
-                "https://login.salesforce.com/services/oauth2/token");
+                PRODUCTION_GATEWAY_URL + AUTHORIZE_PATH,
+                PRODUCTION_GATEWAY_URL + TOKEN_PATH);
+    }
+    
+    public SalesforceServiceProvider(String clientId, String clientSecret, boolean sandbox)
+    {
+        super(new SalesforceOAuth2Template(clientId, clientSecret, (sandbox ? SANDBOX_GATEWAY_URL : PRODUCTION_GATEWAY_URL) + AUTHORIZE_PATH, (sandbox ? SANDBOX_GATEWAY_URL : PRODUCTION_GATEWAY_URL) + TOKEN_PATH));
     }
 
     public SalesforceServiceProvider(String clientId, String clientSecret, String authorizeUrl, String tokenUrl) {

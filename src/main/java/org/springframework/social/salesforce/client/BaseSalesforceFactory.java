@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import java.util.Map;
 
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
+import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 import org.springframework.social.support.ClientHttpRequestFactorySelector;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
@@ -28,10 +29,12 @@ import org.springframework.web.client.RestTemplate;
  * Default implementation of SalesforceFactory.
  *
  * @author Umut Utkan
+ * @author Jared Ottley
  */
 public class BaseSalesforceFactory implements SalesforceFactory {
 
-    private final static String DEFAULT_AUTH_URL = "https://login.salesforce.com/services/oauth2/token";
+    private final static String DEFAULT_AUTH_URL = SalesforceServiceProvider.PRODUCTION_GATEWAY_URL + SalesforceServiceProvider.TOKEN_PATH;
+    
 
     private String clientId;
 

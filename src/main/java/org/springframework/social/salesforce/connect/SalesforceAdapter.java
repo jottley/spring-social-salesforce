@@ -48,10 +48,29 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
         this.instanceUrl = instanceUrl;
     }
     
+    public SalesforceAdapter(String instanceUrl, boolean sandbox)
+    {
+        this.instanceUrl = instanceUrl;
+        
+        if (sandbox)
+        {
+            this.gatewayUrl = SalesforceServiceProvider.SANDBOX_GATEWAY_URL;
+        }
+    }
+    
+    @Deprecated
     public SalesforceAdapter(String instanceUrl, String gatewayUrl)
     {
         this.instanceUrl = instanceUrl;
         this.gatewayUrl = gatewayUrl;
+    }
+    
+    public SalesforceAdapter(boolean sandbox)
+    {
+        if (sandbox)
+        {
+            this.gatewayUrl = SalesforceServiceProvider.SANDBOX_GATEWAY_URL;
+        }
     }
 
     public boolean test(Salesforce salesForce)
