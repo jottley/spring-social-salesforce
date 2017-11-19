@@ -1,6 +1,0 @@
-{
-    "query":"SELECT COUNT() FROM Contact",
-    "totalSize":22,
-    "done":true,
-    "records":[]
-}

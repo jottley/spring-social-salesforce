@@ -1,8 +1,0 @@
-ApiTestLocal.java
-target
-*.iml
-*.ipr
-.idea
-.project
-.settings
-.classpath
