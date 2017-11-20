@@ -1,4 +1,4 @@
-# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce)
+# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://api.bintray.com/packages/jottley/jottley/spring-social-salesforce/images/download.svg?version=1.2.0.RELEASE) ](https://bintray.com/jottley/jottley/spring-social-salesforce/1.2.0.RELEASE/link)
 
 Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for Salesforce
 REST API.
@@ -8,6 +8,31 @@ To check out the project and build from source, do the following:
     git clone git://github.com/jottley/spring-social-salesforce.git
     cd spring-social-salesforce
     mvn clean install
+    
+## Maven
+To include in your maven project use the following repository and dependency
+
+    <repositories>
+    ...
+		<repository>
+			<id>jottley</id>
+			<url>https://dl.bintray.com/jottley/jottley/</url>
+		</repository>
+    ...
+	</repositories>
+    
+    <dependencies>
+    ...
+        <dependency>
+			<groupId>org.springframework.social</groupId>
+			<artifactId>spring-social-salesforce</artifactId>
+			<version>${salesforce.version}</version>
+		</dependency>
+    ...
+    </dependencies>
+    
+## Quickstart
+There is a spring boot quickstart app available at https://github.com/jottley/spring-social-salesforce-quickstart
 
 ## Supported Operations
  - Retrieve all available api versions
