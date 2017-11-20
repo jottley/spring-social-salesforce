@@ -15,8 +15,8 @@ To include in your maven project use the following repository and dependency
     <repositories>
     ...
 		<repository>
-			<id>jottley</id>
-			<url>https://dl.bintray.com/jottley/jottley/</url>
+			<id>jcenter</id>
+			<url>https://jcenter.bintray.com</url>
 		</repository>
     ...
 	</repositories>
