@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -32,7 +32,7 @@ public interface ChatterOperations {
     /**
      * Retrieves the given user's profile
      *
-     * @param userId
+     * @param userId The salesforce Id of the user
      * @return user profile
      */
     public SalesforceProfile getUserProfile(String userId);
@@ -47,7 +47,7 @@ public interface ChatterOperations {
     /**
      * Retrieves the given user's status
      *
-     * @param userId
+     * @param userId The salesforce Id of the user
      * @return status
      */
     public Status getStatus(String userId);
@@ -55,7 +55,7 @@ public interface ChatterOperations {
     /**
      * Updates current user's status with the given message
      *
-     * @param message
+     * @param message The message to be posted as the current user's status
      * @return status
      */
     public Status updateStatus(String message);
@@ -63,8 +63,8 @@ public interface ChatterOperations {
     /**
      * Updates the given user's status with the given message
      *
-     * @param userId
-     * @param message
+     * @param userId The salesforce Id of the user
+     * @param message The message to be posted as the current user's status
      * @return status
      */
     public Status updateStatus(String userId, String message);

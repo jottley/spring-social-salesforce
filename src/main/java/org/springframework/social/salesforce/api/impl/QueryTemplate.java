@@ -57,7 +57,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
     }
 
     /**
-     * Pages through the result set and aggregates all sObjects into the single result set. <p/>
+     * Pages through the result set and aggregates all sObjects into the single result set.<br>
      * USUAL WARNINGS ABOUT RESULT SET SIZE APPLY
      * @see org.springframework.social.salesforce.api.QueryOperations#queryAll(java.lang.String)
      */

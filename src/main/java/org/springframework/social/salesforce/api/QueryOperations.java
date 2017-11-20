@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,6 +24,9 @@ public interface QueryOperations {
 
     /**
      * Execute SOQL query and return the first page of results
+     * 
+     * @param query The SOQL query to execute
+     * @return QueryResult
      */
     QueryResult query(String query);
 
@@ -34,6 +37,9 @@ public interface QueryOperations {
     
     /**
      * Execute SOQL query and return all results.
+     * 
+     * @param query The SOQL query to execute
+     * @return QueryResult
      */
     QueryResult queryAll(String query);
 

@@ -26,7 +26,7 @@ import java.util.Map;
 
 /**
  * Salesforce OAuth2Template implementation.
- * <p/>
+ * 
  * The reason to extend is to extract non-standard instance_url from Salesforce's oauth token response.
  *
  * @author Umut Utkan

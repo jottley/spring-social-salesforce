@@ -29,14 +29,14 @@ import java.io.IOException;
 import java.util.Map;
 
 /**
- * Deserializer for {@see org.springframework.social.salesforce.api.ResultItem}
+ * Deserializer for {@link ResultItem}
  *
  * @author Umut Utkan
  */
 public class ResultItemDeserializer extends JsonDeserializer<ResultItem>
 {
 
-    @SuppressWarnings("unchecked")
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResultItem deserialize(JsonParser jp, DeserializationContext ctxt) throws IOException, JsonProcessingException
     {

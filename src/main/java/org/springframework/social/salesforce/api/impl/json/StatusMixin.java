@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -23,8 +23,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.social.salesforce.api.Status;
+
 /**
- * {@see org.springframework.social.salesforce.api.Status} Mixin for api v23.0.
+ * {@link Status}
  *
  * @author Umut Utkan
  */

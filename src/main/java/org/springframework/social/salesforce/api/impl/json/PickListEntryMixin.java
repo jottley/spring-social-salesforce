@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2016 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,13 +16,15 @@
 package org.springframework.social.salesforce.api.impl.json;
 
 
+import org.springframework.social.salesforce.api.PickListEntry;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * {@see org.springframework.social.salesforce.api.PickListEntry} Mixin for api v23.0.
+ * {@link PickListEntry}
  *
  * @author Umut Utkan
  */

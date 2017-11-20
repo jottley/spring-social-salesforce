@@ -16,13 +16,15 @@
 package org.springframework.social.salesforce.api.impl.json;
 
 
+import org.springframework.social.salesforce.api.RecordTypeInfo;
+
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 
 /**
- * {@see org.springframework.social.salesforce.api.RecordTypeInfo} Mixin for api v23.0.
+ * {@link RecordTypeInfo}
  *
  * @author Umut Utkan
  */

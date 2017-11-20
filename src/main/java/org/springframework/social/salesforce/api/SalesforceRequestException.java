@@ -23,8 +23,8 @@ import org.springframework.social.ApiException;
 import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 
 /**
- * Encapsulates the error response sent by salesforce.
- * <p/>
+ * Encapsulates the error response sent by Salesforce.
+ * <br>
  * 
  * @see <a
  *      href="http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_concepts_core_data_objects.htm">

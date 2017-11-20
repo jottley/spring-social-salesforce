@@ -19,10 +19,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.social.salesforce.api.Photo;
+import org.springframework.social.salesforce.api.SalesforceProfile;
 
 /**
- * {@see org.springframework.social.salesforce.api.SalesforceProfile} Mixin for api v23.0.
- *
+ * {@link SalesforceProfile}
+ * 
  * @author Umut Utkan
  * @author Alexandra Leahu
  */
