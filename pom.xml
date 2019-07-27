@@ -240,5 +240,12 @@
 	</issueManagement>
 	<ciManagement>
 		<url>https://travis-ci.org/jottley/spring-social-salesforce</url>
-	</ciManagement>
+    </ciManagement>
+    <distributionManagement>
+        <repository>
+            <id>bintray-jottley-jottley</id>
+            <name>jottley-jottley</name>
+            <url>https://api.bintray.com/maven/jottley/jottley/spring-social-salesforce/;publish=1</url>
+        </repository>
+    </distributionManagement>
 </project>
