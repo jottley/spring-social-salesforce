@@ -1,16 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
-      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%.25thread] %-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
-
-  <root level="INFO">
-    <appender-ref ref="STDOUT" />
-  </root>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+      <!-- encoders are assigned the type
+           ch.qos.logback.classic.encoder.PatternLayoutEncoder by default -->
+      <encoder>
+        <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+      </encoder>
+    </appender>
   
-  <!--  logger name="org.springframework.web.client.RestTemplate" level="trace" / -->
-  <logger name="ch.qos.logback" level="error" />
-</configuration>
+    <root level="info">
+      <appender-ref ref="STDOUT" />
+    </root>
+  </configuration>
