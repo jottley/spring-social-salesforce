@@ -50,7 +50,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
     public QueryResult nextPage(String pathOrToken) {
         requireAuthorization();
         if (pathOrToken.contains("/")) {
-            return restTemplate.getForObject(api.getBaseUrl() + pathOrToken, QueryResult.class);
+            return restTemplate.getForObject(api.getInstanceUrl() + pathOrToken, QueryResult.class);
         } else {
             return restTemplate.getForObject(api.getBaseUrl() + "/" + getVersion() + "/query/{token}", QueryResult.class, pathOrToken);
         }

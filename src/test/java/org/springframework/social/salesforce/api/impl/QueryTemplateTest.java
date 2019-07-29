@@ -140,4 +140,19 @@ public class QueryTemplateTest extends AbstractSalesforceTest {
         assertEquals("Frank", genePointContacts.getRecords().get(0).getAttributes().get("LastName"));
     }
 
+    @Test
+    public void validNextPageQuery() {
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + salesforce.apiOperations().getVersion() + "/query?q=SELECT+Id%2C+Name%2C+BillingCity+FROM+Account"))
+                .andExpect(method(GET))
+                .andRespond(withStatus(HttpStatus.OK).body(loadResource("query-simple.json")).headers(responseHeaders));
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/" + salesforce.apiOperations().getVersion() + "/query/01gD0000002HU6KIAW-2000"))
+                .andExpect(method(GET))
+                .andRespond(withStatus(HttpStatus.OK).body(loadResource("query-simple.json")).headers(responseHeaders));
+
+        QueryResult result = salesforce.queryOperations().query("SELECT Id, Name, BillingCity FROM Account");
+        String nextRecordsUrl = result.getNextRecordsUrl();
+        assertEquals("/services/data/v37.0/query/01gD0000002HU6KIAW-2000", nextRecordsUrl);
+        salesforce.queryOperations().nextPage(nextRecordsUrl);
+    }
+
 }

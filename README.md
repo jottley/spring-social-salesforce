@@ -1,6 +1,6 @@
-# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://api.bintray.com/packages/jottley/jottley/spring-social-salesforce/images/download.svg?version=1.2.0.2.RELEASE) ](https://bintray.com/jottley/jottley/spring-social-salesforce/1.2.0.2.RELEASE/link)
+# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://api.bintray.com/packages/jottley/jottley/spring-social-salesforce/images/download.svg?version=1.2.1.RELEASE) ](https://bintray.com/jottley/jottley/spring-social-salesforce/1.2.1.RELEASE/link)
 
-Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for Salesforce
+Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for the Salesforce
 REST API.
 
 To check out the project and build from source, do the following:
@@ -26,7 +26,7 @@ To include in your maven project use the following repository and dependency
         <dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-salesforce</artifactId>
-			<version>1.2.0.2.RELEASE</version>
+			<version>1.2.1.RELEASE</version>
 		</dependency>
     ...
     </dependencies>
@@ -50,3 +50,5 @@ There is a spring boot quickstart app available at https://github.com/jottley/sp
  - Retrieve user profile
  - Retrieve user status
  - Update user status
+ - List the limits of an org
+ - Check the current API limit and usage
