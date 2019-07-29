@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2019 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -55,6 +55,10 @@ public interface Salesforce extends ApiBinding {
     public UserOperations userOperations();
     
     public UserOperations userOperations(String gatewayUrl);
+
+    public LimitsOperations limitsOperations();
+
+    public LimitsOperations limitsOperations(String instanceUrl);
 
     public <T> List<T> readList(JsonNode jsonNode, Class<T> type);
 
