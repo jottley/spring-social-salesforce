@@ -1,4 +1,4 @@
-# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://api.bintray.com/packages/jottley/jottley/spring-social-salesforce/images/download.svg?version=1.2.1.RELEASE) ](https://bintray.com/jottley/jottley/spring-social-salesforce/1.2.1.RELEASE/link)
+# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://api.bintray.com/packages/jottley/jottley/spring-social-salesforce/images/download.svg?version=1.2.2.RELEASE) ](https://bintray.com/jottley/jottley/spring-social-salesforce/1.2.2.RELEASE/link)
 
 Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for the Salesforce
 REST API.
@@ -26,7 +26,7 @@ To include in your maven project use the following repository and dependency
         <dependency>
 			<groupId>org.springframework.social</groupId>
 			<artifactId>spring-social-salesforce</artifactId>
-			<version>1.2.1.RELEASE</version>
+			<version>1.2.2.RELEASE</version>
 		</dependency>
     ...
     </dependencies>
@@ -47,6 +47,7 @@ There is a spring boot quickstart app available at https://github.com/jottley/sp
  - Retrieve recent changes feed
  - Execute a SOSL search and retrieve the results (with paging or all)
  - Run a SOQL query and retrieve the results (with paging or all)
+   - query results can optionally included deleted records
  - Retrieve user profile
  - Retrieve user status
  - Update user status
