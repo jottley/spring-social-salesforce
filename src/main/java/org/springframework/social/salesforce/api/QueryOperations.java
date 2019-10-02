@@ -30,6 +30,16 @@ public interface QueryOperations {
      */
     QueryResult query(String query);
 
+    /**
+     * Execute SOQL query and return the first page of results
+     *
+     * @param query The SOQL query to execute
+     * @param includeDeletedItems if result should include deleted items
+     * documentation https://developer.salesforce.com/docs/atlas.en-us.api_rest.meta/api_rest/dome_queryall.htm
+     * @return QueryResult
+     */
+    QueryResult query(String query, boolean includeDeletedItems);
+
     /*
      * Retrieve next page of results based on argument from url (usually from query result "nextRecordsUrl")
      */
