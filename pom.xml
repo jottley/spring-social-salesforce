@@ -18,7 +18,7 @@
 		<logback.version>1.2.3</logback.version>
 		<spring.version>4.3.29.RELEASE</spring.version>
 		<spring-social.version>1.1.4.RELEASE</spring-social.version>
-		<httpclient.version>4.5.3</httpclient.version>
+		<httpclient.version>4.5.13</httpclient.version>
 		<servlet.version>3.0.1</servlet.version>
 		<jackson.version>2.10.0.pr3</jackson.version>
 		<joor.version>0.9.4</joor.version>
