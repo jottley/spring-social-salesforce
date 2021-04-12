@@ -77,21 +77,21 @@ public class ApiTest {
 
         Salesforce template = factory.create(username, password, secretToken);
 
-//        testMetaApiOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testChatterOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testSObjectsOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testLeadCreateUpdate(template);
-//
-//        System.out.println("\n\n");
+        testMetaApiOperations(template);
+
+        System.out.println("\n\n");
+
+        testChatterOperations(template);
+
+        System.out.println("\n\n");
+
+        testSObjectsOperations(template);
+
+        System.out.println("\n\n");
+
+        testLeadCreateUpdate(template);
+
+        System.out.println("\n\n");
 
         testCommunityOperations(template);
     }
