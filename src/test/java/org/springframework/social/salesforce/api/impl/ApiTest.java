@@ -23,10 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Ignore;
-import org.springframework.social.salesforce.api.ApiVersion;
-import org.springframework.social.salesforce.api.QueryResult;
-import org.springframework.social.salesforce.api.ResultItem;
-import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.*;
 import org.springframework.social.salesforce.client.BaseSalesforceFactory;
 
 /**
@@ -80,19 +77,23 @@ public class ApiTest {
 
         Salesforce template = factory.create(username, password, secretToken);
 
-        testMetaApiOperations(template);
+//        testMetaApiOperations(template);
+//
+//        System.out.println("\n\n");
+//
+//        testChatterOperations(template);
+//
+//        System.out.println("\n\n");
+//
+//        testSObjectsOperations(template);
+//
+//        System.out.println("\n\n");
+//
+//        testLeadCreateUpdate(template);
+//
+//        System.out.println("\n\n");
 
-        System.out.println("\n\n");
-
-        testChatterOperations(template);
-
-        System.out.println("\n\n");
-
-        testSObjectsOperations(template);
-
-        System.out.println("\n\n");
-
-        testLeadCreateUpdate(template);
+        testCommunityOperations(template);
     }
 
     private static String resolveAuthURL(String numberSelection) {
@@ -155,6 +156,18 @@ public class ApiTest {
 
         System.out.println("Updated current user's status, new status:");
         System.out.println(template.chatterOperations().updateStatus("Updated status via #spring-social-salesforce!"));
+    }
+
+    public static void testCommunityOperations(Salesforce api) {
+
+        System.out.println("Communities test:");
+
+        for(Community community: api.communityOperations(api.getInstanceUrl()).getCommunities()) {
+            System.out.println("Community ID: " + community.getId());
+            System.out.println("Community Name: " + community.getName());
+            System.out.println("Community URL: " + community.getUrl());
+        }
+
     }
 
     public static void testLeadCreateUpdate(Salesforce template) {
