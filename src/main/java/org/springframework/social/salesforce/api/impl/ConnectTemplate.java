@@ -17,17 +17,17 @@ package org.springframework.social.salesforce.api.impl;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.social.salesforce.api.Community;
-import org.springframework.social.salesforce.api.CommunityOperations;
+import org.springframework.social.salesforce.api.ConnectOperations;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 
-public class CommunityTemplate extends AbstractSalesForceOperations<Salesforce> implements CommunityOperations {
+public class ConnectTemplate extends AbstractSalesForceOperations<Salesforce> implements ConnectOperations {
 
     private RestTemplate restTemplate;
 
-    public CommunityTemplate(Salesforce api, RestTemplate restTemplate) {
+    public ConnectTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
         this.restTemplate = restTemplate;
     }
