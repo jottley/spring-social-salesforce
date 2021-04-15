@@ -20,4 +20,6 @@ import java.util.List;
 public interface ConnectOperations {
 
     List<Community> getCommunities();
+
+    List<CommunityUser> getCommunityUsers(String communityId);
 }

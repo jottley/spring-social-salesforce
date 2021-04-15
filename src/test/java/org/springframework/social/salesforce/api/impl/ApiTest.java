@@ -23,11 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Ignore;
-import org.springframework.social.salesforce.api.Salesforce;
-import org.springframework.social.salesforce.api.ApiVersion;
-import org.springframework.social.salesforce.api.QueryResult;
-import org.springframework.social.salesforce.api.ResultItem;
-import org.springframework.social.salesforce.api.Community;
+import org.springframework.social.salesforce.api.*;
 import org.springframework.social.salesforce.client.BaseSalesforceFactory;
 
 /**
@@ -81,21 +77,21 @@ public class ApiTest {
 
         Salesforce template = factory.create(username, password, secretToken);
 
-//        testMetaApiOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testChatterOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testSObjectsOperations(template);
-//
-//        System.out.println("\n\n");
-//
-//        testLeadCreateUpdate(template);
-//
-//        System.out.println("\n\n");
+        testMetaApiOperations(template);
+
+        System.out.println("\n\n");
+
+        testChatterOperations(template);
+
+        System.out.println("\n\n");
+
+        testSObjectsOperations(template);
+
+        System.out.println("\n\n");
+
+        testLeadCreateUpdate(template);
+
+        System.out.println("\n\n");
 
         testCommunityOperations(template);
 
@@ -173,6 +169,11 @@ public class ApiTest {
             System.out.println("Community ID: " + community.getId());
             System.out.println("Community Name: " + community.getName());
             System.out.println("Community URL: " + community.getUrl());
+
+            for(CommunityUser communityUser: api.connectOperations(api.getInstanceUrl()).getCommunityUsers(community.getId())) {
+                System.out.println("User name: " + communityUser.getName());
+                System.out.println("User email:  " + communityUser.getEmail());
+            }
         }
 
     }
