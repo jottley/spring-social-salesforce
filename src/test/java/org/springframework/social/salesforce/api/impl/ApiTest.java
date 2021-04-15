@@ -23,7 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Ignore;
-import org.springframework.social.salesforce.api.*;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.ApiVersion;
+import org.springframework.social.salesforce.api.QueryResult;
+import org.springframework.social.salesforce.api.ResultItem;
+import org.springframework.social.salesforce.api.Community;
+import org.springframework.social.salesforce.api.CommunityUser;
 import org.springframework.social.salesforce.client.BaseSalesforceFactory;
 
 /**
