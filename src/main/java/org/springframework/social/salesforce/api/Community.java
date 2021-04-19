@@ -32,6 +32,34 @@ public class Community {
 
     private boolean sendWelcomeEmail;
 
+    private boolean allowChatterAccessWithoutLogin;
+
+    private boolean allowMembersToFlag;
+
+    private boolean guestMemberVisibilityEnabled;
+
+    private boolean knowledgeableEnabled;
+
+    private String loginUrl;
+
+    private boolean memberVisibilityEnabled;
+
+    private boolean nicknameDisplayEnabled;
+
+    private boolean privateMessagesEnabled;
+
+    private boolean reputationEnabled;
+
+    private boolean siteAsContainerEnabled;
+
+    private String siteUrl;
+
+    private String status;
+
+    private String templateName;
+
+    private String urlPathPrefix;
+
     public String getDescription() {
         return description;
     }
@@ -78,5 +106,117 @@ public class Community {
 
     public void setSendWelcomeEmail(boolean sendWelcomeEmail) {
         this.sendWelcomeEmail = sendWelcomeEmail;
+    }
+
+    public boolean isAllowChatterAccessWithoutLogin() {
+        return allowChatterAccessWithoutLogin;
+    }
+
+    public void setAllowChatterAccessWithoutLogin(boolean allowChatterAccessWithoutLogin) {
+        this.allowChatterAccessWithoutLogin = allowChatterAccessWithoutLogin;
+    }
+
+    public boolean isAllowMembersToFlag() {
+        return allowMembersToFlag;
+    }
+
+    public void setAllowMembersToFlag(boolean allowMembersToFlag) {
+        this.allowMembersToFlag = allowMembersToFlag;
+    }
+
+    public boolean isGuestMemberVisibilityEnabled() {
+        return guestMemberVisibilityEnabled;
+    }
+
+    public void setGuestMemberVisibilityEnabled(boolean guestMemberVisibilityEnabled) {
+        this.guestMemberVisibilityEnabled = guestMemberVisibilityEnabled;
+    }
+
+    public boolean isKnowledgeableEnabled() {
+        return knowledgeableEnabled;
+    }
+
+    public void setKnowledgeableEnabled(boolean knowledgeableEnabled) {
+        this.knowledgeableEnabled = knowledgeableEnabled;
+    }
+
+    public String getLoginUrl() {
+        return loginUrl;
+    }
+
+    public void setLoginUrl(String loginUrl) {
+        this.loginUrl = loginUrl;
+    }
+
+    public boolean isMemberVisibilityEnabled() {
+        return memberVisibilityEnabled;
+    }
+
+    public void setMemberVisibilityEnabled(boolean memberVisibilityEnabled) {
+        this.memberVisibilityEnabled = memberVisibilityEnabled;
+    }
+
+    public boolean isNicknameDisplayEnabled() {
+        return nicknameDisplayEnabled;
+    }
+
+    public void setNicknameDisplayEnabled(boolean nicknameDisplayEnabled) {
+        this.nicknameDisplayEnabled = nicknameDisplayEnabled;
+    }
+
+    public boolean isPrivateMessagesEnabled() {
+        return privateMessagesEnabled;
+    }
+
+    public void setPrivateMessagesEnabled(boolean privateMessagesEnabled) {
+        this.privateMessagesEnabled = privateMessagesEnabled;
+    }
+
+    public boolean isReputationEnabled() {
+        return reputationEnabled;
+    }
+
+    public void setReputationEnabled(boolean reputationEnabled) {
+        this.reputationEnabled = reputationEnabled;
+    }
+
+    public boolean isSiteAsContainerEnabled() {
+        return siteAsContainerEnabled;
+    }
+
+    public void setSiteAsContainerEnabled(boolean siteAsContainerEnabled) {
+        this.siteAsContainerEnabled = siteAsContainerEnabled;
+    }
+
+    public String getSiteUrl() {
+        return siteUrl;
+    }
+
+    public void setSiteUrl(String siteUrl) {
+        this.siteUrl = siteUrl;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getTemplateName() {
+        return templateName;
+    }
+
+    public void setTemplateName(String templateName) {
+        this.templateName = templateName;
+    }
+
+    public String getUrlPathPrefix() {
+        return urlPathPrefix;
+    }
+
+    public void setUrlPathPrefix(String urlPathPrefix) {
+        this.urlPathPrefix = urlPathPrefix;
     }
 }

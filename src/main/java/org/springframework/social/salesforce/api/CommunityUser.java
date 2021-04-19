@@ -44,6 +44,8 @@ public class CommunityUser {
 
     private String aboutMe;
 
+    private String contactName;
+
     public String getCommunityNickname() {
         return communityNickname;
     }
@@ -138,5 +140,13 @@ public class CommunityUser {
 
     public void setAboutMe(String aboutMe) {
         this.aboutMe = aboutMe;
+    }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 }

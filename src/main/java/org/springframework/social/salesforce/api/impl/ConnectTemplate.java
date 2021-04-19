@@ -20,6 +20,8 @@ import org.springframework.social.salesforce.api.Community;
 import org.springframework.social.salesforce.api.CommunityUser;
 import org.springframework.social.salesforce.api.ConnectOperations;
 import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.QueryResult;
+import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
@@ -54,7 +56,29 @@ public class ConnectTemplate extends AbstractSalesForceOperations<Salesforce> im
 
         JsonNode dataNode = restTemplate.getForObject(api.getBaseUrl() + "/" + getVersion() + CONNECT_URI + communityId + CHATTER_USERS, JsonNode.class, getVersion());
 
-        return api.readList(dataNode.get("users"), CommunityUser.class);
+        List<CommunityUser> users = api.readList(dataNode.get("users"), CommunityUser.class);;
+
+        for(int i=0; i<users.size(); i++) {
+
+            /* Extract the contact account name by using a query*/
+            QueryResult queryResult = this.api.queryOperations().query("SELECT Contact.Account.Name FROM User WHERE id='" + users.get(i).getId() + "'");
+
+            for(ResultItem resultItem: queryResult.getRecords()) {
+
+                ResultItem contact = (ResultItem) resultItem.getAttributes().get("Contact");
+
+                /* If the User has an Account attached, then set it */
+                if(contact != null) {
+
+                    ResultItem account = (ResultItem) contact.getAttributes().get("Account");
+                    String accountName = account.getAttributes().get("Name").toString();
+
+                    users.get(i).setContactName(accountName);
+                }
+            }
+        }
+
+        return users;
     }
 
 }
