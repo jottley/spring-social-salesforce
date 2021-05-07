@@ -1,6 +1,6 @@
-# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [ ![Download](https://panel.repsy.io/mvn/jottley/spring-social-salesforce/org/springframework/social/spring-social-salesforce/1.2.3.RELEASE) ](https://panel.repsy.io/mvn/jottley/spring-social-salesforce/org/springframework/social/spring-social-salesforce/1.2.3.RELEASE)
+# Spring Social Salesforce [![Build Status](https://travis-ci.org/jottley/spring-social-salesforce.svg?branch=master)](https://travis-ci.org/jottley/spring-social-salesforce) [![](https://img.shields.io/static/v1?label=Download&message=1.2.3.RELEASE&color=green)](https://repo.repsy.io/mvn/jottley/spring-social-salesforce/org/springframework/social/spring-social-salesforce/1.2.3.RELEASE)
 
-Spring Social Salesforce is a Spring Social extension that provides connection support and api binding for the Salesforce
+Spring Social Salesforce is a Spring Social extension that provides connection support and API binding for the Salesforce
 REST API.
 
 To check out the project and build from source, do the following:
