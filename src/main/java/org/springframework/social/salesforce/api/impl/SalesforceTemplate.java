@@ -31,13 +31,14 @@ import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
 import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.ChatterOperations;
-import org.springframework.social.salesforce.api.LimitsOperations;
+import org.springframework.social.salesforce.api.ConnectOperations;
+import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.QueryOperations;
 import org.springframework.social.salesforce.api.RecentOperations;
-import org.springframework.social.salesforce.api.SObjectOperations;
-import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SearchOperations;
+import org.springframework.social.salesforce.api.SObjectOperations;
 import org.springframework.social.salesforce.api.UserOperations;
+import org.springframework.social.salesforce.api.LimitsOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
@@ -78,6 +79,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     private LimitsOperations limitsOperations;
 
+    private ConnectOperations connectOperations;
 
     public SalesforceTemplate()
     {
@@ -196,8 +198,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     {
         return userOperations;
     }
-    
-    
+
+
     @Override
     public UserOperations userOperations(String gatewayUrl)
     {
@@ -219,6 +221,14 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         return limitsOperations;
     }
 
+    @Override
+    public ConnectOperations connectOperations() { return connectOperations; }
+
+    @Override
+    public ConnectOperations connectOperations(String instanceUrl) {
+        this.instanceUrl = instanceUrl;
+        return connectOperations;
+    }
 
     private void initialize()
     {
@@ -227,7 +237,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
         interceptors.add(new ApiRequestInterceptor(this));
         restTemplate.setInterceptors(interceptors);
-        
+
         apiOperations = new ApiTemplate(this, restTemplate);
         chatterOperations = new ChatterTemplate(this, restTemplate);
         queryOperations = new QueryTemplate(this, restTemplate);
@@ -236,6 +246,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         sObjectsOperations = new SObjectsTemplate(this, restTemplate);
         userOperations = new UserOperationsTemplate(this, restTemplate);
         limitsOperations = new LimitsOperationsTemplate(this, restTemplate);
+        connectOperations = new ConnectTemplate(this, restTemplate);
     }
 
 
@@ -259,7 +270,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         converter.setObjectMapper(objectMapper);
         return converter;
     }
-    
+
     @Override
     protected ByteArrayHttpMessageConverter getByteArrayMessageConverter()
     {
@@ -298,20 +309,20 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
     }
-    
-    
+
+
     @Override
     public String getUserInfoUrl() {
         return (this.gatewayUrl == null ? GATEWAY_URL : this.gatewayUrl) + "/services/oauth2/userinfo";
     }
-    
-    
+
+
     @Override
     public String getAuthGatewayUrl() {
         return this.gatewayUrl;
     }
-    
-    
+
+
     @Override
     public void setAuthGatewayBaseUrl(String gatewayUrl) {
         this.gatewayUrl = gatewayUrl;
