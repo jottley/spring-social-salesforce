@@ -1,5 +1,5 @@
 /**
- * Copyright (C) 2017 https://github.com/jottley/spring-social-salesforce
+ * Copyright (C) 2019 https://github.com/jottley/spring-social-salesforce
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,13 +22,23 @@ import com.fasterxml.jackson.databind.type.CollectionType;
 import com.fasterxml.jackson.databind.type.TypeFactory;
 
 import org.springframework.http.MediaType;
+import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.converter.ByteArrayHttpMessageConverter;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.StringHttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
 import org.springframework.social.oauth2.OAuth2Version;
-import org.springframework.social.salesforce.api.*;
+import org.springframework.social.salesforce.api.ApiOperations;
+import org.springframework.social.salesforce.api.ChatterOperations;
+import org.springframework.social.salesforce.api.ConnectOperations;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.QueryOperations;
+import org.springframework.social.salesforce.api.RecentOperations;
+import org.springframework.social.salesforce.api.SearchOperations;
+import org.springframework.social.salesforce.api.SObjectOperations;
+import org.springframework.social.salesforce.api.UserOperations;
+import org.springframework.social.salesforce.api.LimitsOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
@@ -67,6 +77,9 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
     private UserOperations userOperations;
 
+    private LimitsOperations limitsOperations;
+
+    private ConnectOperations connectOperations;
 
     public SalesforceTemplate()
     {
@@ -185,8 +198,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     {
         return userOperations;
     }
-    
-    
+
+
     @Override
     public UserOperations userOperations(String gatewayUrl)
     {
@@ -195,15 +208,45 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     }
 
 
+    @Override
+    public LimitsOperations limitsOperations()
+    {
+        return limitsOperations;
+    }
+
+    @Override
+    public LimitsOperations limitsOperations(String instanceUrl)
+    {
+        this.instanceUrl = instanceUrl;
+        return limitsOperations;
+    }
+
+    @Override
+    public ConnectOperations connectOperations() { return connectOperations; }
+
+    @Override
+    public ConnectOperations connectOperations(String instanceUrl) {
+        this.instanceUrl = instanceUrl;
+        return connectOperations;
+    }
+
     private void initialize()
     {
-        apiOperations = new ApiTemplate(this, getRestTemplate());
-        chatterOperations = new ChatterTemplate(this, getRestTemplate());
-        queryOperations = new QueryTemplate(this, getRestTemplate());
-        recentOperations = new RecentTemplate(this, getRestTemplate());
-        searchOperations = new SearchTemplate(this, getRestTemplate());
-        sObjectsOperations = new SObjectsTemplate(this, getRestTemplate());
-        userOperations = new UserOperationsTemplate(this, getRestTemplate());
+        //Add the ApiRequestInterceptor to the rest template used by all of the operations classes
+        RestTemplate restTemplate = getRestTemplate();
+        List<ClientHttpRequestInterceptor> interceptors = restTemplate.getInterceptors();
+        interceptors.add(new ApiRequestInterceptor(this));
+        restTemplate.setInterceptors(interceptors);
+
+        apiOperations = new ApiTemplate(this, restTemplate);
+        chatterOperations = new ChatterTemplate(this, restTemplate);
+        queryOperations = new QueryTemplate(this, restTemplate);
+        recentOperations = new RecentTemplate(this, restTemplate);
+        searchOperations = new SearchTemplate(this, restTemplate);
+        sObjectsOperations = new SObjectsTemplate(this, restTemplate);
+        userOperations = new UserOperationsTemplate(this, restTemplate);
+        limitsOperations = new LimitsOperationsTemplate(this, restTemplate);
+        connectOperations = new ConnectTemplate(this, restTemplate);
     }
 
 
@@ -227,7 +270,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
         converter.setObjectMapper(objectMapper);
         return converter;
     }
-    
+
     @Override
     protected ByteArrayHttpMessageConverter getByteArrayMessageConverter()
     {
@@ -266,20 +309,20 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
     public void setInstanceUrl(String instanceUrl) {
         this.instanceUrl = instanceUrl;
     }
-    
-    
+
+
     @Override
     public String getUserInfoUrl() {
         return (this.gatewayUrl == null ? GATEWAY_URL : this.gatewayUrl) + "/services/oauth2/userinfo";
     }
-    
-    
+
+
     @Override
     public String getAuthGatewayUrl() {
         return this.gatewayUrl;
     }
-    
-    
+
+
     @Override
     public void setAuthGatewayBaseUrl(String gatewayUrl) {
         this.gatewayUrl = gatewayUrl;

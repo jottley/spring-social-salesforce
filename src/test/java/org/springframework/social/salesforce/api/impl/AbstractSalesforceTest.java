@@ -45,6 +45,7 @@ abstract public class AbstractSalesforceTest {
         mockServer = MockRestServiceServer.createServer(salesforce.getRestTemplate());
         responseHeaders = new HttpHeaders();
         responseHeaders.setContentType(MediaType.APPLICATION_JSON);
+        responseHeaders.add("Sforce-Limit-Info", "api-usage=39/15000");
         unauthorizedSalesforce = new SalesforceTemplate();
         // create a mock server just to avoid hitting real twitter if something gets past the authorization check
         MockRestServiceServer.createServer(unauthorizedSalesforce.getRestTemplate());

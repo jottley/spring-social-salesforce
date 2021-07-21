@@ -41,8 +41,14 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
 
     @Override
     public QueryResult query(String query) {
+        return query(query, false);
+    }
+
+    @Override
+    public QueryResult query(String query, boolean includeDeletedItems) {
+        String queryType = includeDeletedItems ? "/queryAll" : "/query";
         requireAuthorization();
-        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + "/query").queryParam("q", query).build();
+        URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + queryType).queryParam("q", query).build();
         return restTemplate.getForObject(uri, QueryResult.class);
     }
 
@@ -50,7 +56,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
     public QueryResult nextPage(String pathOrToken) {
         requireAuthorization();
         if (pathOrToken.contains("/")) {
-            return restTemplate.getForObject(api.getBaseUrl() + pathOrToken, QueryResult.class);
+            return restTemplate.getForObject(api.getInstanceUrl() + pathOrToken, QueryResult.class);
         } else {
             return restTemplate.getForObject(api.getBaseUrl() + "/" + getVersion() + "/query/{token}", QueryResult.class, pathOrToken);
         }
