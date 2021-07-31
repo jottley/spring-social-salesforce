@@ -12,6 +12,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -156,7 +157,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.PUT))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/contact", HttpMethod.PUT, new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
+		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/contact", HttpMethod.PUT, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class);
 
 		assertEquals("1", result.getBody().get("Id"));
 	}
@@ -167,7 +168,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.POST))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/{objectFriendlyName}", HttpMethod.POST, new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
+		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/{objectFriendlyName}", HttpMethod.POST, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
 
 		assertEquals("1", result.getBody().get("Id"));
 	}

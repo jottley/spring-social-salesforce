@@ -17,6 +17,7 @@ package org.springframework.social.salesforce.api;
 
 import java.util.Map;
 
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 
@@ -49,7 +50,7 @@ public interface CustomApiOperations {
 	<T> T deleteForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariablesMap);
 
 	// for custom api - (to get headers and body)
-	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType, Map<String, ?> uriVariables);
 
-	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType);	
+	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType);	
 }

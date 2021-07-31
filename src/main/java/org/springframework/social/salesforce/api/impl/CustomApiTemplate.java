@@ -108,14 +108,14 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	}
 
 	@Override
-	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType) {
+	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType) {
 		requireAuthorization();
-		return this.restTemplate.exchange(this.createUriPath(uriPath), method, new HttpEntity<Object>(request), responseType);		
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType);		
 	}	
 
 	@Override
-	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType, Map<String, ?> uriVariables) {
 		requireAuthorization();
-		return this.restTemplate.exchange(this.createUriPath(uriPath), method, new HttpEntity<Object>(request), responseType, uriVariables);		
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType, uriVariables);		
 	}
 }
