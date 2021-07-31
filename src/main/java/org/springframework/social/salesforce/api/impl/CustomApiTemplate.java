@@ -40,7 +40,7 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	}
 
 	protected String createUriPath(String uriPath) {
-		return this.api.getInstanceUrl() + "/services/apexrest/" + uriPath;
+		return this.api.getInstanceUrl() + "/services/apexrest" + uriPath;
 	}
 
 	@Override

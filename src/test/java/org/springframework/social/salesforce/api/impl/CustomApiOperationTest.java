@@ -30,7 +30,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(GET))
 		.andRespond(withStatus(HttpStatus.OK).body(loadResource("customApi1.json")).headers(responseHeaders));
 
-		Map<String, Object> result = salesforce.customApiOperations().getForApexObject("xxx/test", Map.class);
+		Map<String, Object> result = salesforce.customApiOperations().getForApexObject("/xxx/test", Map.class);
 
 		assertEquals(false, result.get("allowChatterAccessWithoutLogin"));
 		assertEquals(false, result.get("allowMembersToFlag"));
@@ -46,7 +46,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(GET))
 		.andRespond(withStatus(HttpStatus.OK).body(loadResource("customApi1.json")).headers(responseHeaders));
 
-		Map<String, Object> result = salesforce.customApiOperations().getForApexObject("xxx/{uri}", Map.class, new HashMap<String, Object>() {{ put("uri", "test"); }});
+		Map<String, Object> result = salesforce.customApiOperations().getForApexObject("/xxx/{uri}", Map.class, new HashMap<String, Object>() {{ put("uri", "test"); }});
 
 		assertEquals(false, result.get("allowChatterAccessWithoutLogin"));
 		assertEquals(false, result.get("allowMembersToFlag"));
@@ -62,7 +62,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.DELETE))
 		.andRespond(withStatus(HttpStatus.OK).body("Deleted".getBytes("UTF-8")).headers(responseHeaders));
 
-		String result = salesforce.customApiOperations().deleteForApexObject("xxx/account/1", String.class);
+		String result = salesforce.customApiOperations().deleteForApexObject("/xxx/account/1", String.class);
 
 		assertEquals("Deleted", result);
 	}
@@ -73,7 +73,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.DELETE))
 		.andRespond(withStatus(HttpStatus.OK).body("Deleted".getBytes("UTF-8")).headers(responseHeaders));
 
-		String result = salesforce.customApiOperations().deleteForApexObject("xxx/{objectFriendlyName}/{pk}", String.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "account"); put("pk", "1");  }});
+		String result = salesforce.customApiOperations().deleteForApexObject("/xxx/{objectFriendlyName}/{pk}", String.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "account"); put("pk", "1");  }});
 
 		assertEquals("Deleted", result);
 	}
@@ -84,7 +84,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.POST))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		Map<String, Object> result = salesforce.customApiOperations().postForApexObject("xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
+		Map<String, Object> result = salesforce.customApiOperations().postForApexObject("/xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
 
 		assertEquals("1", result.get("Id"));
 	}
@@ -97,7 +97,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
 		Map<String, Object> objectMap = new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }};
-		Map<String, Object> result = salesforce.customApiOperations().postForApexObject("xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
+		Map<String, Object> result = salesforce.customApiOperations().postForApexObject("/xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
 
 		assertEquals("1", result.get("Id"));
 	}
@@ -108,7 +108,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.PATCH))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"LastName\" : \"Aggarwal\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		Map<String, Object> result = salesforce.customApiOperations().patchForApexObject("xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
+		Map<String, Object> result = salesforce.customApiOperations().patchForApexObject("/xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
 
 		assertEquals("Aggarwal", result.get("LastName"));
 	}
@@ -121,7 +121,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"LastName\" : \"Aggarwal\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
 		Map<String, Object> objectMap = new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }};
-		Map<String, Object> result = salesforce.customApiOperations().patchForApexObject("xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
+		Map<String, Object> result = salesforce.customApiOperations().patchForApexObject("/xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
 
 		assertEquals("Aggarwal", result.get("LastName"));
 	}
@@ -132,7 +132,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.PUT))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		Map<String, Object> result = salesforce.customApiOperations().putForApexObject("xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
+		Map<String, Object> result = salesforce.customApiOperations().putForApexObject("/xxx/contact", new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}, Map.class);
 
 		assertEquals("1", result.get("Id"));
 	}
@@ -145,7 +145,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
 		Map<String, Object> objectMap = new HashMap<String, Object>() {{ put("Id", "1"); }};
-		Map<String, Object> result = salesforce.customApiOperations().putForApexObject("xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
+		Map<String, Object> result = salesforce.customApiOperations().putForApexObject("/xxx/{objectFriendlyName}", objectMap, Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
 
 		assertEquals("1", result.get("Id"));
 	}
@@ -157,7 +157,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.PUT))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/contact", HttpMethod.PUT, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class);
+		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("/xxx/contact", HttpMethod.PUT, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class);
 
 		assertEquals("1", result.getBody().get("Id"));
 	}
@@ -168,7 +168,7 @@ public class CustomApiOperationTest extends AbstractSalesforceTest {
 		.andExpect(method(HttpMethod.POST))
 		.andRespond(withStatus(HttpStatus.OK).body(new ByteArrayResource("{\"Id\" : \"1\"}".getBytes("UTF-8"))).headers(responseHeaders));
 
-		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("xxx/{objectFriendlyName}", HttpMethod.POST, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
+		ResponseEntity<Map> result = salesforce.customApiOperations().executeApexApi("/xxx/{objectFriendlyName}", HttpMethod.POST, new HttpEntity<>(new HashMap<String, Object>() {{ put("LastName", "Agarwal"); }}), Map.class, new HashMap<String, Object>() {{ put("objectFriendlyName", "contact"); }});
 
 		assertEquals("1", result.getBody().get("Id"));
 	}
