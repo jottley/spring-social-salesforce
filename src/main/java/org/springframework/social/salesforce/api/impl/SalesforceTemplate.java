@@ -16,10 +16,9 @@
 package org.springframework.social.salesforce.api.impl;
 
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.type.CollectionType;
-import com.fasterxml.jackson.databind.type.TypeFactory;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -33,19 +32,20 @@ import org.springframework.social.salesforce.api.ApiOperations;
 import org.springframework.social.salesforce.api.ChatterOperations;
 import org.springframework.social.salesforce.api.ConnectOperations;
 import org.springframework.social.salesforce.api.CustomApiOperations;
-import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.LimitsOperations;
 import org.springframework.social.salesforce.api.QueryOperations;
 import org.springframework.social.salesforce.api.RecentOperations;
-import org.springframework.social.salesforce.api.SearchOperations;
 import org.springframework.social.salesforce.api.SObjectOperations;
+import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.SearchOperations;
 import org.springframework.social.salesforce.api.UserOperations;
-import org.springframework.social.salesforce.api.LimitsOperations;
 import org.springframework.social.salesforce.api.impl.json.SalesforceModule;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.type.CollectionType;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 /**
  * Default implementation of Salesforce. This is the main entry point

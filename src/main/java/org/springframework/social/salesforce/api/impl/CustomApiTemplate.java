@@ -19,20 +19,18 @@ import java.util.Map;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.social.salesforce.api.CustomApiOperations;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.web.client.RestTemplate;
 
 /**
- * Defines operations for calling custom apex exposed rest apis.
+ * Defines operations for calling Apex based custom rest apis.
  *
  * @author Sanchit Agarwal
  *
  */
-@SuppressWarnings("unchecked")
 public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> implements CustomApiOperations  {
-
-	private static String _apex_rest_uri = "/service/apexrest/";
 
 	private RestTemplate restTemplate;
 
@@ -42,7 +40,7 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	}
 
 	protected String createUriPath(String uriPath) {
-		return this.api.getBaseUrl() + "/" + _apex_rest_uri + "/" + uriPath;
+		return this.api.getInstanceUrl() + "/services/apexrest/" + uriPath;
 	}
 
 	@Override
@@ -72,13 +70,15 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	@Override
 	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType) {
 		requireAuthorization();
-		return (T) this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType);
+		return entity.getBody();
 	}
 
 	@Override
 	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
 		requireAuthorization();				
-		return (T) this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType, uriVariables);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType, uriVariables);
+		return entity.getBody();
 	}
 
 	@Override
@@ -96,12 +96,26 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	@Override
 	public <T> T deleteForApexObject(String uriPath, Class<T> responseType) {
 		requireAuthorization();
-		return (T) this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, null, responseType, (Map<String, ?>) null);
+		ResponseEntity<T> entity =  this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, HttpEntity.EMPTY, responseType);
+		return entity.getBody();
 	}
 
 	@Override
 	public <T> T deleteForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariables) {
 		requireAuthorization();
-		return (T) this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, null, responseType, uriVariables);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, HttpEntity.EMPTY, responseType, uriVariables);
+		return entity.getBody();
+	}
+
+	@Override
+	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType) {
+		requireAuthorization();
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, new HttpEntity<Object>(request), responseType);		
+	}	
+
+	@Override
+	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
+		requireAuthorization();
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, new HttpEntity<Object>(request), responseType, uriVariables);		
 	}
 }
