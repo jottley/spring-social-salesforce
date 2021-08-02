@@ -70,14 +70,14 @@ public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> 
 	@Override
 	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType) {
 		requireAuthorization();
-		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, request, responseType);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType);
 		return entity.getBody();
 	}
 
 	@Override
 	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
 		requireAuthorization();				
-		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, request, responseType, uriVariables);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType, uriVariables);
 		return entity.getBody();
 	}
 
