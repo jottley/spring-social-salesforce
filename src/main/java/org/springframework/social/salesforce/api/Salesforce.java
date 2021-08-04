@@ -79,5 +79,8 @@ public interface Salesforce extends ApiBinding {
     public ConnectOperations connectOperations();
 
     public ConnectOperations connectOperations(String instanceUrl);
+    
+    public CustomApiOperations customApiOperations();
 
+    public CustomApiOperations customApiOperations(String instanceUrl);
 }

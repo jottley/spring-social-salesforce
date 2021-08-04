@@ -1,0 +1,8 @@
+{
+	"allowChatterAccessWithoutLogin" : false,
+    "allowMembersToFlag" : false,
+    "description" : null,
+    "guestMemberVisibilityEnabled" : false,
+    "id" : "commId3",
+    "invitationsEnabled" : false
+}
