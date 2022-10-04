@@ -53,7 +53,7 @@ public interface Salesforce extends ApiBinding {
     public SObjectOperations sObjectsOperations(String instanceUrl);
 
     public UserOperations userOperations();
-    
+
     public UserOperations userOperations(String gatewayUrl);
 
     public LimitsOperations limitsOperations();
@@ -69,11 +69,18 @@ public interface Salesforce extends ApiBinding {
     public String getInstanceUrl();
 
     public void setInstanceUrl(String instanceUrl);
-    
+
     public String getUserInfoUrl();
-    
+
     public String getAuthGatewayUrl();
-    
+
     public void setAuthGatewayBaseUrl(String gatewayUrl);
 
+    public ConnectOperations connectOperations();
+
+    public ConnectOperations connectOperations(String instanceUrl);
+    
+    public CustomApiOperations customApiOperations();
+
+    public CustomApiOperations customApiOperations(String instanceUrl);
 }

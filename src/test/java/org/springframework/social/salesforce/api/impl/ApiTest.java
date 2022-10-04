@@ -23,10 +23,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import org.junit.Ignore;
+import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.ApiVersion;
 import org.springframework.social.salesforce.api.QueryResult;
 import org.springframework.social.salesforce.api.ResultItem;
-import org.springframework.social.salesforce.api.Salesforce;
+import org.springframework.social.salesforce.api.Community;
+import org.springframework.social.salesforce.api.CommunityUser;
 import org.springframework.social.salesforce.client.BaseSalesforceFactory;
 
 /**
@@ -93,6 +95,13 @@ public class ApiTest {
         System.out.println("\n\n");
 
         testLeadCreateUpdate(template);
+
+        System.out.println("\n\n");
+
+        testCommunityOperations(template);
+
+        System.out.println("\n\n");
+
     }
 
     private static String resolveAuthURL(String numberSelection) {
@@ -155,6 +164,23 @@ public class ApiTest {
 
         System.out.println("Updated current user's status, new status:");
         System.out.println(template.chatterOperations().updateStatus("Updated status via #spring-social-salesforce!"));
+    }
+
+    public static void testCommunityOperations(Salesforce api) {
+
+        System.out.println("Communities test:");
+
+        for(Community community: api.connectOperations(api.getInstanceUrl()).getCommunities()) {
+            System.out.println("Community ID: " + community.getId());
+            System.out.println("Community Name: " + community.getName());
+            System.out.println("Community URL: " + community.getUrl());
+
+            for(CommunityUser communityUser: api.connectOperations(api.getInstanceUrl()).getCommunityUsers(community.getId())) {
+                System.out.println("User name: " + communityUser.getName());
+                System.out.println("User email:  " + communityUser.getEmail());
+            }
+        }
+
     }
 
     public static void testLeadCreateUpdate(Salesforce template) {

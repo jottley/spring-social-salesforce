@@ -1,0 +1,83 @@
+{
+  "currentPageToken" : 0,
+  "currentPageUrl" : "/services/data/v37.0/connect/communities/commId1/chatter/users",
+  "nextPageToken" : null,
+  "nextPageUrl" : null,
+  "previousPageToken" : null,
+  "previousPageUrl" : null,
+  "users" : [ {
+    "aboutMe" : null,
+    "additionalLabel" : null,
+    "address" : {
+      "city" : null,
+      "country" : "EU",
+      "formattedAddress" : "EU",
+      "state" : null,
+      "street" : null,
+      "zip" : null
+    },
+    "bannerPhoto" : {
+      "bannerPhotoUrl" : "https://na7.salesforce.com/profilephoto/003/C",
+      "bannerPhotoVersionId" : null,
+      "url" : "/services/data/v37.0/connect/communities/commId1/user-profiles/commUserId1/banner-photo"
+    },
+    "chatterActivity" : {
+      "commentCount" : 0,
+      "commentReceivedCount" : 0,
+      "likeReceivedCount" : 0,
+      "postCount" : 0
+    },
+    "chatterInfluence" : {
+      "percentile" : "0.0",
+      "rank" : 1
+    },
+    "communityNickname" : "UserABCDEF",
+    "companyName" : "Company Name",
+    "displayName" : "MockUser1",
+    "email" : "mock-user@test.com",
+    "firstName" : null,
+    "followersCount" : 0,
+    "followingCounts" : {
+      "people" : 0,
+      "records" : 0,
+      "total" : 0
+    },
+    "groupCount" : 0,
+    "hasChatter" : true,
+    "id" : "commUserId1",
+    "isActive" : true,
+    "isInThisCommunity" : true,
+    "lastName" : null,
+    "managerId" : null,
+    "managerName" : null,
+    "motif" : {
+      "color" : "65CAE4",
+      "largeIconUrl" : "/img/icon/profile64.png",
+      "mediumIconUrl" : "/img/icon/profile32.png",
+      "smallIconUrl" : "/img/icon/profile16.png",
+      "svgIconUrl" : null
+    },
+    "mySubscription" : null,
+    "name" : "UserABCDEF",
+    "outOfOffice" : {
+      "message" : ""
+    },
+    "phoneNumbers" : [ ],
+    "photo" : {
+      "fullEmailPhotoUrl" : "https://na7.salesforce.com/img/userprofile/default_profile_200_v2.png?fromEmail=1",
+      "largePhotoUrl" : "https://na7.salesforce.com/profilephoto/005/F",
+      "mediumPhotoUrl" : "https://na7.salesforce.com/profilephoto/005/M",
+      "photoVersionId" : null,
+      "smallPhotoUrl" : "https://na7.salesforce.com/profilephoto/005/T",
+      "standardEmailPhotoUrl" : "https://na7.salesforce.com/img/userprofile/default_profile_31_v1.png?fromEmail=1",
+      "url" : "/services/data/v37.0/connect/communities/commId1/user-profiles/commUserId1/photo"
+    },
+    "reputation" : null,
+    "thanksReceived" : null,
+    "title" : null,
+    "type" : "User",
+    "url" : "/services/data/v37.0/connect/communities/commId1/chatter/users/commUserId1",
+    "userType" : "Internal",
+    "username" : "mock-user@test.com"
+  }]
+}

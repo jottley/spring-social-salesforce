@@ -5,7 +5,7 @@
 
 	<groupId>org.springframework.social</groupId>
 	<artifactId>spring-social-salesforce</artifactId>
-	<version>1.2.2.RELEASE</version>
+	<version>1.2.3.RELEASE</version>
 	<packaging>jar</packaging>
 
 	<name>spring-social-salesforce</name>
@@ -29,7 +29,7 @@
 		<rat.version>0.12</rat.version>
 		<maven-compiler-plugin.version>3.7.0</maven-compiler-plugin.version>
 		<maven-source-plugin.version>3.0.1</maven-source-plugin.version>
-		<maven-javadoc-plugin.version>3.0.0-M1</maven-javadoc-plugin.version>
+		<maven-javadoc-plugin.version>3.2.0</maven-javadoc-plugin.version>
 		<maven-resources-plugin.version>3.0.2</maven-resources-plugin.version>
 		<maven-jar-plugin.version>3.0.2</maven-jar-plugin.version>
 		<maven-surefire-plugin.version>2.21.0</maven-surefire-plugin.version>
@@ -91,6 +91,7 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>log4j-over-slf4j</artifactId>
 			<version>${slf4j.version}</version>
+			<scope>provided</scope>
 		</dependency>
 		<dependency>
 			<groupId>ch.qos.logback</groupId>
@@ -243,9 +244,9 @@
     </ciManagement>
     <distributionManagement>
         <repository>
-            <id>bintray-jottley-jottley</id>
-            <name>jottley-jottley</name>
-            <url>https://api.bintray.com/maven/jottley/jottley/spring-social-salesforce/;publish=1</url>
+            <id>repsy</id>
+            <name>spring-social-salesforce</name>
+            <url>https://repo.repsy.io/mvn/jottley/spring-social-salesforce</url>
         </repository>
     </distributionManagement>
 </project>
