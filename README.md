@@ -15,8 +15,8 @@ To include in your Maven project, use the following repository and dependency
     <repositories>
     ...
         <repository>
-            <id>repsy</id>
-            <url>https://repo.repsy.io/mvn/jottley/spring-social-salesforce</url>
+            <id>spring-social-salesforce</id>
+            <url>https://maven.pkg.github.com/jottley/spring-social-salesforce</url>
         </repository>
     ...
     </repositories>
@@ -24,9 +24,9 @@ To include in your Maven project, use the following repository and dependency
     <dependencies>
     ...
         <dependency>
-            <groupId>org.springframework.social</groupId>
-            <artifactId>spring-social-salesforce</artifactId>
-            <version>1.2.3.RELEASE</version>
+          <groupId>org.springframework.social</groupId>
+          <artifactId>spring-social-salesforce</artifactId>
+          <version>1.3.0.RELEASE</version>
         </dependency>
     ...
     </dependencies>
