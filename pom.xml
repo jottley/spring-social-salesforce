@@ -244,14 +244,11 @@
 		<system>GitHub</system>
 		<url>https://github.com/jottley/spring-social-salesforce/issues</url>
 	</issueManagement>
-	<ciManagement>
-		<url>https://travis-ci.org/jottley/spring-social-salesforce</url>
-    </ciManagement>
     <distributionManagement>
         <repository>
-            <id>repsy</id>
+            <id>github</id>
             <name>spring-social-salesforce</name>
-            <url>https://repo.repsy.io/mvn/jottley/spring-social-salesforce</url>
+            <url>https://maven.pkg.github.com/jottley/spring-social-salesforce</url>
         </repository>
     </distributionManagement>
 </project>
