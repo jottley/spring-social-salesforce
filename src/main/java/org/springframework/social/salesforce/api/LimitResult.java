@@ -18,8 +18,6 @@ package org.springframework.social.salesforce.api;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 
-import org.springframework.social.salesforce.api.AbstractLimits;
-
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 /**
@@ -31,14 +29,14 @@ public class LimitResult extends AbstractLimits {
 
     /**
      * No args constructor for use in serialization
-     * 
+     *
      */
     public LimitResult() {
         super();
     }
 
     /**
-     * 
+     *
      * @param remaining
      * @param max
      */

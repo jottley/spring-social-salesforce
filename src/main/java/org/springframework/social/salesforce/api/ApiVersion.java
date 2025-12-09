@@ -22,11 +22,11 @@ import java.io.Serializable;
  */
 public class ApiVersion implements Serializable {
 
-    private String label;
+    private final String label;
 
-    private String version;
+    private final String version;
 
-    private String url;
+    private final String url;
 
 
     public ApiVersion(String version, String label, String url) {

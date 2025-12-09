@@ -24,13 +24,13 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Default implementation of UserOperations.
- * 
+ *
  * @author Alexandra Leahu
  * @author Jared Ottley
  */
 public class UserOperationsTemplate extends AbstractSalesForceOperations<Salesforce> implements UserOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public UserOperationsTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);

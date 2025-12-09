@@ -23,7 +23,7 @@ import org.springframework.social.connect.UserProfileBuilder;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SalesforceProfile;
 import org.springframework.social.salesforce.api.SalesforceUserDetails;
-import org.springframework.util.StringUtils;
+import org.springframework.util.ObjectUtils;
 
 
 /**
@@ -47,24 +47,24 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
     {
         this.instanceUrl = instanceUrl;
     }
-    
+
     public SalesforceAdapter(String instanceUrl, boolean sandbox)
     {
         this.instanceUrl = instanceUrl;
-        
+
         if (sandbox)
         {
             this.gatewayUrl = SalesforceServiceProvider.SANDBOX_GATEWAY_URL;
         }
     }
-    
+
     @Deprecated
     public SalesforceAdapter(String instanceUrl, String gatewayUrl)
     {
         this.instanceUrl = instanceUrl;
         this.gatewayUrl = gatewayUrl;
     }
-    
+
     public SalesforceAdapter(boolean sandbox)
     {
         if (sandbox)
@@ -73,11 +73,12 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
         }
     }
 
+    @Override
     public boolean test(Salesforce salesForce)
     {
         try
         {
-            if (StringUtils.isEmpty(instanceUrl))
+            if (ObjectUtils.isEmpty(instanceUrl))
             {
                 salesForce.chatterOperations().getUserProfile();
             }
@@ -86,16 +87,17 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
                 salesForce.chatterOperations(instanceUrl).getUserProfile();
             }
             return true;
-        } 
+        }
         catch (ApiException e)
         {
             return false;
         }
     }
 
+    @Override
     public void setConnectionValues(Salesforce salesforce, ConnectionValues values) {
         SalesforceUserDetails userDetails;
-        if (StringUtils.isEmpty(gatewayUrl))
+        if (ObjectUtils.isEmpty(gatewayUrl))
         {
             userDetails = salesforce.userOperations().getSalesforceUserDetails();
         }
@@ -107,10 +109,11 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
         values.setDisplayName(userDetails.getName());
     }
 
+    @Override
     public UserProfile fetchUserProfile(Salesforce salesforce) {
         SalesforceProfile profile;
 
-        if (StringUtils.isEmpty(instanceUrl))
+        if (ObjectUtils.isEmpty(instanceUrl))
         {
             profile = salesforce.chatterOperations().getUserProfile();
         }
@@ -123,9 +126,9 @@ public class SalesforceAdapter implements ApiAdapter<Salesforce> {
                 .setUsername(profile.getEmail()).build();
     }
 
-
+    @Override
     public void updateStatus(Salesforce salesforce, String message) {
-        if (StringUtils.isEmpty(instanceUrl))
+        if (ObjectUtils.isEmpty(instanceUrl))
         {
             salesforce.chatterOperations().updateStatus(message);
         }

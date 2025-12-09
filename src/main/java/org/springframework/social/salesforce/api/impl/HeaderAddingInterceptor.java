@@ -15,13 +15,14 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
+import java.io.IOException;
+import java.util.Map;
+
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-
-import java.io.IOException;
-import java.util.Map;
+import org.springframework.lang.NonNull;
 
 /**
  * Interceptor for adding headers
@@ -30,18 +31,20 @@ import java.util.Map;
  */
 public class HeaderAddingInterceptor implements ClientHttpRequestInterceptor {
 
-    private Map<String, String> headers;
+    private final Map<String, String> headers;
 
     public HeaderAddingInterceptor(Map<String, String> headers) {
         this.headers = headers;
     }
 
     @Override
-    public ClientHttpResponse intercept(HttpRequest httpRequest, byte[] bytes,
-                                        ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
+    @SuppressWarnings("null")
+    public @NonNull ClientHttpResponse intercept(@NonNull HttpRequest httpRequest, @NonNull byte[] bytes,
+                                    @NonNull ClientHttpRequestExecution clientHttpRequestExecution) throws IOException {
         for (Map.Entry<String, String> header : this.headers.entrySet()) {
             httpRequest.getHeaders().add(header.getKey(), header.getValue());
         }
+
         return clientHttpRequestExecution.execute(httpRequest, bytes);
     }
 

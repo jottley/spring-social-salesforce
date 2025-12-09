@@ -21,32 +21,32 @@ import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.ClientHttpResponse;
-import org.springframework.social.salesforce.api.impl.LimitsOperationsTemplate;
-import org.springframework.social.salesforce.api.impl.SalesforceTemplate;
+import org.springframework.lang.NonNull;
 
 /**
  * This class can be used to inspect and use the any request or response to the
  * Salesforce API.
- * 
+ *
  * This class currently inspects the Sforce-Limit-Info header from Salesforce to
  * capture the current Daily API call usage after each API call.
- * 
+ *
  * @author Jared Ottley
- * 
+ *
  */
 public class ApiRequestInterceptor implements ClientHttpRequestInterceptor {
 
     // The header will look like -> Sforce-Limit-Info: api-usage=39/15000
-    private final static String SFORCE_LIMIT_INFO = "Sforce-Limit-Info";
+    private static final String SFORCE_LIMIT_INFO = "Sforce-Limit-Info";
 
-    private SalesforceTemplate salesforceTemplate;
+    private final SalesforceTemplate salesforceTemplate;
 
     public ApiRequestInterceptor(SalesforceTemplate salesforceTemplate) {
         this.salesforceTemplate = salesforceTemplate;
     }
 
     @Override
-    public ClientHttpResponse intercept(HttpRequest request, byte[] body, ClientHttpRequestExecution execution)
+    @SuppressWarnings("null") // Suppress null-related warnings
+    public ClientHttpResponse intercept(@NonNull HttpRequest request, @NonNull byte[] body, @NonNull ClientHttpRequestExecution execution)
             throws IOException {
         ClientHttpResponse response = execution.execute(request, body);
         processSForceLimitInfoHeader(response);
@@ -56,7 +56,7 @@ public class ApiRequestInterceptor implements ClientHttpRequestInterceptor {
     /**
      * Check response for the Sforce-Limit-Info header. Update the Limits Operations
      * with the currently API usage
-     * 
+     *
      * @param response
      */
     private void processSForceLimitInfoHeader(ClientHttpResponse response) {

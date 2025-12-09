@@ -17,8 +17,8 @@ package org.springframework.social.salesforce.api.impl;
 
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.http.MediaType;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
@@ -257,7 +257,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 	@Override
 	protected List<HttpMessageConverter<?>> getMessageConverters()
 	{
-		List<HttpMessageConverter<?>> messageConverters = new ArrayList<HttpMessageConverter<?>>();
+		List<HttpMessageConverter<?>> messageConverters = new ArrayList<>();
 		messageConverters.add(new StringHttpMessageConverter());
 		messageConverters.add(getFormMessageConverter());
 		messageConverters.add(this.getJsonMessageConverter2());
@@ -265,8 +265,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 		return messageConverters;
 	}
 
-
-	protected MappingJackson2HttpMessageConverter getJsonMessageConverter2()
+	@SuppressWarnings("null")
+    protected MappingJackson2HttpMessageConverter getJsonMessageConverter2()
 	{
 		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		objectMapper = new ObjectMapper();
@@ -279,7 +279,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 	protected ByteArrayHttpMessageConverter getByteArrayMessageConverter()
 	{
 		ByteArrayHttpMessageConverter converter = new ByteArrayHttpMessageConverter();
-		converter.setSupportedMediaTypes(Arrays.asList(MediaType.ALL));
+		converter.setSupportedMediaTypes(Objects.requireNonNull(List.of(MediaType.ALL)));
 		return converter;
 	}
 
@@ -297,7 +297,7 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 
 	@Override
 	public <T> T readObject(JsonNode jsonNode, Class<T> type) {
-		return (T) objectMapper.convertValue(jsonNode, type);
+		return objectMapper.convertValue(jsonNode, type);
 	}
 
 	@Override
@@ -310,7 +310,8 @@ public class SalesforceTemplate extends AbstractOAuth2ApiBinding implements Sale
 		return this.instanceUrl;
 	}
 
-	public void setInstanceUrl(String instanceUrl) {
+	@Override
+    public void setInstanceUrl(String instanceUrl) {
 		this.instanceUrl = instanceUrl;
 	}
 

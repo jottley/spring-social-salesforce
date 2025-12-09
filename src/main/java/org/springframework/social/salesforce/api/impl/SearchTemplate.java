@@ -15,25 +15,27 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.net.URI;
+import java.util.List;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.salesforce.api.SearchOperations;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of SearchOperations.
- * 
+ *
  * @author Umut Utkan
  * @author Jared Ottley
  */
 public class SearchTemplate extends AbstractSalesForceOperations<Salesforce> implements SearchOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public SearchTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
@@ -47,6 +49,11 @@ public class SearchTemplate extends AbstractSalesForceOperations<Salesforce> imp
     public List<ResultItem> search(String soslQuery) {
         requireAuthorization();
         URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + "/search").queryParam("q", soslQuery).build();
+
+        if (uri == null || StringUtils.isBlank(uri.toString())) {
+            throw new IllegalArgumentException("Query URI cannot be null or empty");
+        }
+
         JsonNode arr = restTemplate.getForObject(uri, JsonNode.class);
         return api.readList(arr, ResultItem.class);
     }

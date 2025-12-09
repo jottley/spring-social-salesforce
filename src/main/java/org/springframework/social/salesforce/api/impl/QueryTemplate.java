@@ -26,13 +26,13 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * Default implementation of QueryOperations.
- * 
+ *
  * @author Umut Utkan
  * @author Jared Ottley
  */
 public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> implements QueryOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public QueryTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
@@ -49,6 +49,11 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
         String queryType = includeDeletedItems ? "/queryAll" : "/query";
         requireAuthorization();
         URI uri = URIBuilder.fromUri(api.getBaseUrl() + "/" + getVersion() + queryType).queryParam("q", query).build();
+
+        if (uri == null || StringUtils.isBlank(uri.toString())) {
+            throw new IllegalArgumentException("Query URI cannot be null or empty");
+        }
+
         return restTemplate.getForObject(uri, QueryResult.class);
     }
 
@@ -74,7 +79,7 @@ public class QueryTemplate extends AbstractSalesForceOperations<Salesforce> impl
         // set up the final result set. (mostly to get the done flag set properly)
         QueryResult results = new QueryResult(page.getTotalSize(), true);
         results.setRecords(page.getRecords());
-        
+
         while (StringUtils.isNotBlank(page.getNextRecordsUrl())) {
             page = nextPage(page.getNextRecordsUrl());
             results.getRecords().addAll(page.getRecords());

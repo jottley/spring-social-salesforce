@@ -15,19 +15,22 @@
  */
 package org.springframework.social.salesforce.client;
 
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import java.io.IOException;
+import java.util.Collections;
+import java.util.Map;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import org.springframework.lang.NonNull;
 import org.springframework.social.InvalidAuthorizationException;
 import org.springframework.social.OperationNotPermittedException;
 import org.springframework.social.RateLimitExceededException;
 import org.springframework.social.salesforce.connect.SalesforceServiceProvider;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
-import java.io.IOException;
-import java.util.Map;
+import com.fasterxml.jackson.core.JsonFactory;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
  * Custom error handler for handling Salesforce API specific error responses.
@@ -38,8 +41,9 @@ import java.util.Map;
 public class ErrorHandler extends DefaultResponseErrorHandler {
 
     @Override
-    public void handleError(ClientHttpResponse response) throws IOException {
+    public void handleError(@NonNull ClientHttpResponse response) throws IOException {
         if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
+            //TODO move to a switch
             Map<String, String> error = extractErrorDetailsFromResponse(response);
             if ("unsupported_response_type".equals(error.get("error"))) {
                 throw new OperationNotPermittedException(SalesforceServiceProvider.ID, error.get("error_description"));
@@ -74,9 +78,9 @@ public class ErrorHandler extends DefaultResponseErrorHandler {
     private Map<String, String> extractErrorDetailsFromResponse(ClientHttpResponse response) throws IOException {
         ObjectMapper mapper = new ObjectMapper(new JsonFactory());
         try {
-            return (Map<String, String>) mapper.readValue(response.getBody(), Map.class);
+            return mapper.readValue(response.getBody(), Map.class);
         } catch (JsonParseException e) {
-            return null;
+            return Collections.emptyMap();
         }
     }
 
