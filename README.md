@@ -1,4 +1,4 @@
-# Spring Social Salesforce [![Maven Package](https://github.com/jottley/spring-social-salesforce/actions/workflows/maven-publish.yml/badge.svg?branch=master&event=release)](https://github.com/jottley/spring-social-salesforce/actions/workflows/maven-publish.yml)
+# Spring Social Salesforce [![Maven Package](https://github.com/jottley/spring-social-salesforce/actions/workflows/maven-publish.yml/badge.svg?event=release)](https://github.com/jottley/spring-social-salesforce/actions/workflows/maven-publish.yml)
 
 Spring Social Salesforce is a Spring Social extension that provides connection support and API binding for Salesforce
 REST API.
