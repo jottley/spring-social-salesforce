@@ -15,7 +15,13 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -29,22 +35,17 @@ import org.springframework.social.support.URIBuilder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of SObjectOperations.
- * 
+ *
  * @author Umut Utkan
  * @author Jared ottley
  */
 public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> implements SObjectOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public SObjectsTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
@@ -99,7 +100,7 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
         requireAuthorization();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map> entity = new HttpEntity<Map>(fields, headers);
+        HttpEntity<Map> entity = new HttpEntity<>(fields, headers);
         return restTemplate.postForObject(api.getBaseUrl() + "/{version}/sobjects/{name}", entity, Map.class, getVersion(), name);
     }
 
@@ -108,26 +109,26 @@ public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> i
         requireAuthorization();
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        HttpEntity<Map<String, Object>> entity = new HttpEntity<Map<String,Object>>(fields, headers);
-        Map<String, Object> result =  restTemplate.postForObject(api.getBaseUrl() + "/{version}/sobjects/{sObjectName}/{sObjectId}?_HttpMethod=PATCH", 
+        HttpEntity<Map<String, Object>> entity = new HttpEntity<>(fields, headers);
+        Map<String, Object> result =  restTemplate.postForObject(api.getBaseUrl() + "/{version}/sobjects/{sObjectName}/{sObjectId}?_HttpMethod=PATCH",
                 entity, Map.class, getVersion(), sObjectName, sObjectId);
         // SF returns an empty body on success, so mimic the same update you'd get from a create success for consistency
         if (result == null) {
-            result = new HashMap<String, Object>();
+            result = new HashMap<>();
             result.put("id", sObjectId);
             result.put("success", true);
             result.put("errors", new ArrayList<String>());
         }
         return result;
     }
-    
-    
+
+
     @Override
     public void delete(String sObjectName, String sObjectId)
     {
         requireAuthorization();
         restTemplate.delete(api.getBaseUrl() + "/{version}/sobjects/{sObjectName}/{sObjectId}", getVersion(), sObjectName, sObjectId);
     }
-    
+
 
 }

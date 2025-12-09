@@ -16,10 +16,12 @@
 package org.springframework.social.salesforce.api.impl;
 
 import java.util.Map;
+import java.util.Objects;
 
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 import org.springframework.social.salesforce.api.CustomApiOperations;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.web.client.RestTemplate;
@@ -32,90 +34,96 @@ import org.springframework.web.client.RestTemplate;
  */
 public class CustomApiTemplate extends AbstractSalesForceOperations<Salesforce> implements CustomApiOperations  {
 
-	private RestTemplate restTemplate;
+	private final RestTemplate restTemplate;
 
 	public CustomApiTemplate(Salesforce api, RestTemplate restTemplate) {
 		super(api);
 		this.restTemplate = restTemplate;
 	}
 
-	protected String createUriPath(String uriPath) {
-		return this.api.getInstanceUrl() + "/services/apexrest" + uriPath;
+	protected @NonNull String createUriPath(@NonNull String uriPath) {
+	    String instanceUrl = this.api.getInstanceUrl();
+	    if (instanceUrl == null) {
+	        throw new IllegalStateException("Instance URL is not available from API");
+	    }
+
+	    String result = instanceUrl + "/services/apexrest" + uriPath;
+        return Objects.requireNonNull(result, "Failed to create valid URI path");
 	}
 
 	@Override
-	public <T> T postForApexObject(String uriPath, Object request, Class<T> responseType) {
+	public <T> T postForApexObject(@NonNull String uriPath, Object request, @NonNull Class<T> responseType) {
 		requireAuthorization();
 		return this.restTemplate.postForObject(this.createUriPath(uriPath), request, responseType);
 	}
 
 	@Override
-	public <T> T postForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> T postForApexObject(@NonNull String uriPath, Object request, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
 		requireAuthorization();
 		return this.restTemplate.postForObject(this.createUriPath(uriPath), request, responseType, uriVariables);
 	}
 
 	@Override
-	public <T> T getForApexObject(String uriPath, Class<T> responseType) {
+	public <T> T getForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType) {
 		requireAuthorization();
 		return this.restTemplate.getForObject(this.createUriPath(uriPath), responseType);
 	}
 
 	@Override
-	public <T> T getForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> T getForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
 		requireAuthorization();
 		return this.restTemplate.getForObject(this.createUriPath(uriPath), responseType, uriVariables);
 	}
 
 	@Override
-	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType) {
+	public <T> T putForApexObject(@NonNull String uriPath, @NonNull Object request, @NonNull Class<T> responseType) {
 		requireAuthorization();
-		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType);
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<>(request), responseType);
 		return entity.getBody();
 	}
 
 	@Override
-	public <T> T putForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
-		requireAuthorization();				
-		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<Object>(request), responseType, uriVariables);
+	public <T> T putForApexObject(@NonNull String uriPath, @NonNull Object request, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
+		requireAuthorization();
+		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.PUT, new HttpEntity<>(request), responseType, uriVariables);
 		return entity.getBody();
 	}
 
 	@Override
-	public <T> T patchForApexObject(String uriPath, Object request, Class<T> responseType) {
+	public <T> T patchForApexObject(@NonNull String uriPath, Object request, @NonNull Class<T> responseType) {
 		requireAuthorization();
 		return this.restTemplate.patchForObject(this.createUriPath(uriPath), request, responseType);
 	}
 
 	@Override
-	public <T> T patchForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> T patchForApexObject(@NonNull String uriPath, Object request, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
 		requireAuthorization();
 		return this.restTemplate.patchForObject(this.createUriPath(uriPath), request, responseType, uriVariables);
 	}
 
 	@Override
-	public <T> T deleteForApexObject(String uriPath, Class<T> responseType) {
+	public <T> T deleteForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType) {
 		requireAuthorization();
 		ResponseEntity<T> entity =  this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, HttpEntity.EMPTY, responseType);
 		return entity.getBody();
 	}
 
 	@Override
-	public <T> T deleteForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> T deleteForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
 		requireAuthorization();
 		ResponseEntity<T> entity = this.restTemplate.exchange(this.createUriPath(uriPath), HttpMethod.DELETE, HttpEntity.EMPTY, responseType, uriVariables);
 		return entity.getBody();
 	}
 
 	@Override
-	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType) {
+	public <T> ResponseEntity<T> executeApexApi(@NonNull String uriPath, @NonNull HttpMethod method, HttpEntity<?> request, @NonNull Class<T> responseType) {
 		requireAuthorization();
-		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType);		
-	}	
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType);
+	}
 
 	@Override
-	public <T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType, Map<String, ?> uriVariables) {
+	public <T> ResponseEntity<T> executeApexApi(@NonNull String uriPath, @NonNull HttpMethod method, HttpEntity<?> request, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables) {
 		requireAuthorization();
-		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType, uriVariables);		
+		return this.restTemplate.exchange(this.createUriPath(uriPath), method, request, responseType, uriVariables);
 	}
 }

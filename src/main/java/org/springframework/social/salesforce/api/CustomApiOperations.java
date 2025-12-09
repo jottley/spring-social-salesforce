@@ -20,6 +20,7 @@ import java.util.Map;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.NonNull;
 
 /**
  * Defines operations for calling custom apex exposed rest apis.
@@ -29,28 +30,28 @@ import org.springframework.http.ResponseEntity;
  */
 public interface CustomApiOperations {
 
-	<T> T postForApexObject(String uriPath, Object request, Class<T> responseType);
+	<T> T postForApexObject(@NonNull String uriPath, Object request, @NonNull Class<T> responseType);
 
-	<T> T postForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> T postForApexObject(@NonNull String uriPath, Object request,  @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables);
 
-	<T> T getForApexObject(String uriPath, Class<T> responseType);
+	<T> T getForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType);
 
-	<T> T getForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> T getForApexObject(@NonNull String uriPath, @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables);
 
-	<T> T putForApexObject(String uriPath, Object request, Class<T> responseType);
+	<T> T putForApexObject(@NonNull String uriPath, @NonNull Object request,  @NonNull Class<T> responseType);
 
-	<T> T putForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> T putForApexObject(@NonNull String uriPath, @NonNull Object request,  @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables);
 
-	<T> T patchForApexObject(String uriPath, Object request, Class<T> responseType);
+	<T> T patchForApexObject(@NonNull String uriPath, Object request,  @NonNull Class<T> responseType);
 
-	<T> T patchForApexObject(String uriPath, Object request, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> T patchForApexObject(@NonNull String uriPath, Object request,  @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables);
 
-	<T> T deleteForApexObject(String uriPath, Class<T> responseType);
+	<T> T deleteForApexObject(@NonNull String uriPath,  @NonNull Class<T> responseType);
 
-	<T> T deleteForApexObject(String uriPath, Class<T> responseType, Map<String, ?> uriVariablesMap);
+	<T> T deleteForApexObject(@NonNull String uriPath,  @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariablesMap);
 
 	// for custom api - (to get headers and body)
-	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType, Map<String, ?> uriVariables);
+	<T> ResponseEntity<T> executeApexApi(@NonNull String uriPath, @NonNull HttpMethod method, HttpEntity<?> request,  @NonNull Class<T> responseType, @NonNull Map<String, ?> uriVariables);
 
-	<T> ResponseEntity<T> executeApexApi(String uriPath, HttpMethod method, HttpEntity<?> request, Class<T> responseType);	
+	<T> ResponseEntity<T> executeApexApi(@NonNull String uriPath, @NonNull HttpMethod method, HttpEntity<?> request,  @NonNull Class<T> responseType);
 }

@@ -33,13 +33,13 @@ public class RefreshingOAuth2ConnectionFactory<S> extends OAuth2ConnectionFactor
 
     @Override
     public Connection<S> createConnection(AccessGrant accessGrant) {
-        return new RefreshingOAuth2Connection<S>(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
+        return new RefreshingOAuth2Connection<>(getProviderId(), extractProviderUserId(accessGrant), accessGrant.getAccessToken(),
                 accessGrant.getRefreshToken(), accessGrant.getExpireTime(), (OAuth2ServiceProvider<S>) getServiceProvider(), getApiAdapter());
     }
 
     @Override
     public Connection<S> createConnection(ConnectionData data) {
-        return new RefreshingOAuth2Connection<S>(data, (OAuth2ServiceProvider<S>) getServiceProvider(), getApiAdapter());
+        return new RefreshingOAuth2Connection<>(data, (OAuth2ServiceProvider<S>) getServiceProvider(), getApiAdapter());
     }
 
 }

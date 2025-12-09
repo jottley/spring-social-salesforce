@@ -25,16 +25,16 @@ import org.springframework.web.client.RestTemplate;
  * Default implementation of the Limits API. Also includes tracking of the
  * current API usage as returned from salesforce in each API call in the
  * Sforce-Limit-Info header
- * 
+ *
  * @author Jared Ottley
  */
 public class LimitsOperationsTemplate extends AbstractSalesForceOperations<Salesforce> implements LimitsOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private int currentMax = 0;
     private int currentUsed = 0;
 
-    private final static String API_USAGE = "api-usage";
+    private static final String API_USAGE = "api-usage";
 
     public LimitsOperationsTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);
@@ -44,9 +44,8 @@ public class LimitsOperationsTemplate extends AbstractSalesForceOperations<Sales
     @Override
     public LimitsResults getLimits() {
         requireAuthorization();
-        LimitsResults limitResults = restTemplate.getForObject(api.getBaseUrl() + "/{version}/limits",
+        return restTemplate.getForObject(api.getBaseUrl() + "/{version}/limits",
                 LimitsResults.class, getVersion());
-        return limitResults;
     }
 
     @Override

@@ -15,23 +15,24 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.util.List;
+
 import org.springframework.social.salesforce.api.RecentOperations;
 import org.springframework.social.salesforce.api.ResultItem;
 import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.List;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of RecentOperations.
- * 
+ *
  * @author Umut Utkan
  * @author Jared Ottley
  */
 public class RecentTemplate extends AbstractSalesForceOperations<Salesforce> implements RecentOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     public RecentTemplate(Salesforce api, RestTemplate restTemplate) {
         super(api);

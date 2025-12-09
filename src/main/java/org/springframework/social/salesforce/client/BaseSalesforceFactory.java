@@ -33,8 +33,8 @@ import org.springframework.web.client.RestTemplate;
  */
 public class BaseSalesforceFactory implements SalesforceFactory {
 
-    private final static String DEFAULT_AUTH_URL = SalesforceServiceProvider.PRODUCTION_GATEWAY_URL + SalesforceServiceProvider.TOKEN_PATH;
-    
+    private static final String DEFAULT_AUTH_URL = SalesforceServiceProvider.PRODUCTION_GATEWAY_URL + SalesforceServiceProvider.TOKEN_PATH;
+
 
     private String clientId;
 
@@ -59,7 +59,7 @@ public class BaseSalesforceFactory implements SalesforceFactory {
     public void setAuthorizeUrl(String authorizeUrl) {
         this.authorizeUrl = authorizeUrl;
     }
-    
+
     public String getAuthorizeUrl() {
       return (this.authorizeUrl == null) ? DEFAULT_AUTH_URL : this.authorizeUrl;
     }
@@ -67,7 +67,7 @@ public class BaseSalesforceFactory implements SalesforceFactory {
     @Override
     @SuppressWarnings("unchecked")
     public Salesforce create(String username, String password, String securityToken) {
-        MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
         map.add("grant_type", "password");
         map.add("client_id", this.clientId);
         map.add("client_secret", this.clientSecret);

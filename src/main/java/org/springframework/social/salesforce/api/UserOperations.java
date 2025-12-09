@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 package org.springframework.social.salesforce.api;
-import org.springframework.social.salesforce.api.SalesforceUserDetails;
 
 /**
  * Defines operations for retrieving user related info.
- * 
+ *
  * @author Alexandra Leahu
  */
 public interface UserOperations {
 
     /**
      * Retrieves the details for the current logged in user.
-     * @return user details 
+     * @return user details
      */
-    SalesforceUserDetails getSalesforceUserDetails(); 
+    SalesforceUserDetails getSalesforceUserDetails();
 
 }

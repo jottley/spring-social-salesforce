@@ -15,7 +15,11 @@
  */
 package org.springframework.social.salesforce.api.impl;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import java.net.URI;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.social.salesforce.api.ApiOperations;
@@ -25,11 +29,7 @@ import org.springframework.social.salesforce.api.Salesforce;
 import org.springframework.social.support.URIBuilder;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URI;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * Default implementation of ApiOperations.
@@ -39,10 +39,10 @@ import java.util.regex.Pattern;
  */
 public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implements ApiOperations {
 
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private String version;
-    
-    
+
+
     String versionRegEx = "v[0-9][0-9]\\.[0-9]";
 
 
@@ -52,26 +52,33 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
     }
 
 
+    @Override
     public List<ApiVersion> getVersions() {
         URI uri = URIBuilder.fromUri(api.getBaseUrl()).build();
+
+        //Ensure URI is not null before making the call
+        if (uri == null) {
+            throw new IllegalStateException("Salesforce instance URL is null. Ensure that the connection is properly authorized.");
+        }
+
         JsonNode dataNode = restTemplate.getForObject(uri, JsonNode.class);
         return api.readList(dataNode, ApiVersion.class);
     }
 
+    @Override
     @SuppressWarnings("unchecked")
     public Map<String, String> getServices(String version) {
         requireAuthorization();
         return restTemplate.getForObject(api.getBaseUrl() + "/{version}", Map.class, version);
     }
-    
-    
-    @SuppressWarnings("unchecked")
+
+    @Override
     public Map<String, String> getServices() {
         requireAuthorization();
         return this.getServices(getVersion());
     }
-    
-    
+
+    @Override
     public void setVersion(String version)
             throws InvalidSalesforceApiVersionException
     {
@@ -84,8 +91,9 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
             throw new InvalidSalesforceApiVersionException(version);
         }
     }
-    
-    
+
+
+    @Override
     public String getVersion()
     {
         if (StringUtils.isNotBlank(version))
@@ -97,18 +105,18 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
             return DEFAULT_API_VERSION;
         }
     }
-    
-    
+
+
     private boolean validateVersionString(String version)
     {
         if (StringUtils.isNotBlank(version))
         {
             Pattern pattern = Pattern.compile(versionRegEx);
             Matcher matcher = pattern.matcher(version);
-            
+
             return matcher.find();
         }
-        
+
         return false;
     }
 
