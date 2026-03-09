@@ -23,7 +23,7 @@ package org.springframework.salesforce.api;
 public interface ChatterOperations {
 
     /**
-     * Retrieves current users's profile
+     * Retrieves current user's profile
      *
      * @return user profile
      */

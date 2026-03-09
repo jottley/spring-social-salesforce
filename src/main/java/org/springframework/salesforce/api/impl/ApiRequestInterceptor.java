@@ -54,7 +54,7 @@ public class ApiRequestInterceptor implements ClientHttpRequestInterceptor {
 
     /**
      * Check response for the Sforce-Limit-Info header. Update the Limits Operations
-     * with the currently API usage
+     * with the current API usage
      *
      * @param response
      */

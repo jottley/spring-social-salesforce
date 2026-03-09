@@ -22,7 +22,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 /**
  * @author Umut Utkan
  * @author Alexandra Leahu
- * @author Jared ottley
+ * @author Jared Ottley
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class SalesforceProfile implements Serializable {

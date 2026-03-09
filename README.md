@@ -1,5 +1,5 @@
 # Spring Salesforce
-Spring Salesforce is a Spring extension that provides connection support and API binding for Salesforces
+Spring Salesforce is a Spring extension that provides connection support and API binding for Salesforce
 REST API.
 
 ## Usage

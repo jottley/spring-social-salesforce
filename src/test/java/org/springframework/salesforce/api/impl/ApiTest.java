@@ -142,7 +142,7 @@ public class ApiTest {
                     if (queryResult.getTotalSize() > 0) {
                         ResultItem first = queryResult.getRecords().get(0);
 
-                        System.out.println(sobjectName + " : The id the of the first row is " + first.getAttributes().get("Id"));
+                        System.out.println(sobjectName + " : The id of the first row is " + first.getAttributes().get("Id"));
 
                         Map row = api.sObjectsOperations().getRow(first.getType(), (String) first.getAttributes().get("Id"));
 
@@ -199,7 +199,7 @@ public class ApiTest {
         Map<String, Object> updateValues = new HashMap<String, Object>();
         updateValues.put("LastName", "Johnson");
         updateValues.put("FirstName", null);
-        updateValues.put("Title", "Updatee");
+        updateValues.put("Title", "Updated");
         Map<String, ?> updated = template.sObjectsOperations().update("Lead", createdId, updateValues);
         System.out.println("Updated Lead: " + updated);
 

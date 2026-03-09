@@ -42,7 +42,7 @@ import com.fasterxml.jackson.databind.JsonNode;
  * Default implementation of SObjectOperations.
  *
  * @author Umut Utkan
- * @author Jared ottley
+ * @author Jared Ottley
  */
 public class SObjectsTemplate extends AbstractSalesForceOperations<Salesforce> implements SObjectOperations {
 
