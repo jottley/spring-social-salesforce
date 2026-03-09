@@ -26,7 +26,7 @@ import java.util.Map;
  */
 public interface ApiOperations {
 
-    static final String DEFAULT_API_VERSION = "v37.0";
+    static final String DEFAULT_API_VERSION = "v62.0";
 
     List<ApiVersion> getVersions();
 

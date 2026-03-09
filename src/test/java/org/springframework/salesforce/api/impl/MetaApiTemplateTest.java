@@ -59,27 +59,27 @@ public class MetaApiTemplateTest extends AbstractSalesforceTest
                   .andRespond(withStatus(HttpStatus.OK).body(loadResource("services.json")).headers(responseHeaders));
         Map<String, String> services = salesforce.apiOperations().getServices("v23.0");
         assertEquals(6, services.size());
-        assertEquals("/services/data/v37.0/sobjects", services.get("sobjects"));
-        assertEquals("/services/data/v37.0/chatter", services.get("chatter"));
+        assertEquals("/services/data/v62.0/sobjects", services.get("sobjects"));
+        assertEquals("/services/data/v62.0/chatter", services.get("chatter"));
     }
 
     @Test
     public void getServices2()
     {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v37.0"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v62.0"))
                   .andExpect(method(GET))
                   .andRespond(withStatus(HttpStatus.OK).body(loadResource("services2.json")).headers(responseHeaders));
         Map<String, String> services = salesforce.apiOperations().getServices();
         assertEquals(6, services.size());
-        assertEquals("/services/data/v37.0/sobjects", services.get("sobjects"));
-        assertEquals("/services/data/v37.0/chatter", services.get("chatter"));
+        assertEquals("/services/data/v62.0/sobjects", services.get("sobjects"));
+        assertEquals("/services/data/v62.0/chatter", services.get("chatter"));
     }
 
     @Test
     public void getVersion()
     {
         String version = salesforce.apiOperations().getVersion();
-        assertEquals("v37.0", version);
+        assertEquals("v62.0", version);
     }
 
     @Test
