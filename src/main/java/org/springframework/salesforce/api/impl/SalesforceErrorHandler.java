@@ -23,6 +23,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import org.jspecify.annotations.NonNull;
 import org.slf4j.Logger;
@@ -30,6 +32,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.client.ClientHttpResponse;
+import static org.springframework.salesforce.api.ApiOperations.DEFAULT_API_VERSION;
+import static org.springframework.salesforce.api.ApiOperations.MINIMUM_API_VERSION;
+import org.springframework.salesforce.api.DeprecatedApiVersionException;
 import org.springframework.salesforce.api.InsufficientPermissionException;
 import org.springframework.salesforce.api.InternalServerErrorException;
 import org.springframework.salesforce.api.InvalidAuthorizationException;
@@ -89,6 +94,7 @@ public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
                 );
             // The called method throws the exceptions
             case FORBIDDEN -> handleForbiddenError(errorDetails);
+            case GONE -> handleDeprecatedApiVersionError(errorDetails);
             default -> throw new UncategorizedApiException(
                     extractErrorMessage(errorDetails)
                 );
@@ -107,6 +113,35 @@ public class SalesforceErrorHandler extends DefaultResponseErrorHandler {
         }
 
         throw new InsufficientPermissionException(message);
+    }
+
+    private void handleDeprecatedApiVersionError(Map<String, Object> errorDetails) {
+        String message = errorDetails != null ? extractErrorMessage(errorDetails) : null;
+        
+        // Try to extract the deprecated version from the error message or URL
+        String deprecatedVersion = extractVersionFromErrorMessage(message);
+        
+        throw new DeprecatedApiVersionException(
+            deprecatedVersion != null ? deprecatedVersion : "unknown", 
+            MINIMUM_API_VERSION, 
+            DEFAULT_API_VERSION
+        );
+    }
+
+    private String extractVersionFromErrorMessage(String errorMessage) {
+        if (errorMessage == null) {
+            return null;
+        }
+        
+        // Look for version patterns like "v30.0", "v29.0", etc. in the error message
+        Pattern versionPattern = Pattern.compile("v([0-9]{1,2}\\.[0-9])");
+        Matcher matcher = versionPattern.matcher(errorMessage);
+        
+        if (matcher.find()) {
+            return matcher.group(0); // Returns the full match like "v30.0"
+        }
+        
+        return null;
     }
 
     @SuppressWarnings("unused")

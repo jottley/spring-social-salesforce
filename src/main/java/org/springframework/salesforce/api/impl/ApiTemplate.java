@@ -88,6 +88,8 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
         }
         else
         {
+            // For backward compatibility, use simple version string
+            // The exception class will append " is not a valid Salesforce Api version."
             throw new InvalidSalesforceApiVersionException(version);
         }
     }
@@ -114,7 +116,17 @@ public class ApiTemplate extends AbstractSalesForceOperations<Salesforce> implem
             Pattern pattern = Pattern.compile(versionRegEx);
             Matcher matcher = pattern.matcher(version);
 
-            return matcher.find();
+            if (matcher.find()) {
+                // Extract numeric version (e.g., "62.0" from "v62.0")
+                String numericVersion = version.substring(1); // Remove 'v' prefix
+                try {
+                    double versionNumber = Double.parseDouble(numericVersion);
+                    double minimumVersion = Double.parseDouble(MINIMUM_API_VERSION.substring(1));
+                    return versionNumber >= minimumVersion;
+                } catch (NumberFormatException e) {
+                    return false;
+                }
+            }
         }
 
         return false;

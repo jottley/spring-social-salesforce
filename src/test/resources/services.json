@@ -1,8 +1,8 @@
 {
-    "sobjects":"/services/data/v62.0/sobjects",
+    "sobjects":"/services/data/v66.0/sobjects",
     "identity":"https://login.salesforce.com/id/00DA0000000BjjPMAS/005A0000001cRuvIAE",
-    "search":"/services/data/v62.0/search",
-    "query":"/services/data/v62.0/query",
-    "chatter":"/services/data/v62.0/chatter",
-    "recent":"/services/data/v62.0/recent"
+    "search":"/services/data/v66.0/search",
+    "query":"/services/data/v66.0/query",
+    "chatter":"/services/data/v66.0/chatter",
+    "recent":"/services/data/v66.0/recent"
 }

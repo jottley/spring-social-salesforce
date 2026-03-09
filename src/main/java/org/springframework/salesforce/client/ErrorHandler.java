@@ -27,6 +27,7 @@ import org.springframework.http.client.ClientHttpResponse;
 import org.springframework.salesforce.api.InvalidAuthorizationException;
 import org.springframework.salesforce.api.OperationNotPermittedException;
 import org.springframework.salesforce.api.RateLimitExceededException;
+import org.springframework.salesforce.api.UncategorizedApiException;
 import org.springframework.web.client.DefaultResponseErrorHandler;
 
 import com.fasterxml.jackson.core.JsonFactory;
@@ -46,31 +47,23 @@ public class ErrorHandler extends DefaultResponseErrorHandler {
 
     public void handleError(@NonNull ClientHttpResponse response) throws IOException {
         if (response.getStatusCode().equals(HttpStatus.BAD_REQUEST)) {
-            //TODO move to a switch
             Map<String, String> error = extractErrorDetailsFromResponse(response);
-            if ("unsupported_response_type".equals(error.get(ERROR))) {
-                throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
-            } else if ("invalid_client_id".equals(error.get(ERROR))) {
-                throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
-            } else if ("invalid_request".equals(error.get(ERROR))) {
-                throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
-            } else if ("invalid_client_credentials".equals(error.get(ERROR))) {
-                throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
-            } else if ("invalid_grant".equals(error.get(ERROR))) {
-                if ("invalid user credentials".equals(error.get(ERROR_DESCRIPTION))) {
-                    throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
-                } else if ("IP restricted or invalid login hours".equals(error.get(ERROR_DESCRIPTION))) {
-                    throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
+            String errorCode = error.get(ERROR);
+            if (errorCode != null) {
+                switch (errorCode) {
+                    case "unsupported_response_type", "invalid_request", "inactive_user", "inactive_org" ->
+                        throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
+                    case "invalid_client_id", "invalid_client_credentials", "invalid_scope" ->
+                        throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
+                    case "invalid_grant" ->
+                        handleInvalidGrant(error);
+                    case "rate_limit_exceeded" ->
+                        throw new RateLimitExceededException("Rate limit exceeded");
+                    default ->
+                        throw new UncategorizedApiException(
+                            "Unrecognized error code: " + errorCode + " - " + error.get(ERROR_DESCRIPTION)
+                        );
                 }
-                throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
-            } else if ("inactive_user".equals(error.get(ERROR))) {
-                throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
-            } else if ("inactive_org".equals(error.get(ERROR))) {
-                throw new OperationNotPermittedException(error.get(ERROR_DESCRIPTION));
-            } else if ("rate_limit_exceeded".equals(error.get(ERROR))) {
-                throw new RateLimitExceededException("Rate limit exceeded");
-            } else if ("invalid_scope".equals(error.get(ERROR))) {
-                throw new InvalidAuthorizationException(error.get(ERROR_DESCRIPTION));
             }
         }
     }
@@ -84,6 +77,16 @@ public class ErrorHandler extends DefaultResponseErrorHandler {
             return;
         }
         super.handleError(url, method, response);
+    }
+
+    private void handleInvalidGrant(Map<String, String> error) {
+        String description = error.get(ERROR_DESCRIPTION);
+        if ("invalid user credentials".equals(description)) {
+            throw new InvalidAuthorizationException(description);
+        } else if ("IP restricted or invalid login hours".equals(description)) {
+            throw new OperationNotPermittedException(description);
+        }
+        throw new InvalidAuthorizationException(description);
     }
 
     @SuppressWarnings("unchecked")

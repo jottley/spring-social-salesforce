@@ -26,7 +26,6 @@ import static org.springframework.http.HttpMethod.GET;
 import org.springframework.http.HttpStatus;
 import org.springframework.salesforce.api.ApiVersion;
 import org.springframework.salesforce.api.InvalidSalesforceApiVersionException;
-
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
 import static org.springframework.test.web.client.match.MockRestRequestMatchers.requestTo;
 import static org.springframework.test.web.client.response.MockRestResponseCreators.withStatus;
@@ -59,27 +58,27 @@ public class MetaApiTemplateTest extends AbstractSalesforceTest
                   .andRespond(withStatus(HttpStatus.OK).body(loadResource("services.json")).headers(responseHeaders));
         Map<String, String> services = salesforce.apiOperations().getServices("v23.0");
         assertEquals(6, services.size());
-        assertEquals("/services/data/v62.0/sobjects", services.get("sobjects"));
-        assertEquals("/services/data/v62.0/chatter", services.get("chatter"));
+        assertEquals("/services/data/v66.0/sobjects", services.get("sobjects"));
+        assertEquals("/services/data/v66.0/chatter", services.get("chatter"));
     }
 
     @Test
     public void getServices2()
     {
-        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v62.0"))
+        mockServer.expect(requestTo("https://na7.salesforce.com/services/data/v66.0"))
                   .andExpect(method(GET))
                   .andRespond(withStatus(HttpStatus.OK).body(loadResource("services2.json")).headers(responseHeaders));
         Map<String, String> services = salesforce.apiOperations().getServices();
         assertEquals(6, services.size());
-        assertEquals("/services/data/v62.0/sobjects", services.get("sobjects"));
-        assertEquals("/services/data/v62.0/chatter", services.get("chatter"));
+        assertEquals("/services/data/v66.0/sobjects", services.get("sobjects"));
+        assertEquals("/services/data/v66.0/chatter", services.get("chatter"));
     }
 
     @Test
     public void getVersion()
     {
         String version = salesforce.apiOperations().getVersion();
-        assertEquals("v62.0", version);
+        assertEquals("v66.0", version);
     }
 
     @Test
