@@ -83,7 +83,7 @@ public class SalesforceTemplate implements Salesforce {
 
 	private ConnectOperations connectOperations;
 
-	private CustomApiOperations customApiOperatinos;
+	private CustomApiOperations customApiOperations;
 
 	public SalesforceTemplate()
 	{
@@ -280,16 +280,31 @@ public class SalesforceTemplate implements Salesforce {
 		userOperations = new UserOperationsTemplate(this, restTemplate);
 		limitsOperations = new LimitsOperationsTemplate(this, restTemplate);
 		connectOperations = new ConnectTemplate(this, restTemplate);
-		customApiOperatinos = new CustomApiTemplate(this, restTemplate);
+		customApiOperations = new CustomApiTemplate(this, restTemplate);
 	}
 
+	/**
+	 * Creates and configures the Jackson JSON message converter for REST operations.
+	 *
+	 * NOTE: This method uses MappingJackson2HttpMessageConverter which is deprecated in Spring 7.0
+	 * in favor of JacksonJsonHttpMessageConverter. However, the replacement requires migrating from
+	 * Jackson 2.x (com.fasterxml.jackson.*) to Jackson 3.x (tools.jackson.*), which is a breaking
+	 * change that affects the entire codebase.
+	 *
+	 * TODO: In a future major version update:
+	 * 1. Upgrade Jackson dependencies from 2.x to 3.x
+	 * 2. Update all Jackson imports across the codebase (com.fasterxml.jackson.* → tools.jackson.*)
+	 * 3. Replace MappingJackson2HttpMessageConverter with JacksonJsonHttpMessageConverter
+	 * 4. Test all JSON serialization/deserialization thoroughly
+	 *
+	 * @return configured message converter for JSON
+	 */
+	@SuppressWarnings("removal")
 	protected MappingJackson2HttpMessageConverter getJsonMessageConverter()
 	{
-		MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
 		objectMapper = new ObjectMapper();
 		objectMapper.registerModule(new SalesforceModule());
-		converter.setObjectMapper(objectMapper);
-		return converter;
+		return new MappingJackson2HttpMessageConverter(objectMapper);
 	}
 
 	protected ByteArrayHttpMessageConverter getByteArrayMessageConverter()
@@ -347,13 +362,13 @@ public class SalesforceTemplate implements Salesforce {
 
 	@Override
 	public CustomApiOperations customApiOperations() {
-		return this.customApiOperatinos;
+		return this.customApiOperations;
 	}
 
 
 	@Override
 	public CustomApiOperations customApiOperations(String instanceUrl) {
 		this.instanceUrl = instanceUrl;
-		return this.customApiOperatinos;
+		return this.customApiOperations;
 	}
 }
